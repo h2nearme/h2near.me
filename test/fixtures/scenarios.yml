@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  offtaker_location: one
+  supplier_location: one
+  costs_pipeline: 1
+  costs_road: 1
+  costs_import: 1
+  distance: 1.5
+
+two:
+  offtaker_location: two
+  supplier_location: two
+  costs_pipeline: 1
+  costs_road: 1
+  costs_import: 1
+  distance: 1.5

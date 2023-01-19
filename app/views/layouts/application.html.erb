@@ -7,7 +7,7 @@
   <body class="<%= "#{params[:controller]}-#{params[:action]}" %>">
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-    <main>
+    <main class="<%= 'devise' if params[:controller].include?('devise') %>">
       <%= yield %>
     </main>
     <%= render 'shared/footer' %>

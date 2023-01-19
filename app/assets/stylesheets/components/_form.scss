@@ -1,0 +1,45 @@
+// DEVISE ACCOUNT MANAGEMENT FORMS
+.devise-form .field {
+  margin-top: 15px
+}
+
+.devise-form {
+  padding-right: 50px;
+}
+
+.devise-form .btn.btn-primary {
+  margin-top: 15px;
+}
+
+.links {
+  margin: 10px 0;
+}
+
+.devise {
+  position: relative;
+  padding-top: 200px;
+}
+
+.devise::after {
+  content: "";
+  width: 50vw;
+  height: calc(100vh - 70px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--accent-color);
+}
+
+@media (max-width: 920px) {
+  .devise::after {
+    display: none;
+  }
+
+  .devise-form {
+    padding-right: 0;
+  }
+  
+  .devise {
+    padding-top: 50px;
+  }
+}

@@ -1,0 +1,21 @@
+.btn-primary.btn-inverted {
+  --bs-btn-color: #4377BC;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #fff;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #4377BC;
+  --bs-btn-hover-border-color: #fff;
+  --bs-btn-focus-shadow-rgb: 95, 139, 198;
+  --bs-btn-active-color: #4377BC;
+  --bs-btn-active-bg: #fff;
+  --bs-btn-active-border-color: #fff;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #fff;
+  --bs-btn-disabled-border-color: #fff;
+}
+
+.back-button {
+  display: block;
+  margin: 10px 0;
+}

@@ -1,11 +1,42 @@
 <% content_for :title, "Home" %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>
-        Home page
-      </h1>
+<div class="banner-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="banner" data-controller="maps">
+          <div class="banner-content">
+            <h1>
+              Find out how close you are to hydrogen
+            </h1>
+            <p>
+              Try out our calculator and find out:
+            </p>
+            <ul>
+              <li>
+                How far you are from suppliers
+              </li>
+              <li>
+                The approximate cost of setting up a pipeline
+              </li>
+              <li>
+                Alternative modes of transporting hydrogen to your location
+              </li>
+            </ul>
+            <p>
+              <%= link_to new_offtaker_registration_path, class: 'btn btn-primary btn-inverted' do %>
+                Enter your information &rarr;
+              <% end %>
+            </p>
+            <%= link_to "Or sign up as a supplier", new_supplier_registration_path, class: "text-light" %>
+          </div>
+
+          <div id="map" data-maps-target="map" data-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+<div class="light-wrapper">
+  <div class="filler" style="height: 200px;"></div>
 </div>

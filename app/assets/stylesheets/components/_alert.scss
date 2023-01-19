@@ -1,0 +1,22 @@
+.alert {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 1000;
+  border: 1px solid var(--foreground);
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto;
+  gap: 20px;
+  padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
+}
+
+.alert button {
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+}
+
+.alert button span {
+  color: var(--bs-alert-color)
+}

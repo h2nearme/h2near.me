@@ -9,3 +9,9 @@ application.register("hello", HelloController)
 
 import DropdownController from "./dropdown_controller.js"
 application.register("dropdown", DropdownController)
+
+import MapsController from "./maps_controller.js"
+application.register("maps", MapsController)
+
+import GeocoderController from "./geocoder_controller"
+application.register("geocoder", GeocoderController)

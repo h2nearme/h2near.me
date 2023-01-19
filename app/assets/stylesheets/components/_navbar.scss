@@ -3,9 +3,10 @@
   border-bottom: 1px solid var(--medium-color);
   width: 100vw;
   z-index: 5;
-  height: 70px;
+  height: 110px;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .navbar-h2-wrapper.fixed {
@@ -18,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
+  padding: 40px 0;
 }
 
 .navbar-h2 #logo {

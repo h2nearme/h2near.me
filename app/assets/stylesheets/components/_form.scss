@@ -1,7 +1,18 @@
-// DEVISE ACCOUNT MANAGEMENT FORMS
-.devise-form .field {
+.field {
   margin-top: 15px
 }
+
+.map-form-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.map-form-wrapper .form {
+  padding-top: 30px;
+}
+
+// DEVISE ACCOUNT MANAGEMENT FORMS
 
 .devise-form {
   padding-right: 50px;
@@ -23,7 +34,7 @@
 .devise::after {
   content: "";
   width: 50vw;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 110px);
   position: absolute;
   top: 0;
   right: 0;

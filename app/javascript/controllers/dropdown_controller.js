@@ -8,6 +8,19 @@ export default class extends Controller {
       this.menuTarget.classList.add("collapsed");
     } else {
       this.menuTarget.classList.toggle("collapsed");
+      document.body.addEventListener('click', this.setupDropdownCollapse)
     }
+  }
+
+  setupDropdownCollapse(event) {
+    if(event.target.closest('.bubble-dropdown-wrapper')) return;
+    document.querySelectorAll('.bubble-dropdown').forEach(dropdown => {
+      dropdown.classList.add('collapsed')
+    })
+    document.body.removeEventListener('click', this.setupDropdownCollapse)
+  }
+
+  close() {
+    this.menuTarget.classList.add("collapsed");
   }
 }

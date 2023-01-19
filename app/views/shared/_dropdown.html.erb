@@ -44,10 +44,10 @@
             </p>
           </li>
           <li class="indented">
-            <%= link_to "Login", new_supplier_session_path %>
+            <%= link_to "Login", new_supplier_session_path, data: { action: "click->dropdown#close" } %>
           </li>
           <li class="indented">
-            <%= link_to "Signup", new_supplier_registration_path %>
+            <%= link_to "Signup", new_supplier_registration_path, data: { action: "click->dropdown#close" } %>
           </li>
           <li>
             <p>
@@ -55,10 +55,10 @@
             </p>
           </li>
           <li class="indented">
-            <%= link_to "Login", new_offtaker_session_path %>
+            <%= link_to "Login", new_offtaker_session_path, data: { action: "click->dropdown#close" } %>
           </li>
           <li class="indented">
-            <%= link_to "Signup", new_offtaker_registration_path %>
+            <%= link_to "Signup", new_offtaker_registration_path, data: { action: "click->dropdown#close" } %>
           </li>
         </ul>
       </div>

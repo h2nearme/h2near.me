@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :suppliers
-  devise_for :offtakers
+  devise_for :offtakers, controllers: { registrations: "offtakers/registrations" }
 
   namespace :suppliers, suppliers: true do 
     get '/', to: 'supplier_locations#dashboard'

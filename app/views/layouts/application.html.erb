@@ -4,7 +4,12 @@
     <%= render partial: "layouts/head" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="<%= "#{params[:controller]}-#{params[:action]}" %>">
+    <%= render 'shared/navbar' %>
+    <%= render 'shared/flashes' %>
+    <main>
+      <%= yield %>
+    </main>
+    <%= render 'shared/footer' %>
   </body>
 </html>

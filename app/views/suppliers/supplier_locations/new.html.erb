@@ -1,1 +1,12 @@
-<%= render partial: "form", locals: { supplier_location: @supplier_location } %>
+<% content_for :title, "New supplier location" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>
+        New supplier location
+      </h1>
+      <%= render partial: "form", locals: { supplier_location: @supplier_location } %>
+    </div>
+  </div>
+</div>

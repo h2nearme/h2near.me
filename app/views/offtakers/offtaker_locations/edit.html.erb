@@ -1,0 +1,12 @@
+<% content_for :title, "Edit offtaker location #{@offtaker_location.name}" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>
+        Edit offtaker location #{@offtaker_location.name}
+      </h1>
+      <%= render partial: "form", locals: { offtaker_location: @offtaker_location } %>
+    </div>
+  </div>
+</div>

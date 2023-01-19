@@ -1,0 +1,108 @@
+.bubble-dropdown-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.bubble-dropdown-wrapper > button {
+  border: none;
+  background-color: transparent;
+  color: var(--foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble-dropdown-wrapper > button span {
+  min-width: 170px;
+  text-align: right;
+}
+
+.bubble-dropdown-wrapper > button h2 {
+  display: grid;
+  grid-auto-columns: auto;
+  grid-auto-flow: column;
+  align-items: baseline;
+  gap: 5px;
+  line-height: 2rem;
+}
+
+
+.bubble-dropdown-wrapper > button:focus {
+  outline: none;
+}
+
+.bubble-dropdown-wrapper > button .fas {
+  margin-left: 5px;
+}
+
+.bubble-dropdown {
+  z-index: 4;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  padding-top: 10px;
+  overflow: hidden;
+  height: auto;
+  max-height: 300px;
+  transition: max-height 300ms ease, padding 300ms ease;
+}
+
+.bubble-dropdown.collapsed {
+  max-height: 0px;
+  padding: 10px 0;
+}
+
+.bubble-dropdown ul {
+  background-color: var(--background);
+  position: relative;
+  border: 1px solid var(--hard-color);
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  margin-top: 11px;
+}
+
+.bubble-dropdown ul li.indented {
+  padding-left: 20px;
+}
+
+.bubble-dropdown ul li a,
+.bubble-dropdown ul li button,
+.bubble-dropdown ul li > p {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  color: var(--foreground);
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  margin: 0;
+}
+
+.bubble-dropdown ul li a:hover,
+.bubble-dropdown ul li button:hover {
+  text-decoration: underline;
+}
+
+.bubble-dropdown ul li a:focus,
+.bubble-dropdown ul li button:focus {
+  outline: none;
+}
+
+.bubble-dropdown-wrapper h2 i.fas {
+  font-size: 24px;
+}
+
+@media (max-width: 400px) {
+  .bubble-dropdown-wrapper > button span {
+    width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    min-width: auto;
+  }
+}

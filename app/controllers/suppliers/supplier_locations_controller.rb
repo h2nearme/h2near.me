@@ -2,7 +2,7 @@ class Suppliers::SupplierLocationsController < ApplicationController
   before_action :set_supplier_location, only: [:show, :edit, :update, :destroy]
 
   def dashboard
-    @supplier_location = current_supplier.supplier_locations
+    @supplier_locations = current_supplier.supplier_locations
   end
 
   def show

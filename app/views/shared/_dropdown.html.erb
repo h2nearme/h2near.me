@@ -2,7 +2,7 @@
     <div class="bubble-dropdown-wrapper" data-controller="dropdown">
       <button data-action="click->dropdown#handleExpand">
         <span>
-          <%= current_offtaker.email || current_supplier.email %> 
+          <%= current_offtaker&.email || current_supplier&.email %> 
         </span>
         <i class="fas fa-caret-square-down"></i>
       </button>

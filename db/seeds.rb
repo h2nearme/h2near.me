@@ -15,18 +15,20 @@ CSV.foreach((filepath_producers), headers: true, col_sep: ";") do |row|
   postal_code = row[7]
   house_nr = row[8]
   supply_type = row[9]
-  min_hydrogen_vol = row[10].to_i
-  max_hydrogen_vol = row[11].to_i
-  min_oxygen_vol = row[12].to_i
-  max_oxygen_vol = row[13].to_i
+  min_hydrogen_vol = row[10].to_f
+  max_hydrogen_vol = row[11].to_f
+  min_oxygen_vol = row[12].to_f
+  max_oxygen_vol = row[13].to_f
   pickup_available = (row[14] == 'TRUE') #if row is 'TRUE' return true as BOOL
-  pressure_type_hydrogen = row[15].to_i
-  pressure_type_oxygen = row[16].to_i
-  energy_type = row[17]
-  verified = (row[18] == 'TRUE') #if row is 'TRUE' return true as BOOL
-  available = (row[19] == 'TRUE') #if row is 'TRUE' return true as BOOL
-  transport_costs = row[20].to_i
-  compression_costs = row[21].to_i
+  pressure_type_hydrogen = row[15].to_f
+  pressure_type_oxygen = row[16].to_f
+  verified = (row[17] == 'TRUE') #if row is 'TRUE' return true as BOOL
+  available = (row[18] == 'TRUE') #if row is 'TRUE' return true as BOOL
+  transport_costs = row[19].to_f
+  compression_costs = row[20].to_f
+  has_drftc = (row[21] == 'TRUE') #if row is 'TRUE' return true as BOOL
+  hydrogen_purity = row[22]
+  oxygen_purity = row[23]
 
   supplier_location = SupplierLocation.new(
     name: name,
@@ -42,11 +44,13 @@ CSV.foreach((filepath_producers), headers: true, col_sep: ";") do |row|
     pickup_available: pickup_available,
     pressure_type_hydrogen: pressure_type_hydrogen,
     pressure_type_oxygen: pressure_type_oxygen,
-    energy_type: energy_type,
     verified: verified,
     available: available,
     transport_costs: transport_costs,
     compression_costs: compression_costs,
+    has_drftc: has_drftc,
+    hydrogen_purity: hydrogen_purity,
+    oxygen_purity: oxygen_purity,
   )
   supplier_location.supplier = supplier
   supplier_location.save!
@@ -60,10 +64,12 @@ CSV.foreach((filepath_offtakers), headers: true, col_sep: ";") do |row|
     postal_code = row[5]
     house_nr = row[6]
     own_transport = (row[7] == 'True') #if row is 'TRUE' return true as BOOL
-    req_hydrogen_vol = row[8].to_i
-    req_oxygen_vol = row[9].to_i
-    req_pressure_hydrogen = row[10].to_i 
-    req_pressure_oxygen = row[11].to_i
+    req_hydrogen_vol = row[8].to_f
+    req_oxygen_vol = row[9].to_f
+    req_pressure_hydrogen = row[10].to_f 
+    req_pressure_oxygen = row[11].to_f
+    required_purity_hydrogen = row[12]
+    required_purity_oxygen = row[13]
 
   
     offtaker_location = OfftakerLocation.new(
@@ -77,8 +83,11 @@ CSV.foreach((filepath_offtakers), headers: true, col_sep: ";") do |row|
       req_oxygen_vol: req_oxygen_vol,
       req_pressure_hydrogen: req_pressure_hydrogen,
       req_pressure_oxygen: req_pressure_oxygen,
+      required_purity_hydrogen: required_purity_hydrogen,
+      required_purity_oxygen: required_purity_oxygen
     )
     offtaker_location.offtaker = offtaker
     offtaker_location.save!
     p offtaker_location
+    p ''
   end

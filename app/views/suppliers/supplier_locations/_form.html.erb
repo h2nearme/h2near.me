@@ -39,37 +39,13 @@
     </div>
 
     <div class="tab-pane pb-4" id="features" role="tabpanel" aria-labelledby="features-tab">
-      <!-- features TAB DATA !-->
-      <div class="field-group">
-        <h4>
-          Hydrogen
-        </h4>
-        <div class="field">
-          <%= f.input :req_hydrogen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required hydrogen volume in kilos per day", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
-        </div>
+      <!-- FEATURES TAB DATA !-->
 
-        <div class="field">
-          <%= f.input :req_pressure_hydrogen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 300", label: "Required hydrogen pressure in bar", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
-        </div>
-      </div>
-      
-      <div class="field-group">
-        <h4>
-          Oxygen
-        </h4>
-        <small>
-          Optional, only fill out if required
-        </small>
-        <div class="field">
-          <%= f.input :req_oxygen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required oxygen volume in kilos per day", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
-        </div>
-        
-        <div class="field">
-          <%= f.input :req_pressure_oxygen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 700", label: "Required oxygen pressure in bar", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
-        </div>
-      </div>
 
-      <%= f.input :own_transport, label: "Check this box if you wish to provide your own transport" %>
+
+
+
+
 
       <div class="buttons py-4" data-controller="tabs">
         <button id="next" data-target="#location-tab" data-action="click->tabs#handleClick" class="btn btn-secondary">

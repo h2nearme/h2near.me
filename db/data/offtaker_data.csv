@@ -1,0 +1,21 @@
+id;name_offtaker;nearest_city;lat;lon;postal_code;house_nr;own_transport;required_volume_h2;required_volume_h2o;req_pressure_h2;req_pressure_h2o;required_purity_hydrogen;required_purity_oxygen
+08DATA1;Bus Eireann - Dublin;;53.327004;-6.3513983;;;FALSE;10;;300;300;ultrapure;
+08DATA2;Taxi - Dublin;;53.3117324;-6.3481977;;;FALSE;0.5;;300;300;ultrapure;
+08DATA3;Translink - Duncrue;;54.6187057;-5.9150087;;;FALSE;10;;300;300;high pure;
+08DATA4;Translink - Newtownabbey;;54.6829;-5.90983;;;FALSE;42;;300;300;ultrapure;
+08DATA5;NI Railways - Fortwilliam;;54.6255224;-5.9204467;;;FALSE;50;;300;300;ultrapure;
+08DATA6;John Thompsons & Sons Ltd - Belfast;;54.6163223;-5.9240816;;;FALSE;150;100;300;300;high pure;
+08DATA7;Royal Victoria Hospital Energy Centre - Belfast;;54.5945424;-5.9542038;;;TRUE;3014.7;500;700;300;ultrapure;
+08DATA8;EP Kilroot Power Station - Carrickfergus;;54.7283123;-5.7678141;;;FALSE;175;50;700;300;ultrapure;
+08DATA9;AGI - 20% Blending - Knocknagoney;;54.6316348;-5.8486025;;;FALSE;732.6;;700;300;ultrapure;
+08DATA10;Moy Park - Dungannon;;54.4963086;-6.7397701;;;FALSE;1205.9;;700;300;high pure;
+08DATA11;Kerry Foods - Omagh;;54.5977802;-7.312652;;;TRUE;482.4;;700;300;ultrapure;
+08DATA12;Karro Food Group - Cookstown;;54.6423236;-6.7303132;;;FALSE;301.5;;700;700;ultrapure;
+08DATA13;Dale Farm - Cookstown;;54.663122;-6.7185067;;;FALSE;1507.3;900;700;700;ultrapure;
+08DATA14;Encirc - Derrylin;;54.1625209;-7.5839294;;;FALSE;1055.1;;700;700;ultrapure;
+08DATA15;Norbrook laboratories - Carnbane Industrial Estate Newry;;54.1976617;-6.3434346;;;TRUE;301.5;;700;700;ultrapure;
+08DATA16;Norbrook laboratories - Armagh Road Newry;;54.193347;-6.3544063;;;FALSE;301.5;;700;700;high pure;
+08DATA17;Norbrook laboratories - Camlough Road Newry;;54.178362;-6.3472618;;;FALSE;301.5;2000;700;700;high pure;
+08DATA18;McCulla Transport - Lisburn;;54.5023028;-6.0382481;;;TRUE;1.8;;300;700;high pure;
+08DATA19;Morgan McLernon Transport - Lurgan;;54.4659251;-6.3710206;;;FALSE;3.6;;300;700;pure;
+08DATA20;Virginia Transport - Cavan;;53.800823;-7.0341303;;;FALSE;3.6;;300;700;pure;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_13_142723) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_20_135420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_142723) do
     t.float "req_pressure_oxygen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "required_purity_hydrogen"
+    t.string "required_purity_oxygen"
+    t.string "prefixed_id"
     t.index ["offtaker_id"], name: "index_offtaker_locations_on_offtaker_id"
   end
 
@@ -72,13 +75,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_142723) do
     t.boolean "pickup_available"
     t.string "pressure_type_hydrogen"
     t.string "pressure_type_oxygen"
-    t.string "energy_type"
     t.boolean "verified"
     t.boolean "available"
     t.integer "transport_costs"
     t.integer "compression_costs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "has_drftc"
+    t.string "hydrogen_purity"
+    t.string "oxygen_purity"
+    t.boolean "purification_onsite"
+    t.string "prefixed_id"
     t.index ["supplier_id"], name: "index_supplier_locations_on_supplier_id"
   end
 

@@ -10,8 +10,8 @@ filepath_offtakers = Rails.root.join('./db/data/offtaker_data.csv')
 
 CSV.foreach((filepath_producers), headers: true, col_sep: ";") do |row|
   name = row[1]
-  lon = row[4]
-  lat = row[5]
+  lat = row[4]
+  lon = row[5]
   postal_code = row[7]
   house_nr = row[8]
   supply_type = row[9]
@@ -59,8 +59,8 @@ end
 
 CSV.foreach((filepath_offtakers), headers: true, col_sep: ";") do |row|
     name = row[1]
-    lon = row[3]
-    lat = row[4]
+    lat = row[3]
+    lon = row[4]
     postal_code = row[5]
     house_nr = row[6]
     own_transport = (row[7] == 'True') #if row is 'TRUE' return true as BOOL

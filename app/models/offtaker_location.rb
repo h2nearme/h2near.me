@@ -8,7 +8,7 @@ class OfftakerLocation < ApplicationRecord
 
   def set_prefixed_id
     if self.prefixed_id.nil?
-      self.prefixed_id = "s_#{self.id}"
+      self.prefixed_id = "o_#{self.id}"
       self.save
     end
   end

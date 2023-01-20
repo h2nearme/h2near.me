@@ -48,6 +48,17 @@ class Offtakers::OfftakerLocationsController < ApplicationController
   end
 
   def offtaker_location_params
-    params.require(:offtaker_location).permit(:name, :longitude, :latitude, :postal_code, :house_nr)
+    params.require(:offtaker_location).permit(
+      :name, 
+      :longitude, 
+      :latitude, 
+      :postal_code, 
+      :house_nr, 
+      :req_hydrogen_vol, 
+      :req_oxygen_vol, 
+      :req_pressure_hydrogen, 
+      :req_pressure_oxygen, 
+      :own_transport
+    )
   end
 end

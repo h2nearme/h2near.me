@@ -9,7 +9,7 @@
   z-index: 1;
 }
 
-#map::before {
+#map:empty::before {
   content: "\f5a0";
   font-family: "Font Awesome 5 Free";
   font-weight: 900;

@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def home
+    @supplier_locations = SupplierLocation.all
   end
 
   def about

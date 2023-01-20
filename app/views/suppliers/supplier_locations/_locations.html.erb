@@ -1,0 +1,23 @@
+<ul class="list-unstyled location-list">
+  <% @supplier_locations.each do |supplier_location| %>
+    <li class="location-list-item">
+        <%= link_to suppliers_supplier_location_path(supplier_location), class: "location-list-data" do %>
+          <h2>
+            <%= supplier_location.name %> <i class="fa-solid fa-arrow-right"></i>
+          </h2>
+          <p>
+            <%= supplier_location.address %>
+          </p>
+        <% end %>
+        <div class="location-list-actions">
+          <%= link_to edit_suppliers_supplier_location_path(supplier_location), class: "btn btn-warning" do %>
+            Edit <i class="fa-solid fa-pen-to-square"></i>
+          <% end %>
+        </div>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to new_suppliers_supplier_location_path, class: "btn btn-primary" do %>
+  Add new location <i class="fa-solid fa-plus"></i>
+<% end %>

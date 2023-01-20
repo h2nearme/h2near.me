@@ -5,7 +5,7 @@
     <div class="col-6">
       <h2><%= (request.path.include?('suppliers') ? "Supplier log in" : "Offtaker log in") %></h2>
 
-      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'devise-form' }) do |f| %>
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'devise-form', data: { turbo: false } }) do |f| %>
         <div class="field">
           <%= f.label :email, class: "form-label" %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>

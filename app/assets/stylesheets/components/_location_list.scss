@@ -1,0 +1,19 @@
+.location-list {
+  padding: 20px 0;
+}
+
+.location-list-item {
+  border: 1px solid var(--medium-color);
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.location-list-data {
+  flex-grow: 1;
+  text-decoration: none;
+}
+
+.location-list-data i[class^='fa'] {
+  font-size: 18px;
+}

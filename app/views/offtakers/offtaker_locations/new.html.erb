@@ -5,6 +5,9 @@
     <div class="col-12">
       <div class="map-form-wrapper" data-controller="geocoder" data-key="<%= ENV['MAPBOX_API_KEY'] %>">
         <div class="form">
+          <%= link_to offtakers_path, class: "back-button" do %>
+            &larr; Back to dashboard
+          <% end %>
           <h1>
             New offtaker location
           </h1>

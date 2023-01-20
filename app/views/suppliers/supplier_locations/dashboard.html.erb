@@ -1,11 +1,42 @@
-<% content_for :title, "Dashboard for suppliers" %>
+<% content_for :title, "Dashboard for supplier" %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>
-        Dashboard for suppliers
-      </h1>
+<div class="dashboard-wrapper">
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <ul class="list-unstyled">
+        <li>
+          <%= link_to "#locations" do %>
+            <i class="fa-solid fa-location-dot"></i> Locations
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "#scenarios" do %>
+            <i class="fa-solid fa-route"></i> Scenarios
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    <div class="dashboard">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="mt-3">
+              Supplier dashboard
+            </h1>
+            <section id="locations" class="py-2">
+              <h2 class="mt-3">
+                Locations
+              </h2>
+              <%= render partial: "locations", locals: { supplier_locations: @supplier_locations } %>
+            </section>
+            <section id="scenarios" class="py-2">
+              <h2>
+                Scenarios
+              </h2>
+            </section>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

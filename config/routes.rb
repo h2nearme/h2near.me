@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :suppliers
-  devise_for :offtakers, controllers: { registrations: "offtakers/registrations" }
+  devise_for :offtakers, controllers: { 
+    registrations: "offtakers/registrations",
+    sessions: "offtakers/sessions"
+   }
 
   namespace :suppliers, suppliers: true do 
     get '/', to: 'supplier_locations#dashboard'

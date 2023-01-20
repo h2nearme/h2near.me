@@ -1,0 +1,24 @@
+#map {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  max-height: 100vh;
+  height: 800px;
+  background-color: var(--light-gray);
+  z-index: 1;
+}
+
+#map::before {
+  content: "\f5a0";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  width: 50vw;
+  max-height: 100vh;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  color: #b9b9b9;
+}

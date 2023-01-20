@@ -1,0 +1,12 @@
+<% content_for :title, "Location details for '#{@offtaker_location.name}'" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>
+        Location details for <%= @offtaker_location.name %>
+      </h1>
+      <%= link_to "Edit", edit_offtakers_offtaker_location_path(@offtaker_location) %>
+    </div>
+  </div>
+</div>

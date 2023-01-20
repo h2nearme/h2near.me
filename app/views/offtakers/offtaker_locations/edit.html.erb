@@ -1,0 +1,21 @@
+<% content_for :title, "Edit offtaker location #{@offtaker_location.name}" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="map-form-wrapper" data-controller="geocoder" data-key="<%= ENV['MAPBOX_API_KEY'] %>">
+        <div class="form">
+          <%= link_to offtakers_offtaker_location_path(@offtaker_location), class: "back-button" do %>
+            &larr; Back
+          <% end %>
+          <h1>
+            Edit offtaker location <%= @offtaker_location.name %>
+          </h1>
+          <%= render partial: "form", locals: { offtaker_location: @offtaker_location } %>
+        </div>
+        <div id="map" data-geocoder-target="map"></div>
+      </div>
+    </div>
+  </div>
+</div>
+

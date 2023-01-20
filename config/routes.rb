@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   devise_for :suppliers
-  devise_for :offtakers
+  devise_for :offtakers, controllers: { registrations: "offtakers/registrations" }
 
-  namespace :suppliers do 
+  namespace :suppliers, suppliers: true do 
     get '/', to: 'supplier_locations#dashboard'
     resources :supplier_locations, except: [:index]
   end
 
-  namespace :offtakers do 
+  namespace :offtakers, offtakers: true do 
     get '/', to: 'offtaker_locations#dashboard'
     resources :offtaker_locations, except: [:index]
   end

@@ -1,2 +1,19 @@
+
+// CONFIG + OVERRIDES
+@import "config/fonts";
+@import 'config/colors';
+@import 'config/color_mode_defaults';
+
+// EXTERNAL LIBRARIES
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+@import 'mapbox-gl/dist/mapbox-gl.css';
+@import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+
+
+// FOLDERS
+@import "components/index";
+
+main {
+  min-height: calc(80vh - 110px);
+}

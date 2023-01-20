@@ -1,0 +1,13 @@
+.footer-wrapper {
+  border-top: 1px solid var(--medium-color);
+}
+
+.footer {
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer #logo-icon {
+  width: 100px;
+}

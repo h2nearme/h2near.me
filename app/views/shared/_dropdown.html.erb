@@ -1,0 +1,66 @@
+  <% if offtaker_signed_in? || supplier_signed_in? %>
+    <div class="bubble-dropdown-wrapper" data-controller="dropdown">
+      <button data-action="click->dropdown#handleExpand">
+        <span>
+          <%= current_offtaker.email || current_supplier.email %> 
+        </span>
+        <i class="fas fa-caret-square-down"></i>
+      </button>
+      <div class="bubble-dropdown collapsed" data-target="dropdown.menu">
+        <ul>
+          <li>
+            <%= link_to "Home", root_path %>
+          </li>
+          <li>
+            <% if offtaker_signed_in? %>
+              <%= link_to "Dashboard", offtakers_path %>
+            <% elsif supplier_signed_in? %>
+              <%= link_to "Dashboard", suppliers_path %>
+            <% end %>
+          </li>
+          <li>
+            <% if offtaker_signed_in? %>
+              <%= link_to "Log out", destroy_offtaker_session_path, method: :delete %>
+            <% elsif supplier_signed_in? %>
+              <%= link_to "Log out", destroy_supplier_session_path, method: :delete %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% else %>
+   <div class="bubble-dropdown-wrapper" data-controller="dropdown">
+      <button data-action="click->dropdown#handleExpand">
+        <span>
+          Log in / Sign up
+        </span>
+        <i class="fas fa-caret-square-down"></i>
+      </button>
+      <div class="bubble-dropdown collapsed" data-target="dropdown.menu">
+        <ul>
+          <li>
+            <p>
+              Suppliers
+            </p>
+          </li>
+          <li class="indented">
+            <%= link_to "Login", new_supplier_session_path, data: { action: "click->dropdown#close" } %>
+          </li>
+          <li class="indented">
+            <%= link_to "Signup", new_supplier_registration_path, data: { action: "click->dropdown#close" } %>
+          </li>
+          <li>
+            <p>
+              Offtakers
+            </p>
+          </li>
+          <li class="indented">
+            <%= link_to "Login", new_offtaker_session_path, data: { action: "click->dropdown#close" } %>
+          </li>
+          <li class="indented">
+            <%= link_to "Signup", new_offtaker_registration_path, data: { action: "click->dropdown#close" } %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>

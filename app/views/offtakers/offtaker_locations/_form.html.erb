@@ -1,22 +1,84 @@
 <%= simple_form_for [:offtakers, @offtaker_location], class: "location-form" do |f| %>
-  <div class="geo-input my-4" data-geocoder-target="input"></div>
+  <ul class="nav nav-pills" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="location-tab" data-bs-toggle="tab" data-bs-target="#location" type="button" role="tab" aria-controls="location" aria-selected="true">
+        Location
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="requirements-tab" data-bs-toggle="tab" data-bs-target="#requirements" type="button" role="tab" aria-controls="requirements" aria-selected="false">
+        Requirements
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <!-- LOCATION TAB DATA !-->
+    <div class="tab-pane show active pb-4" id="location" role="tabpanel" aria-labelledby="location-tab">
+      <div class="geo-input my-4" data-geocoder-target="input"></div>
 
-  <div class="field">
-    <%= f.input :longitude, class: "form-control", placeholder: "-5.930086", input_html: { data: { "geocoder-target": 'longitude' } } %>
+      <div class="field">
+        <%= f.input :longitude, class: "form-control", placeholder: "-5.930086", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+      </div>
+      <div class="field">
+        <%= f.input :latitude, class: "form-control", placeholder: "54.596433", input_html: { data: { "geocoder-target": 'latitude' } }, label_html: { class: "form-label" } %>
+      </div>
+      <div class="field">
+        <%= f.input :postal_code, class: "form-control", placeholder: " H3W9+JX", input_html: { data: { "geocoder-target": 'postalCode' } }, label_html: { class: "form-label" } %>
+      </div>
+      <div class="field">
+        <%= f.input :house_nr, class: "form-control", placeholder: "11", input_html: { data: { "geocoder-target": 'house' } }, label_html: { class: "form-label" } %>
+      </div>
+      <div class="field">
+        <%= f.input :name, class: "form-control", placeholder: "Optional identifier", label_html: { class: "form-label" } %>
+      </div>
+      <div class="buttons py-4" data-controller="tabs">
+        <button id="next" data-target="#requirements-tab" data-action="click->tabs#handleClick" class="btn btn-primary">
+          Next &rarr;
+        </button>
+      </div>
+    </div>
+
+    <div class="tab-pane pb-4" id="requirements" role="tabpanel" aria-labelledby="requirements-tab">
+      <!-- REQUIREMENTS TAB DATA !-->
+      <div class="field-group">
+        <h4>
+          Hydrogen
+        </h4>
+        <div class="field">
+          <%= f.input :req_hydrogen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required hydrogen volume in kilos per day", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+        </div>
+
+        <div class="field">
+          <%= f.input :req_pressure_hydrogen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 300", label: "Required hydrogen pressure in bar", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+        </div>
+      </div>
+      
+      <div class="field-group">
+        <h4>
+          Oxygen
+        </h4>
+        <small>
+          Optional, only fill out if required
+        </small>
+        <div class="field">
+          <%= f.input :req_oxygen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required oxygen volume in kilos per day", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+        </div>
+        
+        <div class="field">
+          <%= f.input :req_pressure_oxygen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 700", label: "Required oxygen pressure in bar", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+        </div>
+      </div>
+
+      <div class="buttons py-4" data-controller="tabs">
+        <button id="next" data-target="#location-tab" data-action="click->tabs#handleClick" class="btn btn-secondary">
+          &larr; Previous
+        </button>
+        <%= f.button :button, class: "btn btn-primary" do %>
+          Save <i class="fa-solid fa-floppy-disk"></i>
+        <% end %>
+      </div>
+    </div>
+
   </div>
-  <div class="field">
-    <%= f.input :latitude, class: "form-control", placeholder: "54.596433", input_html: { data: { "geocoder-target": 'latitude' } } %>
-  </div>
-  <div class="field">
-    <%= f.input :postal_code, class: "form-control", placeholder: " H3W9+JX", input_html: { data: { "geocoder-target": 'postalCode' } } %>
-  </div>
-  <div class="field">
-    <%= f.input :house_nr, class: "form-control", placeholder: "11", input_html: { data: { "geocoder-target": 'house' } } %>
-  </div>
-  <div class="field">
-    <%= f.input :name, class: "form-control", placeholder: "Optional identifier" %>
-  </div>
-  <div class="field">
-    <%= f.submit "Submit location", class: "btn btn-primary" %>
-  </div>
+  
 <% end %>

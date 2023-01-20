@@ -2,6 +2,14 @@
   margin-top: 15px
 }
 
+.field-group {
+  background-color: var(--mild-background);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+  border: 1px solid var(--light-gray);
+}
+
 .map-form-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -15,3 +15,6 @@ application.register("maps", MapsController)
 
 import GeocoderController from "./geocoder_controller"
 application.register("geocoder", GeocoderController)
+
+import TabsController from "./tabs_controller"
+application.register("tabs", TabsController)

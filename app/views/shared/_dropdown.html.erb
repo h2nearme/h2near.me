@@ -20,9 +20,9 @@
           </li>
           <li>
             <% if offtaker_signed_in? %>
-              <%= link_to "Log out", destroy_offtaker_session_path, method: :delete %>
+              <%= link_to "Log out", destroy_offtaker_session_path, method: :delete, data: { "turbo-method": :delete } %>
             <% elsif supplier_signed_in? %>
-              <%= link_to "Log out", destroy_supplier_session_path, method: :delete %>
+              <%= link_to "Log out", destroy_supplier_session_path, method: :delete, data: { "turbo-method": :delete } %>
             <% end %>
           </li>
         </ul>

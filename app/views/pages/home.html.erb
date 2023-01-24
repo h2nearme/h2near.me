@@ -43,7 +43,7 @@
 
           </div>
 
-          <div id="map" data-maps-target="map" data-key="<%= ENV['MAPBOX_API_KEY'] %>" data-locations="<%= @supplier_locations.map {|supplier_location| [supplier_location.longitude, supplier_location.latitude] }.to_json %>"></div>
+          <div id="map" data-maps-target="map" data-key="<%= ENV['MAPBOX_API_KEY'] %>" data-center="<%= [-6.599110, 54.607009].to_json %>" data-zoom="8" data-locations="<%= @supplier_locations.map {|supplier_location| [supplier_location.longitude, supplier_location.latitude] }.to_json %>"></div>
         </div>
       </div>
     </div>

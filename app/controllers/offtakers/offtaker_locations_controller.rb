@@ -6,6 +6,7 @@ class Offtakers::OfftakerLocationsController < ApplicationController
   end
 
   def show
+    @supplier_locations = SupplierLocation.near(@offtaker_location.coordinates)
   end
 
   def new

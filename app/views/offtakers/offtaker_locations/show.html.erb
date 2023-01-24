@@ -10,6 +10,9 @@
         Location details for <%= @offtaker_location.name %>
       </h1>
       <%= link_to "Edit", edit_offtakers_offtaker_location_path(@offtaker_location) %>
+      <div data-controller="maps">
+        <div id="map" data-maps-target="map" data-key="<%= ENV['MAPBOX_API_KEY'] %>" data-center="<%= [@offtaker_location.longitude, @offtaker_location.latitude].to_json %>" data-zoom="12" data-locations="<%= @supplier_locations.map {|supplier_location| [supplier_location.longitude, supplier_location.latitude] }.to_json %>"></div>
+      </div>
     </div>
   </div>
 </div>

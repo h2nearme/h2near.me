@@ -3,7 +3,11 @@ class OfftakerLocation < ApplicationRecord
   after_save :set_prefixed_id
 
   def address
-    "#{self.house_nr} - #{self.postal_code}"
+    if self.house_nr && self.postal_code
+      "#{self.house_nr} - #{self.postal_code}"
+    else
+      ""
+    end
   end
 
   def set_prefixed_id

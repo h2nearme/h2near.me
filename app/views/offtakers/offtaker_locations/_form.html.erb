@@ -45,11 +45,11 @@
           Hydrogen
         </h4>
         <div class="field">
-          <%= f.input :req_hydrogen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required hydrogen volume in kilos per day", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+          <%= f.input :req_hydrogen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required hydrogen volume in kilos per day", label_html: { class: "form-label" } %>
         </div>
 
         <div class="field">
-          <%= f.input :req_pressure_hydrogen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 300", label: "Required hydrogen pressure in bar", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+          <%= f.input :req_pressure_hydrogen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 300", label: "Required hydrogen pressure in bar", label_html: { class: "form-label" } %>
         </div>
       </div>
       
@@ -61,11 +61,11 @@
           Optional, only fill out if required
         </small>
         <div class="field">
-          <%= f.input :req_oxygen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required oxygen volume in kilos per day", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+          <%= f.input :req_oxygen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required oxygen volume in kilos per day", label_html: { class: "form-label" } %>
         </div>
         
         <div class="field">
-          <%= f.input :req_pressure_oxygen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 700", label: "Required oxygen pressure in bar", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+          <%= f.input :req_pressure_oxygen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 700", label: "Required oxygen pressure in bar", label_html: { class: "form-label" } %>
         </div>
       </div>
 

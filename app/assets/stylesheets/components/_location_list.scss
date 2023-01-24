@@ -7,11 +7,19 @@
   padding: 20px 30px;
   display: flex;
   justify-content: space-between;
+  margin-top: -1px;
 }
 
 .location-list-data {
   flex-grow: 1;
+  align-items: center;
+  display: flex;
+  gap: 20px;
   text-decoration: none;
+}
+
+.location-list-data h2 {
+  font-size: 20px;
 }
 
 .location-list-data i[class^='fa'] {

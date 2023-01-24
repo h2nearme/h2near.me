@@ -10,6 +10,11 @@
         Features
       </button>
     </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="supply-tab" data-bs-toggle="tab" data-bs-target="#supply" type="button" role="tab" aria-controls="supply" aria-selected="false">
+        Supply
+      </button>
+    </li>
   </ul>
   <div class="tab-content" id="myTabContent">
     <!-- LOCATION TAB DATA !-->
@@ -41,14 +46,113 @@
     <div class="tab-pane pb-4" id="features" role="tabpanel" aria-labelledby="features-tab">
       <!-- FEATURES TAB DATA !-->
 
+      <div class="field-group">
+        <h4>
+          General
+        </h4>
+        <div class="field">
+          <%= f.input :verified, class: "form-control", label: "This location has been verified for display on H2near.me", label_html: { class: "form-label" }, disabled: true %>
+        </div>
 
+        <div class="field">
+          <%= f.input :available, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Is this location currently available?", label_html: { class: "form-label" } %>
+        </div>
+      </div>
 
+      <div class="field-group">
+        <h4>
+          Location
+        </h4>
+        <div class="field">
+          <%= f.input :supply_type, collection: ['hydrogen', 'oxygen', 'both'], prompt: "Please select an option", class: "form-control", label: "Does this location deliver hydrogen, oxygen or both?", label_html: { class: "form-label" } %>
+        </div>
 
+        <div class="field">
+          <%= f.input :pickup_available, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Is pickup with own transport available at this location?", label_html: { class: "form-label" } %>
+        </div>
 
+        <div class="field">
+          <%= f.input :has_drftc, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Does this location offer DRFTC?", label_html: { class: "form-label" } %>
+        </div>
+
+        <div class="field">
+          <%= f.input :purification_onsite, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Does this location offer purification on-site?", label_html: { class: "form-label" } %>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <h4>
+          Cost
+        </h4>
+        <div class="field">
+          <%= f.input :transport_costs, class: "form-control", placeholder: "Per km", label: "What are the transport costs at this location?", label_html: { class: "form-label" } %>
+        </div>
+
+        <div class="field">
+          <%= f.input :compression_costs, class: "form-control", placeholder: "Per kg", label: "What are the compression costs at this location?", label_html: { class: "form-label" } %>
+        </div>
+      </div>
 
 
       <div class="buttons py-4" data-controller="tabs">
-        <button id="next" data-target="#location-tab" data-action="click->tabs#handleClick" class="btn btn-secondary">
+        <button id="previous" data-target="#location-tab" data-action="click->tabs#handleClick" class="btn btn-secondary">
+          &larr; Previous
+        </button>
+        <button id="next" data-target="#supply-tab" data-action="click->tabs#handleClick" class="btn btn-primary">
+          Next &rarr; 
+        </button>
+      </div>
+    </div>
+
+
+    <div class="tab-pane pb-4" id="supply" role="tabpanel" aria-labelledby="supply-tab">
+      <!-- SUPPLY TAB DATA !-->
+
+      <div class="field-group">
+        <h4>
+          Hydrogen
+        </h4>
+        <div class="field">
+          <%= f.input :min_hydrogen_vol, class: "form-control", placeholder: "In kg", label: "What is the minimum hydrogen volume required for offtakers?", label_html: { class: "form-label" } %>
+        </div>
+
+        <div class="field">
+          <%= f.input :max_hydrogen_vol, class: "form-control", placeholder: "In kg", label: "What is the maximum hydrogen volume required for offtakers?", label_html: { class: "form-label" } %>
+        </div>
+
+        <div class="field">
+          <%= f.input :pressure_type_hydrogen, collection: [300, 700, 'both'], prompt: "Please select an option", class: "form-control", label: "What is the pressure type hydrogen is offered in?", label_html: { class: "form-label" } %>
+        </div>
+
+        <div class="field">
+          <%= f.input :hydrogen_purity, collection: ['pure', 'high pure', 'ultrapure'], prompt: "Please select an option", class: "form-control", label: "What is the purity of hydrogen offered?", label_html: { class: "form-label" } %>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <h4>
+          Oxygen
+        </h4>
+        <div class="field">
+          <%= f.input :min_oxygen_vol, class: "form-control", placeholder: "In kg", label: "What is the minimum oxygen volume required for offtakers?", label_html: { class: "form-label" } %>
+        </div>
+
+        <div class="field">
+          <%= f.input :max_oxygen_vol, class: "form-control", placeholder: "In kg", label: "What is the maximum oxygen volume required for offtakers?", label_html: { class: "form-label" } %>
+        </div>
+
+        <div class="field">
+          <%= f.input :pressure_type_oxygen, collection: [300, 700, 'both'], prompt: "Please select an option", class: "form-control", label: "What is the pressure type oxygen is offered in?", label_html: { class: "form-label" } %>
+        </div>
+
+        <div class="field">
+          <%= f.input :oxygen_purity, collection: ['pure', 'high pure', 'ultrapure'], prompt: "Please select an option", class: "form-control", label: "What is the purity of oxygen offered?", label_html: { class: "form-label" } %>
+        </div>
+      </div>
+
+
+      <div class="buttons py-4" data-controller="tabs">
+        <button id="previous" data-target="#features-tab" data-action="click->tabs#handleClick" class="btn btn-secondary">
           &larr; Previous
         </button>
         <%= f.button :button, class: "btn btn-primary" do %>
@@ -56,6 +160,8 @@
         <% end %>
       </div>
     </div>
+
+
 
   </div>
   

@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_20_135420) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_24_143659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "offtaker_locations", force: :cascade do |t|
     t.bigint "offtaker_id", null: false
     t.string "name"
-    t.string "longitude"
-    t.string "latitude"
+    t.float "longitude"
+    t.float "latitude"
     t.string "postal_code"
     t.string "house_nr"
     t.boolean "own_transport"
@@ -63,8 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_135420) do
   create_table "supplier_locations", force: :cascade do |t|
     t.bigint "supplier_id", null: false
     t.string "name"
-    t.string "longitude"
-    t.string "latitude"
+    t.float "longitude"
+    t.float "latitude"
     t.string "postal_code"
     t.string "house_nr"
     t.string "supply_type"

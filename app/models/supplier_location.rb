@@ -1,7 +1,12 @@
 class SupplierLocation < ApplicationRecord
   belongs_to :supplier
+  geocoded_by :coordinates
 
   after_save :set_prefixed_id
+
+  def coordinates
+    [self.latitude, self.longitude]
+  end
 
   def address
     if self.house_nr && self.postal_code

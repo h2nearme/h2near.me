@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     sessions: "offtakers/sessions"
    }
 
+  resources :scenarios, only: [:create]
+
   namespace :suppliers, suppliers: true do 
     get '/', to: 'supplier_locations#dashboard'
     resources :supplier_locations, except: [:index]

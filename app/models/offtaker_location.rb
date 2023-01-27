@@ -1,5 +1,6 @@
 class OfftakerLocation < ApplicationRecord
   belongs_to :offtaker
+  has_many :scenarios
   geocoded_by :coordinates
 
   after_save :set_prefixed_id

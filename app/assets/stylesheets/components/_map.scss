@@ -22,3 +22,16 @@
   font-size: 50px;
   color: #b9b9b9;
 }
+
+.mapboxgl-ctrl-top-left {
+  display: none;
+}
+
+.popup-content {
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.popup-content ~ div {
+  text-align: center;
+}

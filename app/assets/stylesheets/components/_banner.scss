@@ -4,11 +4,12 @@
 }
 
 .banner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 20px;
   max-height: 100vh;
   height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   border-bottom: 1px solid var(--medium-color);
 }
@@ -16,4 +17,13 @@
 .banner h1 {
   font-weight: bold;
   color: var(--background);
+}
+
+@media (max-width: 768px) {
+  .banner {
+    grid-template-columns: 1fr;
+    height: inherit;
+    padding-bottom: 100px;
+    padding-top: 30px;
+  }
 }

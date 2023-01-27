@@ -53,6 +53,8 @@ gem 'devise'
 gem 'simple_form'
 gem 'will_paginate', '~> 3.3'
 gem 'geocoder'
+gem "hashid-rails", "~> 1.0"
+
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

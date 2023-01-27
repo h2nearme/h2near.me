@@ -1,9 +1,9 @@
 <% content_for :title, "New supplier location" %>
 
-<div class="container">
+<div class="container" data-controller="geocoder" data-key="<%= ENV['MAPBOX_API_KEY'] %>">
   <div class="row">
-    <div class="col-12">
-      <div class="map-form-wrapper" data-controller="geocoder" data-key="<%= ENV['MAPBOX_API_KEY'] %>">
+    <div class="col-12 col-md-6 pb-4 order-2 order-md-1">
+      <div class="form-wrapper">
         <div class="form">
           <%= link_to suppliers_path, class: "back-button" do %>
             &larr; Back to dashboard
@@ -13,8 +13,11 @@
           </h1>
           <%= render partial: "form", locals: { supplier_location: @supplier_location } %>
         </div>
-        <div id="map" data-geocoder-target="map"></div>
       </div>
+    </div>
+    <div class="col-12 col-md-6 order-1 order-md-2">
+      <div id="map" data-geocoder-target="map"></div>
+      <div class="map-padding"></div>
     </div>
   </div>
 </div>

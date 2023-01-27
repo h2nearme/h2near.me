@@ -1,0 +1,14 @@
+  <li id="<%= dom_id scenario %>">
+    <%= link_to scenario_path(scenario) do %>
+      <%= "#{scenario.supplier_location.name} - #{scenario.distance}km" %> &rarr;
+    <% end %>
+    <button 
+      data-action="click->maps#drawRoute" 
+      data-location="<%= [scenario.supplier_location.longitude, scenario.supplier_location.latitude].to_json %>"
+      class="btn btn-primary"
+      aria-label="Show on map" 
+      data-balloon-pos="up"
+    >
+      <i class="fa-solid fa-route"></i>
+    </button>
+  </li>

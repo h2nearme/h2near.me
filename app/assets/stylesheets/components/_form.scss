@@ -10,16 +10,6 @@
   border: 1px solid var(--light-gray);
 }
 
-.map-form-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.map-form-wrapper .form {
-  padding-top: 30px;
-}
-
 // DEVISE ACCOUNT MANAGEMENT FORMS
 
 .devise-form {
@@ -49,7 +39,7 @@
   background-color: var(--accent-color);
 }
 
-@media (max-width: 920px) {
+@media (max-width: 768px) {
   .devise::after {
     display: none;
   }

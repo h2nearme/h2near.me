@@ -5,5 +5,7 @@ class Supplier < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :supplier_locations
+  has_many :scenarios, through: :supplier_locations
+
   
 end

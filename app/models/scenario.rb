@@ -1,4 +1,6 @@
 class Scenario < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :offtaker_location
   belongs_to :supplier_location
 

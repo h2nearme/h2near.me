@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :suppliers
+  devise_for :suppliers, controllers: { 
+    registrations: "suppliers/registrations",
+    sessions: "suppliers/sessions"
+   }
   devise_for :offtakers, controllers: { 
     registrations: "offtakers/registrations",
     sessions: "offtakers/sessions"

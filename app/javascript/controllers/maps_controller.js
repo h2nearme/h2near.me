@@ -2,27 +2,24 @@ import { Controller } from "@hotwired/stimulus"
 import mapboxgl from "mapbox-gl"
 import Directions from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.js';
 import Rails from "@rails/ujs";
+import * as bootstrap from 'bootstrap'
 
 
 export default class extends Controller {
   static targets = [ "map" ]
 
   connect() {
-    this.offtakerLocationId = this.mapTarget.dataset.offtakerLocationId
+    this.originLocationId = ([this.mapTarget.dataset.originLocationId, window.location.pathname.includes('suppliers') ? 'supplier' : 'offtaker'])
     mapboxgl.accessToken = this.mapTarget.dataset.key;
     const map = new mapboxgl.Map({
-    container: this.mapTarget,
-    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-    style: 'mapbox://styles/mapbox/outdoors-v12',
-    center: JSON.parse(this.mapTarget.dataset.center),
-    zoom: Number.parseInt(this.mapTarget.dataset.zoom),
-    attributionControl: false,
+      container: this.mapTarget,
+      style: 'mapbox://styles/mapbox/outdoors-v12',
+      center: JSON.parse(this.mapTarget.dataset.center),
+      zoom: Number.parseInt(this.mapTarget.dataset.zoom),
+      attributionControl: false,
     });
     this.map = map
 
-    new mapboxgl.Marker()
-    .setLngLat(JSON.parse(this.mapTarget.dataset.center))
-    .addTo(map);
 
     const locations = JSON.parse(this.mapTarget.dataset.locations)
 
@@ -31,12 +28,15 @@ export default class extends Controller {
       profile: 'mapbox/walking',
     })
 
-    this.map.addControl(directions,'top-left');
     this.directions = directions
+    this.map.addControl(directions,'top-left');
     locations.forEach(location => {
       const markerElement = this.createElement() 
-
+      
       if (this.mapTarget.dataset.routing) {
+        new mapboxgl.Marker()
+        .setLngLat(JSON.parse(this.mapTarget.dataset.center))
+        .addTo(map);
 
         const name = location[2];
         const content = `
@@ -49,7 +49,7 @@ export default class extends Controller {
         
         const wrapper = document.createElement('div');
         const button = document.createElement('div');
-        button.innerHTML = `<button class="btn btn-primary" data-location="${JSON.stringify([location[0], location[1]])}" data-destination-id="${location[3]}">Calculate</button>`;
+        button.innerHTML = `<button class="btn btn-primary" data-location="${JSON.stringify([location[0], location[1]])}" data-destination-id="${location[3]}" id="location-${location[3]}">Calculate</button>`;
         wrapper.innerHTML = content;
         wrapper.appendChild(button);
         button.querySelector('button').addEventListener('click', this.createRoute.bind(this));
@@ -64,6 +64,7 @@ export default class extends Controller {
           .setPopup(popup) 
           .addTo(map);
       } else {
+        map.scrollZoom.disable();
         new mapboxgl.Marker(markerElement)
         .setLngLat([location[0], location[1]])
         .addTo(map);
@@ -75,8 +76,8 @@ export default class extends Controller {
   createRoute(event) {
     event.preventDefault()
     const routingResults = document.querySelector('#routing-results')
-    const supplierLocationId = event.currentTarget.dataset.destinationId
-    const offtakerLocationId = this.offtakerLocationId
+    const destinationLocationId = event.currentTarget.dataset.destinationId
+    const originLocationId = this.originLocationId
 
     this.directions.on("route", event => {
       const routes = event.route
@@ -92,10 +93,17 @@ export default class extends Controller {
       Rails.ajax({
         type: "POST",
         url: `${window.location.origin}/scenarios`,
-        data: `scenario[distance]=${distance}&scenario[supplier_location_id]=${supplierLocationId}&scenario[offtaker_location_id]=${offtakerLocationId}`,
-        dataType: "json",
+        data: `scenario[distance]=${distance}&scenario[${originLocationId[1] === 'supplier' ? 'offtaker' : 'supplier'}_location_id]=${destinationLocationId}&scenario[${originLocationId[1]}_location_id]=${originLocationId[0]}`,
+        dataType: "text/vnd.turbo-stream.html",
         success: (data) => {
-          console.log(data)
+          const scenariosList = document.querySelector('#scenarios');
+          scenariosList.insertAdjacentHTML('beforeend', data['scenario_html'])
+          const listItem = document.querySelector(`#scenario_${data['scenario']['id']}`)
+          document.querySelectorAll('#scenarios li').forEach(scenario => {
+            scenario.classList.remove('active')
+          })
+          listItem.classList.add('active')
+          this.showLocationsTab()
         },
         error: (data) => {
           console.log(data)
@@ -120,6 +128,12 @@ export default class extends Controller {
     element.style.height = `${height}px`;
     element.style.backgroundSize = '100%';
     return element
+  }
+
+  showLocationsTab() {
+    const tab = document.querySelector('#locations-tab')
+    const bootstrapTab = new bootstrap.Tab(tab)
+    bootstrapTab.show()
   }
 
   drawRoute(event) {

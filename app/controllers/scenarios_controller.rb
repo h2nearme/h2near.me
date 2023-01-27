@@ -22,11 +22,12 @@ class ScenariosController < ApplicationController
 
   def show
     @scenario = Scenario.find(params[:id])
+    @cheapest = [@scenario.costs_road_h2, @scenario.costs_pipeline_h2, @scenario.costs_import_h2, @scenario.costs_road_o2].min
   end
 
   private
 
   def scenario_params
-    params.require(:scenario).permit(:distance, :supplier_location_id, :offtaker_location_id)
+    params.require(:scenario).permit(:distance_pipeline, :supplier_location_id, :offtaker_location_id)
   end
 end

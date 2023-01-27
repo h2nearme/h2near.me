@@ -92,7 +92,7 @@ export default class extends Controller {
       Rails.ajax({
         type: "POST",
         url: `${window.location.origin}/scenarios`,
-        data: `scenario[distance]=${distance}&scenario[supplier_location_id]=${supplierLocationId}&scenario[offtaker_location_id]=${offtakerLocationId}`,
+        data: `scenario[distance_pipeline]=${distance}&scenario[supplier_location_id]=${supplierLocationId}&scenario[offtaker_location_id]=${offtakerLocationId}`,
         dataType: "json",
         success: (data) => {
           console.log(data)

@@ -57,7 +57,7 @@
         <% @offtaker_location.scenarios.each do |scenario| %>
           <li>
           <button data-action="click->maps#drawRoute" data-location="<%= [scenario.supplier_location.longitude, scenario.supplier_location.latitude].to_json %>">
-              <%= scenario.distance %>km - <%= scenario.supplier_location.name %>
+              <%= scenario.distance_pipeline %>km - <%= scenario.supplier_location.name %>
           </button>
           </li>
         <% end %>

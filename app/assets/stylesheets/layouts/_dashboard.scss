@@ -23,3 +23,9 @@
 .sidebar ul li a i[class^='fa'] {
   margin-right: 10px;
 }
+
+@media (max-width: 920px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+  }
+}

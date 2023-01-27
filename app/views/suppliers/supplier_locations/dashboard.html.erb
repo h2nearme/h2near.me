@@ -33,6 +33,16 @@
               <h2>
                 Scenarios
               </h2>
+              <ul class="list-unstyled">
+                <% @scenarios.order('created_at DESC').each do |scenario| %>
+                  <li id="<%= dom_id scenario %>">
+                    <%= scenario.created_at.strftime('%e %b %Y %H:%M%p') %>
+                    <%= link_to scenario_path(scenario) do %>
+                      <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario_pipeline %>km
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
             </section>
           </div>
         </div>

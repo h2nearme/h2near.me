@@ -1,6 +1,6 @@
 #map {
-  position: absolute;
-  top: 110px;
+  position: sticky;
+  top: 0px;
   right: 0;
   width: 50vw;
   max-height: 100vh;
@@ -34,4 +34,40 @@
 
 .popup-content ~ div {
   text-align: center;
+}
+
+#routing-results:not(:empty) {
+  position: absolute;
+  top: 120px;
+  right: 10px;
+  z-index: 999;
+  background-color: var(--accent-color);
+  color: white;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#routing-results p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  #map {
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    height: 400px;
+  }
+  .map-padding {
+    width: 100%;
+    height: 300px;
+  }
+  #map:empty::before {
+    width: 100%;
+    height: 100%;
+  }
 }

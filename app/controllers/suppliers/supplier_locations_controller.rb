@@ -1,11 +1,13 @@
-class Suppliers::SupplierLocationsController < ApplicationController
+class Suppliers::SupplierLocationsController < Suppliers::BaseController
   before_action :set_supplier_location, only: [:show, :edit, :update, :destroy]
 
   def dashboard
     @supplier_locations = current_supplier.supplier_locations.paginate(page: params[:page], per_page: 10)
+    @scenarios = current_supplier.scenarios
   end
 
   def show
+    @offtaker_locations = OfftakerLocation.near(@supplier_location.coordinates, 50, units: :km)
   end
 
   def new

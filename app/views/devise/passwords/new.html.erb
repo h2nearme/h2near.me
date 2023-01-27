@@ -3,7 +3,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <h2>Forgot your <%= (request.path.include?('suppliers') ? "supplier?" : "offtaker") %> account password?</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'devise-form', data: { turbo: false } }) do |f| %>

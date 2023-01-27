@@ -1,4 +1,6 @@
 class OfftakerLocation < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :offtaker
   has_many :scenarios
   geocoded_by :coordinates

@@ -1,4 +1,4 @@
-class Offtakers::OfftakerLocationsController < ApplicationController
+class Offtakers::OfftakerLocationsController < Offtakers::BaseController
   before_action :set_offtaker_location, only: [:show, :edit, :update, :destroy]
 
   def dashboard

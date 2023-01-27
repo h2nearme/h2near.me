@@ -1,0 +1,37 @@
+.data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.data-label {
+  font-weight: 500;
+}
+
+.data-value {
+  background-color: var(--mild-gray);
+  padding: 5px 10px;
+  min-height: 24px;
+  box-sizing: content-box;
+}
+
+#scenarios {
+  margin: 30px 0;
+  position: relative;
+}
+
+#scenarios li {
+  margin-top: -1px;
+  border: 1px solid var(--medium-color);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#scenarios li.active {
+  border: 1px solid var(--accent-color);
+  z-index: 9;
+  position: inherit;
+}

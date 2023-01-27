@@ -26,17 +26,17 @@ export default class extends Controller {
 
     const locations = JSON.parse(this.mapTarget.dataset.locations)
 
+    const directions = new Directions({
+      accessToken: mapboxgl.accessToken,
+      profile: 'mapbox/walking',
+    })
+
+    this.map.addControl(directions,'top-left');
+    this.directions = directions
     locations.forEach(location => {
       const markerElement = this.createElement() 
 
       if (this.mapTarget.dataset.routing) {
-        const directions = new Directions({
-          accessToken: mapboxgl.accessToken,
-          profile: 'mapbox/walking',
-        })
-    
-        this.map.addControl(directions,'top-left');
-        this.directions = directions
 
         const name = location[2];
         const content = `

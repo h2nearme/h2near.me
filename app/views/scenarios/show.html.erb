@@ -6,9 +6,31 @@
     Supplier location: <%= @scenario.supplier_location.name || @scenario.supplier_location.address %>
   </li>
   <li>
-    Distance: <%= @scenario.distance %>km
+    Distance: <%= @scenario.distance_pipeline %>km
   </li>
   <li>
     <%= @scenario.run_calculations %>
   </li>
+  <li>
+    Costs Road h2: <%= @scenario.costs_road_h2 %>
+  </li>
+  <li>
+    Costs Pipeline h2: <%= @scenario.costs_pipeline_h2 %>
+  </li>
+  <li>
+    Costs Road o2: <%= @scenario.costs_road_o2 %>
+  </li>
+  <li>
+    Requried Offtaker h2: <%= @scenario.offtaker_location.req_hydrogen_vol %>
+  </li>
+  <li>
+    Requried Offtaker o2: <%= @scenario.offtaker_location.req_oxygen_vol %>
+  </li>
+  <li>
+    Costs import h2: <%= @scenario.costs_import_h2 %>
+  </li>  
+  <li>
+    Cheapest option h2: <%= @cheapest %>
+  </li>
+
 </ul>

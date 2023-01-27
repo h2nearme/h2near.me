@@ -26,7 +26,7 @@ CSV.foreach((filepath_producers), headers: true, col_sep: ";") do |row|
   available = (row[18] == 'TRUE') #if row is 'TRUE' return true as BOOL
   transport_costs = row[19].to_f
   compression_costs = row[20].to_f
-  has_drftc = (row[21] == 'TRUE') #if row is 'TRUE' return true as BOOL
+  has_drtfc = (row[21] == 'TRUE') #if row is 'TRUE' return true as BOOL
   hydrogen_purity = row[22]
   oxygen_purity = row[23]
 
@@ -48,7 +48,7 @@ CSV.foreach((filepath_producers), headers: true, col_sep: ";") do |row|
     available: available,
     transport_costs: transport_costs,
     compression_costs: compression_costs,
-    has_drftc: has_drftc,
+    has_drtfc: has_drtfc,
     hydrogen_purity: hydrogen_purity,
     oxygen_purity: oxygen_purity,
   )

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_24_143659) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_27_102804) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,12 +50,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_24_143659) do
   create_table "scenarios", force: :cascade do |t|
     t.bigint "offtaker_location_id", null: false
     t.bigint "supplier_location_id", null: false
-    t.integer "costs_pipeline"
-    t.integer "costs_road"
-    t.integer "costs_import"
-    t.float "distance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "costs_pipeline_h2"
+    t.float "costs_road_h2"
+    t.float "costs_import_h2"
+    t.float "distance_lorry"
+    t.float "costs_pipeline_o2"
+    t.float "costs_road_o2"
+    t.float "costs_import_o2"
+    t.float "distance_pipeline"
     t.index ["offtaker_location_id"], name: "index_scenarios_on_offtaker_location_id"
     t.index ["supplier_location_id"], name: "index_scenarios_on_supplier_location_id"
   end
@@ -81,11 +85,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_24_143659) do
     t.integer "compression_costs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "has_drftc"
     t.string "hydrogen_purity"
     t.string "oxygen_purity"
     t.boolean "purification_onsite"
     t.string "prefixed_id"
+    t.float "has_drtfc"
     t.index ["supplier_id"], name: "index_supplier_locations_on_supplier_id"
   end
 

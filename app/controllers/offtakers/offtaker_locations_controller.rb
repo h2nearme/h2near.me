@@ -3,6 +3,7 @@ class Offtakers::OfftakerLocationsController < ApplicationController
 
   def dashboard
     @offtaker_locations = current_offtaker.offtaker_locations.paginate(page: params[:page], per_page: 10)
+    @scenarios = current_offtaker.scenarios
   end
 
   def show

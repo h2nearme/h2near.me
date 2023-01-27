@@ -20,6 +20,10 @@ class ScenariosController < ApplicationController
     end
   end
 
+  def show
+    @scenario = Scenario.find(params[:id])
+  end
+
   private
 
   def scenario_params

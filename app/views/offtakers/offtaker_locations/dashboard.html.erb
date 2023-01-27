@@ -38,7 +38,7 @@
                   <li id="<%= dom_id scenario %>">
                     <%= scenario.created_at.strftime('%e %b %Y %H:%M%p') %>
                     <%= link_to scenario_path(scenario) do %>
-                      <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance %>km
+                      <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance_pipeline %>km
                     <% end %>
                   </li>
                 <% end %>

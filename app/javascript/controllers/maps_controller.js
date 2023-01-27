@@ -93,7 +93,7 @@ export default class extends Controller {
       Rails.ajax({
         type: "POST",
         url: `${window.location.origin}/scenarios`,
-        data: `scenario[distance]=${distance}&scenario[${originLocationId[1] === 'supplier' ? 'offtaker' : 'supplier'}_location_id]=${destinationLocationId}&scenario[${originLocationId[1]}_location_id]=${originLocationId[0]}`,
+        data: `scenario[distance_pipeline]=${distance}&scenario[${originLocationId[1] === 'supplier' ? 'offtaker' : 'supplier'}_location_id]=${destinationLocationId}&scenario[${originLocationId[1]}_location_id]=${originLocationId[0]}`,
         dataType: "text/vnd.turbo-stream.html",
         success: (data) => {
           const scenariosList = document.querySelector('#scenarios');

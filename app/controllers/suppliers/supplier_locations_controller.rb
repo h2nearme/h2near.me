@@ -61,7 +61,7 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
       :available,
       :supply_type,
       :pickup_available,
-      :has_drftc,
+      :has_drtfc,
       :purification_onsite,
       :min_hydrogen_vol,
       :max_hydrogen_vol,

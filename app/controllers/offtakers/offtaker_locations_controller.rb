@@ -2,10 +2,12 @@ class Offtakers::OfftakerLocationsController < ApplicationController
   before_action :set_offtaker_location, only: [:show, :edit, :update, :destroy]
 
   def dashboard
-    @offtaker_locations = current_offtaker.offtaker_locations
+    @offtaker_locations = current_offtaker.offtaker_locations.paginate(page: params[:page], per_page: 10)
+    @scenarios = current_offtaker.scenarios
   end
 
   def show
+    @supplier_locations = SupplierLocation.near(@offtaker_location.coordinates)
   end
 
   def new

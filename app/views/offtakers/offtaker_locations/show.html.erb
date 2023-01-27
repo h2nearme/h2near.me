@@ -1,6 +1,6 @@
 <% content_for :title, "Location details for '#{@offtaker_location.name}'" %>
 
-<div class="container">
+<div class="container" data-controller="maps">
   <div class="row">
     <div class="col-12">
       <%= link_to offtakers_path, class: "back-button" do %>
@@ -9,7 +9,62 @@
       <h1>
         Location details for <%= @offtaker_location.name %>
       </h1>
-      <%= link_to "Edit", edit_offtakers_offtaker_location_path(@offtaker_location) %>
+      <div class="buttons my-3">
+        <%= link_to edit_offtakers_offtaker_location_path(@offtaker_location), class: "btn btn-warning" do %>
+            <i class="fa-solid fa-pen-to-square"></i>
+          <% end %>      
+        <%= link_to offtakers_offtaker_location_path(@offtaker_location), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this location?" }, class: "btn btn-danger"  do %>
+        <i class="fa-solid fa-trash-can"></i>
+      <% end %>
+      </div>
+      <ul class="list-unstyled">
+        <li>
+          Name: <%= @offtaker_location.name %>
+        </li>
+        <li>
+          Longitude: <%= @offtaker_location.longitude %>
+        </li>
+        <li>
+          Latitude: <%= @offtaker_location.latitude %>
+        </li>
+        <li>
+          Postal code: <%= @offtaker_location.postal_code %>
+        </li>
+        <li>
+          House number: <%= @offtaker_location.house_nr %>
+        </li>
+        <li>
+          Arranges own transport: <%= @offtaker_location.own_transport %>
+        </li>
+        <li>
+          Required hydrogen volume: <%= @offtaker_location.req_hydrogen_vol %>
+        </li>
+        <li>
+          Required oxygen volume: <%= @offtaker_location.req_oxygen_vol %>
+        </li>
+        <li>
+          Required hydrogen pressure: <%= @offtaker_location.req_pressure_hydrogen %>
+        </li>
+        <li>
+          Required oxygen pressure: <%= @offtaker_location.req_pressure_oxygen %>
+        </li>
+      </ul>
+      <div id="routing-results">
+
+      </div>
+
+      <ul class="list-unstyled">
+        <% @offtaker_location.scenarios.each do |scenario| %>
+          <li>
+          <button data-action="click->maps#drawRoute" data-location="<%= [scenario.supplier_location.longitude, scenario.supplier_location.latitude].to_json %>">
+              <%= scenario.distance %>km - <%= scenario.supplier_location.name %>
+          </button>
+          </li>
+        <% end %>
+      </ul>
+      <div>
+        <div id="map" data-maps-target="map" data-routing="true" data-key="<%= ENV['MAPBOX_API_KEY'] %>" data-center="<%= [@offtaker_location.longitude, @offtaker_location.latitude].to_json %>" data-zoom="12" data-offtaker-location-id="<%= @offtaker_location.id %>" data-locations="<%= @supplier_locations.map {|supplier_location| [supplier_location.longitude, supplier_location.latitude, (supplier_location.name || supplier_location.address), supplier_location.id] }.to_json %>"></div>
+      </div>
     </div>
   </div>
 </div>

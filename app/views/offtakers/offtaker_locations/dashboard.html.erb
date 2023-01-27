@@ -33,6 +33,13 @@
               <h2>
                 Scenarios
               </h2>
+              <ul class="list-unstyled">
+                <% @scenarios.each do |scenario| %>
+                  <li>
+                    <%= link_to scenario.id, scenario_path(scenario) %>
+                  </li>
+                <% end %>
+              </ul>
             </section>
           </div>
         </div>

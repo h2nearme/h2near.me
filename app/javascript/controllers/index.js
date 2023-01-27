@@ -18,3 +18,4 @@ application.register("geocoder", GeocoderController)
 
 import TabsController from "./tabs_controller"
 application.register("tabs", TabsController)
+

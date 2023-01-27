@@ -4,4 +4,5 @@ class Offtaker < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :offtaker_locations
+  has_many :scenarios, through: :offtaker_locations
 end

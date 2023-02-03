@@ -54,6 +54,16 @@
                 <% @scenarios.order('created_at DESC').each do |scenario| %>
                   <li id="<%= dom_id scenario %>">
                     <%= scenario.created_at.strftime('%e %b %Y %H:%M%p') %>
+                    <div class="button-wrapper">
+                      <button data-controller="mark-favourite" data-action="click->mark-favourite#handleClick"
+                      data-url="<%= mark_favourite_url(scenario) %>"
+                      class="rating <%= 'active' if scenario.favourite %>">
+                        <i class="fa-solid fa-star"></i> 
+                      </button>
+                      <a href="mailto:<%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>?subject=Contact via H2near.me" target="_blank">
+                        <%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>
+                      </a>
+                    </div>
                     <%= link_to scenario_path(scenario) do %>
                       <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance_pipeline %>km
                     <% end %>

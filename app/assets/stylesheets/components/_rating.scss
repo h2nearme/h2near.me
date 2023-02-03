@@ -17,6 +17,10 @@
   transform: scale(1.5);
 }
 
+.button-wrapper .rating {
+  margin-right: 20px;
+}
+
 .rating-button {
   --bs-btn-active-color: var(--orange);
   --bs-btn-active-bg: var(--white);

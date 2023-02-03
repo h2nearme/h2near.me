@@ -19,3 +19,11 @@ application.register("geocoder", GeocoderController)
 import TabsController from "./tabs_controller"
 application.register("tabs", TabsController)
 
+import MarkFavouriteController from "./mark_favourite_controller"
+application.register("mark-favourite", MarkFavouriteController)
+
+import RouteController from "./route_controller"
+application.register("route", RouteController)
+
+import SearchController from "./search_controller"
+application.register("search", SearchController)

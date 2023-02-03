@@ -9,6 +9,11 @@
   z-index: 1;
 }
 
+#map.full-width {
+  width: 100%;
+  height: 400px;
+}
+
 #map:empty::before {
   content: "\f5a0";
   font-family: "Font Awesome 5 Free";
@@ -21,6 +26,11 @@
   align-items: center;
   font-size: 50px;
   color: #b9b9b9;
+}
+
+#map.uninteractable,
+#map.uninteractable .marker {
+  pointer-events: none !important;
 }
 
 .mapboxgl-ctrl-top-left {
@@ -53,6 +63,15 @@
 
 #routing-results p {
   margin: 0;
+}
+
+button.mapboxgl-popup-close-button:focus {
+  outline: none;
+}
+
+div[data-controller="route"] .popup-content {
+  padding: 10px;
+  padding-bottom: 0px;
 }
 
 @media (max-width: 768px) {

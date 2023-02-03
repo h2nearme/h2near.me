@@ -39,6 +39,10 @@
   background-color: var(--accent-color);
 }
 
+.sized-input {
+  max-width: 400px;
+}
+
 @media (max-width: 768px) {
   .devise::after {
     display: none;
@@ -51,4 +55,23 @@
   .devise {
     padding-top: 50px;
   }
+}
+
+.redirection-box {
+  background-color: var(--accent-background);
+  color: var(--foreground);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  max-width: fit-content;
+}
+
+.redirection-box h6,
+.redirection-box a {
+  color: var(--foreground);
+}
+
+.redirection-box a {
+  margin-right: 10px;
+  display: inline-block;
 }

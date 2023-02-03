@@ -29,7 +29,7 @@
         <%= f.input :house_nr, class: "form-control", placeholder: "11", input_html: { data: { "geocoder-target": 'house' } }, label_html: { class: "form-label" } %>
       </div>
       <div class="field">
-        <%= f.input :name, class: "form-control", placeholder: "Optional identifier", label_html: { class: "form-label" } %>
+        <%= f.input :name, class: "form-control", placeholder: "Name your location", label_html: { class: "form-label" } %>
       </div>
       <div class="buttons py-4" data-controller="tabs">
         <button id="next" data-target="#requirements-tab" data-action="click->tabs#handleClick" class="btn btn-primary">

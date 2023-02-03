@@ -16,6 +16,17 @@
   box-sizing: content-box;
 }
 
+.data-value.empty {
+  opacity: 0.3;
+}
+
+.data-two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin: 50px 0;
+}
+
 #scenarios {
   margin: 30px 0;
   position: relative;
@@ -34,4 +45,14 @@
   border: 1px solid var(--accent-color);
   z-index: 9;
   position: inherit;
+}
+
+#scenarios li span {
+  flex-basis: 200px;
+}
+
+@media (max-width: 768px) {
+  .data-two-columns {
+    grid-template-columns: 1fr;
+  }
 }

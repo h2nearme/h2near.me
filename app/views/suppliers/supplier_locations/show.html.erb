@@ -2,13 +2,30 @@
 
 <div class="container" data-controller="maps">
   <div class="row">
-    <div class="col-12 col-md-6 pb-4 order-2 order-md-1">
+    <div class="col-12">
+      <div>
+        <div id="routing-results"></div>
+
+        <div id="map" class="full-width" data-maps-target="map" data-routing="true" data-key="<%= ENV['MAPBOX_API_KEY'] %>" data-center="<%= [@supplier_location.longitude, @supplier_location.latitude].to_json %>" data-zoom="9" data-origin-location-id="<%= @supplier_location.id %>" data-locations="<%= @offtaker_locations.map {|offtaker_location| [offtaker_location.longitude, offtaker_location.latitude, (offtaker_location.name || offtaker_location.address), offtaker_location.id] }.to_json %>"></div>
+        <div class="map-padding"></div>
+
+      </div>
+    </div>
+    <div class="col-12">
       <%= link_to suppliers_path, class: "back-button" do %>
         &larr; Back to dashboard
       <% end %>
       <h1>
         Location details for <%= @supplier_location.name %>
       </h1>
+      <div class="buttons my-3">
+        <%= link_to edit_suppliers_supplier_location_path(@supplier_location), class: "btn btn-warning" do %>
+            <i class="fa-solid fa-pen-to-square"></i>
+          <% end %>      
+        <%= link_to suppliers_supplier_location_path(@supplier_location), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this location?" }, class: "btn btn-danger"  do %>
+        <i class="fa-solid fa-trash-can"></i>
+      <% end %>
+      </div>
 
       <ul class="nav nav-pills" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -23,18 +40,9 @@
         </li>
       </ul>
 
-      <div class="tab-content" id="myTabContent">
+      <div class="tab-content pb-4" id="myTabContent">
         <div class="tab-pane show active pb-4" id="details" role="tabpanel" aria-labelledby="details-tab">
-
-
-          <div class="buttons my-3">
-            <%= link_to edit_suppliers_supplier_location_path(@supplier_location), class: "btn btn-warning" do %>
-                <i class="fa-solid fa-pen-to-square"></i>
-              <% end %>      
-            <%= link_to suppliers_supplier_location_path(@supplier_location), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this location?" }, class: "btn btn-danger"  do %>
-            <i class="fa-solid fa-trash-can"></i>
-          <% end %>
-          </div>
+          <div class="data-two-columns">
             <div class="data">
               <div class="data-label">
                 name
@@ -102,6 +110,8 @@
               <div class="data-value">
                 <%= @supplier_location.pickup_available %>
               </div>
+            </div>
+            <div class="data">
               <div class="data-label">
                 pressure_type_hydrogen
               </div>
@@ -142,7 +152,7 @@
                 has_drftc
               </div>
               <div class="data-value">
-                <%= @supplier_location.has_drftc %>
+                <%= @supplier_location.has_drtfc %>
               </div>
               <div class="data-label">
                 hydrogen_purity
@@ -169,6 +179,7 @@
                 <%= @supplier_location.prefixed_id %>
               </div>
             </div>
+          </div>
 
         </div>
 
@@ -180,15 +191,6 @@
         <button class="btn btn-primary" data-location="<%= [@offtaker_locations.first.longitude, @offtaker_locations.first.latitude].to_json %>" data-action="click->maps#drawRoute">
           Find nearest location <i class="fa-solid fa-location-crosshairs"></i>
         </button>
-      </div>
-    </div>
-    <div class="col-12 col-md-6 order-1 order-md-2">
-      <div>
-        <div id="routing-results"></div>
-
-        <div id="map" data-maps-target="map" data-routing="true" data-key="<%= ENV['MAPBOX_API_KEY'] %>" data-center="<%= [@supplier_location.longitude, @supplier_location.latitude].to_json %>" data-zoom="9" data-origin-location-id="<%= @supplier_location.id %>" data-locations="<%= @offtaker_locations.map {|offtaker_location| [offtaker_location.longitude, offtaker_location.latitude, (offtaker_location.name || offtaker_location.address), offtaker_location.id] }.to_json %>"></div>
-        <div class="map-padding"></div>
-
       </div>
     </div>
   </div>

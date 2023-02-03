@@ -1,0 +1,9 @@
+<% other_type = (request.path.include?('suppliers') ? "offtaker" : "supplier") %>
+
+<div class="redirection-box">
+  <h6>
+    Looking to log in as <%= other_type %> instead?
+  </h6>
+  <%= link_to "Log in", send("new_#{other_type}_session_path") %>
+  <%= link_to "Sign up", send("new_#{other_type}_registration_path") %>
+</div>

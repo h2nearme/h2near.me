@@ -27,7 +27,24 @@
               <h2 class="mt-3">
                 Locations
               </h2>
-              <%= render partial: "locations", locals: { supplier_locations: @supplier_locations } %>
+              <div class="location-list-wrapper" data-controller="search">
+                <div class="field">
+                  <input 
+                    type="text" 
+                    data-search-target="input" 
+                    data-action="input->search#handleInput" 
+                    data-url="<%= suppliers_url %>"
+                    class="form-control sized-input"
+                    placeholder="Search"
+                  >
+                </div>
+                <ul class="list-unstyled location-list" data-search-target="list">
+                  <%= render partial: "locations", locals: { supplier_locations: @supplier_locations } %>
+                </ul>
+
+                <%= link_to new_suppliers_supplier_location_path, class: "btn btn-primary" do %>
+                  Add new location <i class="fa-solid fa-plus"></i>
+                <% end %>
             </section>
             <section id="scenarios" class="py-2">
               <h2>
@@ -38,7 +55,7 @@
                   <li id="<%= dom_id scenario %>">
                     <%= scenario.created_at.strftime('%e %b %Y %H:%M%p') %>
                     <%= link_to scenario_path(scenario) do %>
-                      <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario_pipeline %>km
+                      <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance_pipeline %>km
                     <% end %>
                   </li>
                 <% end %>

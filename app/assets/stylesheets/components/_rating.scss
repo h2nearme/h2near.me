@@ -1,0 +1,36 @@
+.rating {
+  background-color: transparent;
+  border: none;
+  color: var(--accent-background);
+  transition: transform 300ms ease;
+}
+
+.rating.active {
+  color: var(--orange);
+}
+
+.button-wrapper {
+  flex-grow: 1;
+}
+
+.rating:active {
+  transform: scale(1.5);
+}
+
+.rating-button {
+  --bs-btn-active-color: var(--orange);
+  --bs-btn-active-bg: var(--white);
+  --bs-btn-active-border-color: var(--orange);
+  --bs-btn-color: var(--accent-background);
+  --bs-btn-bg: var(--white);
+  --bs-btn-border-color: var(--accent-background);
+  --bs-btn-hover-color: var(--orange);
+  --bs-btn-hover-bg: var(--white);
+  --bs-btn-hover-border-color: var(--accent-background);
+}
+
+.rating-button.active {
+  --bs-btn-color: var(--orange);
+  --bs-btn-bg: var(--white);
+  --bs-btn-border-color: var(--orange);
+}

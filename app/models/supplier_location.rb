@@ -3,6 +3,7 @@ class SupplierLocation < ApplicationRecord
 
   belongs_to :supplier
   has_many :scenarios
+  has_many :supply_types
   geocoded_by :coordinates
 
   after_save :set_prefixed_id

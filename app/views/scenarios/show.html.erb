@@ -1,36 +1,343 @@
-<ul>
-  <li>
-    Offtaker location: <%= @scenario.offtaker_location.name || @scenario.offtaker_location.address %>
-  </li>
-    <li>
-    Supplier location: <%= @scenario.supplier_location.name || @scenario.supplier_location.address %>
-  </li>
-  <li>
-    Distance: <%= @scenario.distance_pipeline %>km
-  </li>
-  <li>
-    <%= @scenario.run_calculations %>
-  </li>
-  <li>
-    Costs Road h2: <%= @scenario.costs_road_h2 %>
-  </li>
-  <li>
-    Costs Pipeline h2: <%= @scenario.costs_pipeline_h2 %>
-  </li>
-  <li>
-    Costs Road o2: <%= @scenario.costs_road_o2 %>
-  </li>
-  <li>
-    Requried Offtaker h2: <%= @scenario.offtaker_location.req_hydrogen_vol %>
-  </li>
-  <li>
-    Requried Offtaker o2: <%= @scenario.offtaker_location.req_oxygen_vol %>
-  </li>
-  <li>
-    Costs import h2: <%= @scenario.costs_import_h2 %>
-  </li>  
-  <li>
-    Cheapest option h2: <%= @cheapest %>
-  </li>
+<% content_for :title, "Scenario details for '#{@scenario.offtaker_location.name}' to #{@scenario.supplier_location.name}" %>
 
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 pb-4 order-2 order-md-1">
+      <%= link_to (offtaker_signed_in? ? offtakers_path : suppliers_path), class: "back-button" do %>
+        &larr; Back to dashboard
+      <% end %>
+      <h1>
+        Scenario details for '<%= offtaker_signed_in? ? @scenario.offtaker_location.name : @scenario.supplier_location.name %>' to '<%= offtaker_signed_in? ? @scenario.supplier_location.name : @scenario.offtaker_location.name %>''
+      </h1>
+      <div class="buttons my-3">    
+        <%= link_to scenario_path(@scenario), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this scenario?" }, class: "btn btn-danger"  do %>
+          <i class="fa-solid fa-trash-can"></i>
+        <% end %>
+        <% if offtaker_signed_in? %>
+          <button
+          data-controller="mark-favourite" data-action="click->mark-favourite#handleClick"
+          data-url="<%= mark_favourite_url(@scenario) %>"
+          class="rating-button btn <%= 'active' if @scenario.favourite %>">
+            <i class="fa-solid fa-star"></i> 
+          </button>
+        <% elsif supplier_signed_in? %>
+          <button
+          aria-label="<%= @scenario.favourite ? 'Offtaker has favourited this scenario' : 'Scenario has not been favourited' %>" data-balloon-pos="up"
+          class="rating-button btn <%= 'active' if @scenario.favourite %>">
+            <i class="fa-solid fa-star"></i> 
+          </button>
+        <% end %>
+      </div>
+
+      <ul class="nav nav-pills" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="scenario-tab" data-bs-toggle="tab" data-bs-target="#scenario" type="button" role="tab" aria-controls="scenario" aria-selected="true">
+            Scenario
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="offtaker-tab" data-bs-toggle="tab" data-bs-target="#offtaker" type="button" role="tab" aria-controls="offtaker" aria-selected="false">
+            Offtaker location
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="supplier-tab" data-bs-toggle="tab" data-bs-target="#supplier" type="button" role="tab" aria-controls="supplier" aria-selected="false">
+            Supplier location
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content my-4" id="myTabContent">
+        <div class="tab-pane show active pb-4" id="scenario" role="tabpanel" aria-labelledby="scenario-tab">
+          <div class="data">
+            <div class="data-label">
+              Offtaker location: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.offtaker_location.name || @scenario.offtaker_location.address %>">
+              <%= @scenario.offtaker_location.name || @scenario.offtaker_location.address %>
+            </div>
+            <div class="data-label">
+              Supplier location: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.supplier_location.name || @scenario.supplier_location.address %>">
+              <%= @scenario.supplier_location.name || @scenario.supplier_location.address %>
+            </div>
+            <div class="data-label">
+              Distance: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.distance_pipeline %>">
+              <%= number_with_precision(@scenario.distance_pipeline, precision: 2, delimiter: '.', separator: ',') %> km
+            </div>
+            <div class="data-label">
+              Costs Road h2: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.costs_road_h2 %>">
+              £ <%= number_with_precision(@scenario.costs_road_h2, precision: 2, delimiter: '.', separator: ',') %>
+            </div>
+            <div class="data-label">
+              Costs Pipeline h2: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.costs_pipeline_h2 %>">
+              £ <%= number_with_precision(@scenario.costs_pipeline_h2, precision: 2, delimiter: '.', separator: ',') %>
+            </div>
+            <div class="data-label">
+              Costs Road o2: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.costs_road_o2 %>">
+              £ <%= number_with_precision(@scenario.costs_road_o2, precision: 2, delimiter: '.', separator: ',') %>
+            </div>
+            <div class="data-label">
+              Requried Offtaker h2: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.offtaker_location.req_hydrogen_vol %>">
+              <%= number_with_precision(@scenario.offtaker_location.req_hydrogen_vol, precision: 2, delimiter: '.', separator: ',') %> kg
+            </div>
+            <div class="data-label">
+              Requried Offtaker o2: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.offtaker_location.req_oxygen_vol %>">
+              <%= number_with_precision(@scenario.offtaker_location.req_oxygen_vol, precision: 2, delimiter: '.', separator: ',') %> kg
+            </div>
+            <div class="data-label">
+              Costs import h2: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.costs_import_h2 %>">
+              £ <%= number_with_precision(@scenario.costs_import_h2, precision: 2, delimiter: '.', separator: ',') %>
+            </div>
+            <div class="data-label">
+              Cheapest option h2: 
+            </div>
+            <div class="data-value <%= 'empty' unless @cheapest %>">
+              <%= @scenario.compare_cheapest_h2(@cheapest)&.capitalize %> is the cheapest option at <br>
+              £ <%= number_with_precision(@cheapest, precision: 2, delimiter: '.', separator: ',') %>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane pb-4" id="offtaker" role="tabpanel" aria-labelledby="offtaker-tab">
+          <div class="data">
+            <div class="data-label">
+              Name: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.name %>
+            </div>
+            <div class="data-label">
+              Longitude: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.longitude %>
+            </div>
+            <div class="data-label">
+              Latitude: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.latitude %>
+            </div>
+            <div class="data-label">
+              Postal code: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.postal_code %>
+            </div>
+            <div class="data-label">
+              House number: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.house_nr %>
+            </div>
+            <div class="data-label">
+              Arranges own transport: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.own_transport %>
+            </div>
+            <div class="data-label">
+              Required hydrogen volume: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.req_hydrogen_vol %>
+            </div>
+            <div class="data-label">
+              Required hydrogen pressure: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.req_pressure_hydrogen %>
+            </div>
+            <div class="data-label">
+              Required oxygen volume: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.req_oxygen_vol %>
+            </div>
+            <div class="data-label">
+              Required oxygen pressure: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.req_pressure_oxygen %>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane pb-4" id="supplier" role="tabpanel" aria-labelledby="supplier-tab">
+          <div class="data">
+            <div class="data-label">
+              name
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.name %>
+            </div>
+            <div class="data-label">
+              longitude
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.longitude %>
+            </div>
+            <div class="data-label">
+              latitude
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.latitude %>
+            </div>
+            <div class="data-label">
+              postal_code
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.postal_code %>
+            </div>
+            <div class="data-label">
+              house_nr
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.house_nr %>
+            </div>
+            <div class="data-label">
+              supply_type
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.supply_type %>
+            </div>
+            <div class="data-label">
+              min_hydrogen_vol
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.min_hydrogen_vol %>
+            </div>
+            <div class="data-label">
+              max_hydrogen_vol
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.max_hydrogen_vol %>
+            </div>
+            <div class="data-label">
+              min_oxygen_vol
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.min_oxygen_vol %>
+            </div>
+            <div class="data-label">
+              max_oxygen_vol
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.max_oxygen_vol %>
+            </div>
+            <div class="data-label">
+              pickup_available
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.pickup_available %>
+            </div>
+            <div class="data-label">
+              pressure_type_hydrogen
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.pressure_type_hydrogen %>
+            </div>
+            <div class="data-label">
+              pressure_type_oxygen
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.pressure_type_oxygen %>
+            </div>
+            <div class="data-label">
+              verified
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.verified %>
+            </div>
+            <div class="data-label">
+              available
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.available %>
+            </div>
+            <div class="data-label">
+              transport_costs
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.transport_costs %>
+            </div>
+            <div class="data-label">
+              compression_costs
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.compression_costs %>
+            </div>
+            <div class="data-label">
+              has_drftc
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.has_drtfc %>
+            </div>
+            <div class="data-label">
+              hydrogen_purity
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.hydrogen_purity %>
+            </div>
+            <div class="data-label">
+              oxygen_purity
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.oxygen_purity %>
+            </div>
+            <div class="data-label">
+              purification_onsite
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.purification_onsite %>
+            </div>
+            <div class="data-label">
+              prefixed_id
+            </div>
+            <div class="data-value">
+              <%= @scenario.supplier_location.prefixed_id %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% if offtaker_signed_in? %>
+      <%= link_to offtakers_offtaker_location_path(@scenario.offtaker_location), class: "btn btn-primary" do %>
+        Find other locations &rarr;
+      <% end %>
+    <% end %>
+
+    </div>
+    <div class="col-12 col-md-6 order-1 order-md-2">
+      <div data-controller="route">
+        <div id="routing-results"></div>
+
+        <div 
+          id="map" 
+          data-route-target="map" 
+          data-key="<%= ENV['MAPBOX_API_KEY'] %>" 
+          data-center="<%= [@scenario.offtaker_location.longitude, @scenario.offtaker_location.latitude].to_json %>" 
+          data-zoom="9" 
+          data-origin="<%= [@scenario.offtaker_location.longitude, @scenario.offtaker_location.latitude, (@scenario.offtaker_location.name || @scenario.offtaker_location.address), @scenario.offtaker_location.id].to_json %>" 
+          data-destination="<%= [@scenario.supplier_location.longitude, @scenario.supplier_location.latitude, (@scenario.supplier_location.name || @scenario.supplier_location.address), @scenario.supplier_location.id].to_json %>"
+        >
+        </div>
+        <div class="map-padding"></div>
+      </div>
+    </div>
+  </div>
+</div>

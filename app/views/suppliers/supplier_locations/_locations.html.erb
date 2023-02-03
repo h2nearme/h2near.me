@@ -1,27 +1,10 @@
-<ul class="list-unstyled location-list">
   <% @supplier_locations.each do |supplier_location| %>
-    <li class="location-list-item">
-        <%= link_to suppliers_supplier_location_path(supplier_location), class: "location-list-data" do %>
-          <h2>
-            <%= supplier_location.name %>
-          </h2>
-          <p>
-            <%= supplier_location.address %>
-          </p>
-        <% end %>
-        <div class="location-list-actions">
-          <%= link_to suppliers_supplier_location_path(supplier_location), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this location?" }, class: "btn btn-danger" do %>
-            <i class="fa-solid fa-trash-can"></i>
-          <% end %>
-          <%= link_to edit_suppliers_supplier_location_path(supplier_location), class: "btn btn-warning" do %>
-            <i class="fa-solid fa-pen-to-square"></i>
-          <% end %>
-        </div>
-    </li>
+    <%= render partial: "location", locals: { supplier_location: supplier_location } %>
   <% end %>
-</ul>
 <%= will_paginate @supplier_locations %>
 
-<%= link_to new_suppliers_supplier_location_path, class: "btn btn-primary" do %>
-  Add new location <i class="fa-solid fa-plus"></i>
+<% unless @supplier_locations.any? %>
+  <p>
+    No locations
+  </p>
 <% end %>

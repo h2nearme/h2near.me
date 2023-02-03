@@ -1,4 +1,4 @@
-.alert {
+.alert.alert-dismissible {
   min-width: 200px;
   position: fixed;
   bottom: 16px;
@@ -12,12 +12,12 @@
   padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
 }
 
-.alert button {
+.alert.alert-dismissible button {
   background-color: transparent;
   border: none;
   font-size: 30px;
 }
 
-.alert button span {
+.alert.alert-dismissible button span {
   color: var(--bs-alert-color)
 }

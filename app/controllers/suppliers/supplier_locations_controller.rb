@@ -2,12 +2,24 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
   before_action :set_supplier_location, only: [:show, :edit, :update, :destroy]
 
   def dashboard
-    @supplier_locations = current_supplier.supplier_locations.paginate(page: params[:page], per_page: 10)
+    if params[:q]
+      @supplier_locations = current_supplier.supplier_locations.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+    else
+      @supplier_locations = current_supplier.supplier_locations.order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+    end
     @scenarios = current_supplier.scenarios
+    respond_to do |format|
+      format.html
+      format.json {
+          render json: {
+              locations: render_to_string(partial: "suppliers/supplier_locations/locations", formats: [:html]), 
+          }
+      }
+    end
   end
 
   def show
-    @offtaker_locations = OfftakerLocation.near(@supplier_location.coordinates, 50, units: :km)
+    @offtaker_locations = OfftakerLocation.near(@supplier_location.coordinates, 200, units: :km)
   end
 
   def new

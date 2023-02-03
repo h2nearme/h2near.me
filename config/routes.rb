@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     sessions: "offtakers/sessions"
    }
 
-  resources :scenarios, only: [:create, :show]
+  resources :scenarios, only: [:create, :show, :destroy]
+  post '/scenarios/:id/mark-favourite', as: :mark_favourite, to: "scenarios#mark_favourite"
+
 
   namespace :suppliers, suppliers: true do 
     get '/', to: 'supplier_locations#dashboard'

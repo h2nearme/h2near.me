@@ -1,4 +1,6 @@
 class ScenariosController < ApplicationController
+  before_action :set_scenario, only: [:show, :destroy, :mark_favourite]
+
   def create
     is_new_record = false
     @scenario = Scenario.find_by(
@@ -9,8 +11,9 @@ class ScenariosController < ApplicationController
     unless @scenario
       is_new_record = true
       @scenario = Scenario.new(scenario_params)
-      @scenario.save!
     end
+    @scenario.distance_pipeline = params["scenario"]["distance_pipeline"]
+    @scenario.save!
     
     respond_to do |format|
       format.json {
@@ -23,11 +26,42 @@ class ScenariosController < ApplicationController
   end
 
   def show
-    @scenario = Scenario.find(params[:id])
-    @cheapest = [@scenario.costs_road_h2, @scenario.costs_pipeline_h2, @scenario.costs_import_h2, @scenario.costs_road_o2].min
+    if @scenario.costs_pipeline_h2.nil? && 
+       @scenario.costs_road_h2.nil? &&
+       @scenario.costs_pipeline_o2.nil? && 
+       @scenario.costs_road_o2.nil?
+        @scenario.run_calculations
+    end
+    @cheapest = [@scenario.costs_road_h2, @scenario.costs_pipeline_h2, @scenario.costs_import_h2].min
+  end
+
+  def destroy
+    @scenario.destroy
+    if current_offtaker
+      redirect_to offtakers_path
+    elsif current_supplier
+      redirect_to suppliers_path
+    end
+  end
+
+  def mark_favourite
+    @scenario.favourite = !@scenario.favourite
+    @scenario.save
+    respond_to do |format|
+      format.js
+      format.json {
+        render json: {
+            scenario: @scenario,
+        }
+    }
+    end
   end
 
   private
+
+  def set_scenario
+    @scenario = Scenario.find(params[:id])
+  end
 
   def scenario_response(is_new_record)
     if is_new_record

@@ -7,6 +7,8 @@ class OfftakerLocation < ApplicationRecord
 
   after_save :set_prefixed_id
 
+  validates :name, presence: true
+
   def coordinates
     [self.latitude, self.longitude]
   end

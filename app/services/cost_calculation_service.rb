@@ -61,17 +61,25 @@ class CostCalculationService
 
     total_costs_h2_import = @req_offtaker_h2 * @costs_h2_import
 
+    attributes = {}
+
     if @req_offtaker_h2 > 0
-      @scenario.update(
-        costs_road_h2: total_costs_h2_road,
-        costs_pipeline_h2: total_costs_h2_pipeline,
-        costs_import_h2: total_costs_h2_import
-        )
+      attributes.merge!(
+        {
+          costs_road_h2: total_costs_h2_road,
+          costs_pipeline_h2: total_costs_h2_pipeline,
+          costs_import_h2: total_costs_h2_import
+        }
+      )
     end
 
     if @req_offtaker_o2 > 0
-      @scenario.update(costs_road_o2: total_costs_o2_road)
+     attributes.merge!(
+      {
+        costs_road_o2: total_costs_o2_road
+      }
+     )
     end
-
+    return attributes
   end
 end

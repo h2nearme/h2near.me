@@ -11,11 +11,19 @@
 
       </div>
     </div>
-    <div class="col-12">
+    <div class="col-12 position-relative">
       <%= link_to suppliers_path, class: "back-button" do %>
         &larr; Back to dashboard
       <% end %>
-      <h1>
+      <div class="under-map-button">
+        <button class="btn btn-primary" data-location="<%= [@offtaker_locations.first.longitude, @offtaker_locations.first.latitude].to_json %>" data-action="click->maps#drawRoute">
+          <span class="text-light">
+            Find nearest location 
+          </span>
+          <i class="fa-solid fa-location-crosshairs"></i>
+        </button>
+      </div>
+      <h1 class="mt-4">
         Location details for <%= @supplier_location.name %>
       </h1>
       <div class="buttons my-3">
@@ -43,144 +51,95 @@
       <div class="tab-content pb-4" id="myTabContent">
         <div class="tab-pane show active pb-4" id="details" role="tabpanel" aria-labelledby="details-tab">
           <div class="data-two-columns">
-            <div class="data">
-              <div class="data-label">
-                name
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.name %>
-              </div>
-              <div class="data-label">
-                longitude
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.longitude %>
-              </div>
-              <div class="data-label">
-                latitude
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.latitude %>
-              </div>
-              <div class="data-label">
-                postal_code
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.postal_code %>
-              </div>
-              <div class="data-label">
-                house_nr
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.house_nr %>
-              </div>
-              <div class="data-label">
-                supply_type
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.supply_type %>
-              </div>
-              <div class="data-label">
-                min_hydrogen_vol
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.min_hydrogen_vol %>
-              </div>
-              <div class="data-label">
-                max_hydrogen_vol
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.max_hydrogen_vol %>
-              </div>
-              <div class="data-label">
-                min_oxygen_vol
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.min_oxygen_vol %>
-              </div>
-              <div class="data-label">
-                max_oxygen_vol
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.max_oxygen_vol %>
-              </div>
-              <div class="data-label">
-                pickup_available
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.pickup_available %>
+            <div class="data-wrapper">
+              <h2 class="mb-3">
+                Location details
+              </h2>
+              <div class="data">
+                <div class="data-label">
+                  name
+                </div>
+                <div class="data-value">
+                  <%= @supplier_location.name %>
+                </div>
+                <div class="data-label">
+                  longitude
+                </div>
+                <div class="data-value">
+                  <%= @supplier_location.longitude %>
+                </div>
+                <div class="data-label">
+                  latitude
+                </div>
+                <div class="data-value">
+                  <%= @supplier_location.latitude %>
+                </div>
+                <div class="data-label">
+                  postal_code
+                </div>
+                <div class="data-value">
+                  <%= @supplier_location.postal_code %>
+                </div>
+                <div class="data-label">
+                  house_nr
+                </div>
+                <div class="data-value">
+                  <%= @supplier_location.house_nr %>
+                </div>
+                <div class="data-label">
+                  pickup_available
+                </div>
+                <div class="data-value">
+                  <%= @supplier_location.pickup_available %>
+                </div>
               </div>
             </div>
-            <div class="data">
-              <div class="data-label">
-                pressure_type_hydrogen
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.pressure_type_hydrogen %>
-              </div>
-              <div class="data-label">
-                pressure_type_oxygen
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.pressure_type_oxygen %>
-              </div>
-              <div class="data-label">
-                verified
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.verified %>
-              </div>
-              <div class="data-label">
-                available
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.available %>
-              </div>
-              <div class="data-label">
-                transport_costs
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.transport_costs %>
-              </div>
-              <div class="data-label">
-                compression_costs
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.compression_costs %>
-              </div>
-              <div class="data-label">
-                has_drftc
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.has_drtfc %>
-              </div>
-              <div class="data-label">
-                hydrogen_purity
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.hydrogen_purity %>
-              </div>
-              <div class="data-label">
-                oxygen_purity
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.oxygen_purity %>
-              </div>
-              <div class="data-label">
-                purification_onsite
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.purification_onsite %>
-              </div>
-              <div class="data-label">
-                prefixed_id
-              </div>
-              <div class="data-value">
-                <%= @supplier_location.prefixed_id %>
-              </div>
+            <div class="data-wrapper data-list">
+              <h2 class="mb-3">
+                Supply details
+              </h2>
+              <% @supplier_location.supply_types.each do |supply_type| %>
+                <div class="data">
+                  <div class="data-label">
+                    Name
+                  </div>
+                  <div class="data-value">
+                    <%= supply_type.name %>
+                  </div>
+                  <div class="data-label">
+                    Minimum hydrogen volume
+                  </div>
+                  <div class="data-value">
+                    <%= supply_type.minimum_hydrogen_volume %>
+                  </div>
+                  <div class="data-label">
+                    Maximum hydrogen volume
+                  </div>
+                  <div class="data-value">
+                    <%= supply_type.maximum_hydrogen_volume %>
+                  </div>
+                  <div class="data-label">
+                    Pressure type hydrogen
+                  </div>
+                  <div class="data-value">
+                    <%= supply_type.pressure_type_hydrogen %>
+                  </div>
+                  <div class="data-label">
+                    Compression costs
+                  </div>
+                  <div class="data-value">
+                    <%= supply_type.compression_costs %>
+                  </div>
+                  <div class="data-label">
+                    Transport costs
+                  </div>
+                  <div class="data-value">
+                    <%= supply_type.transport_costs %>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
-
         </div>
 
         <div class="tab-pane pb-4" id="locations" role="tabpanel" aria-labelledby="locations-tab">
@@ -188,9 +147,6 @@
             <%= render partial: "scenarios/scenario", collection: @supplier_location.scenarios %>
           </ul>
         </div>
-        <button class="btn btn-primary" data-location="<%= [@offtaker_locations.first.longitude, @offtaker_locations.first.latitude].to_json %>" data-action="click->maps#drawRoute">
-          Find nearest location <i class="fa-solid fa-location-crosshairs"></i>
-        </button>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@ class OfftakerLocation < ApplicationRecord
   include Hashid::Rails
 
   belongs_to :offtaker
-  has_many :scenarios
+  has_many :scenarios, dependent: :destroy
   geocoded_by :coordinates
 
   after_save :set_prefixed_id

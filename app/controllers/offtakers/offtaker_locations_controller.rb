@@ -98,6 +98,7 @@ class Offtakers::OfftakerLocationsController < Offtakers::BaseController
       :required_hydrogen_volume, 
       :required_oxygen_volume, 
       :required_hydrogen_pressure, 
+      :required_hydrogen_purity,
       :own_transport
     )
   end

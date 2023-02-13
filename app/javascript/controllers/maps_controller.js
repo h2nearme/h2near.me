@@ -38,28 +38,9 @@ export default class extends Controller {
         .setLngLat(JSON.parse(this.mapTarget.dataset.center))
         .addTo(map);
 
-        const name = location[2];
-        const content = `
-          <div class="popup-content">
-            <h4>
-              ${name} 
-            </h4> 
-          </div>
-          `;
-        
-        const wrapper = document.createElement('div');
-        const button = document.createElement('div');
-        button.innerHTML = `<button class="btn btn-primary" data-location="${JSON.stringify([location[0], location[1]])}" data-destination-id="${location[3]}" id="location-${location[3]}">Calculate</button>`;
-        wrapper.innerHTML = content;
-        wrapper.appendChild(button);
-        button.querySelector('button').addEventListener('click', this.createRoute.bind(this));
-        
-        const popup = new mapboxgl.Popup({
-            offset: 25
-          })
-          .setDOMContent(wrapper);
+        const popup = this.createPopup(location)
 
-          new mapboxgl.Marker(markerElement)
+        new mapboxgl.Marker(markerElement)
           .setLngLat([location[0], location[1]])
           .setPopup(popup) 
           .addTo(map);
@@ -71,6 +52,30 @@ export default class extends Controller {
       }
     })
 
+  }
+
+  createPopup(location) {
+    const name = location[2];
+    const content = `
+      <div class="popup-content">
+        <h4>
+          ${name} 
+        </h4> 
+      </div>
+      `;
+    
+    const wrapper = document.createElement('div');
+    const button = document.createElement('div');
+    button.innerHTML = `<button class="btn btn-primary" data-location="${JSON.stringify([location[0], location[1]])}" data-destination-id="${location[3]}" id="location-${location[3]}">Calculate</button>`;
+    wrapper.innerHTML = content;
+    wrapper.appendChild(button);
+    button.querySelector('button').addEventListener('click', this.createRoute.bind(this));
+    
+    const popup = new mapboxgl.Popup({
+        offset: 25
+      })
+      .setDOMContent(wrapper);
+    return popup
   }
 
   createRoute(event) {
@@ -143,6 +148,15 @@ export default class extends Controller {
     const destination = JSON.parse(event.currentTarget.dataset.location)
     this.directions.setOrigin(origin);
     this.directions.setDestination(destination);
+    const popup = this.createPopup(destination)
+    const markerElement = this.createElement() 
+
+    new mapboxgl.Marker(markerElement)
+      .setLngLat([destination[0], destination[1]])
+      .setPopup(popup) 
+      .addTo(this.map)
+      .togglePopup();
+
   }
 
   disconnect() {

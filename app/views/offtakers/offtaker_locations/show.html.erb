@@ -99,7 +99,7 @@
           </ul>
         </div>
         <% if @supplier_locations.any? %>
-          <button class="btn btn-primary" data-location="<%= [@supplier_locations.first.longitude, @supplier_locations.first.latitude].to_json %>" data-action="click->maps#drawRoute">
+          <button class="btn btn-primary" data-location="<%= [@supplier_locations.first.longitude, @supplier_locations.first.latitude, (@supplier_location.name || @supplier_location.address), @supplier_location.id].to_json %>" data-action="click->maps#drawRoute">
             Find nearest location <i class="fa-solid fa-location-crosshairs"></i>
           </button>
         <% else %>

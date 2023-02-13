@@ -158,6 +158,12 @@
               <%= @scenario.offtaker_location.required_hydrogen_pressure %>
             </div>
             <div class="data-label">
+              Required hydrogen purity: 
+            </div>
+            <div class="data-value">
+              <%= @scenario.offtaker_location.required_hydrogen_purity %>
+            </div>
+            <div class="data-label">
               Required oxygen volume: 
             </div>
             <div class="data-value">
@@ -198,107 +204,72 @@
               <%= @scenario.supplier_location.house_nr %>
             </div>
             <div class="data-label">
-              supply_type
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.supply_type %>
-            </div>
-            <div class="data-label">
-              min_hydrogen_vol
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.min_hydrogen_vol %>
-            </div>
-            <div class="data-label">
-              max_hydrogen_vol
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.max_hydrogen_vol %>
-            </div>
-            <div class="data-label">
-              min_oxygen_vol
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.min_oxygen_vol %>
-            </div>
-            <div class="data-label">
-              max_oxygen_vol
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.max_oxygen_vol %>
-            </div>
-            <div class="data-label">
               pickup_available
             </div>
             <div class="data-value">
               <%= @scenario.supplier_location.pickup_available %>
             </div>
-            <div class="data-label">
-              pressure_type_hydrogen
+          </div>
+          <div class="data-wrapper data-list">
+            <h4 class="my-3">
+              Supply details
+            </h4>
+
+
+            <div class="accordion my-3" id="supply-types-accordion">
+              <% @scenario.supplier_location.supply_types.each_with_index do |supply_type, index| %>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="<%= supply_type.id %>">
+                    <button class="accordion-button <%= 'collapsed' unless supply_type.name === @scenario.offtaker_location.required_hydrogen_purity %>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= supply_type.id %>" aria-expanded="true" aria-controls="collapse-<%= supply_type.id %>">
+                      <%= supply_type.name %>
+                    </button>
+                  </h2>
+                  <div id="collapse-<%= supply_type.id %>" class="accordion-collapse collapse <%= 'show' if supply_type.name === @scenario.offtaker_location.required_hydrogen_purity %>" aria-labelledby="<%= supply_type.id %>" data-bs-parent="#supply-types-accordion">
+                    <div class="accordion-body light-wrapper pb-5">
+                      <div class="data">
+                        <div class="data-label">
+                          Name
+                        </div>
+                        <div class="data-value">
+                          <%= supply_type.name %>
+                        </div>
+                        <div class="data-label">
+                          Minimum hydrogen volume
+                        </div>
+                        <div class="data-value">
+                          <%= supply_type.minimum_hydrogen_volume %>
+                        </div>
+                        <div class="data-label">
+                          Maximum hydrogen volume
+                        </div>
+                        <div class="data-value">
+                          <%= supply_type.maximum_hydrogen_volume %>
+                        </div>
+                        <div class="data-label">
+                          Pressure type hydrogen
+                        </div>
+                        <div class="data-value">
+                          <%= supply_type.pressure_type_hydrogen %>
+                        </div>
+                        <div class="data-label">
+                          Compression costs
+                        </div>
+                        <div class="data-value">
+                          <%= supply_type.compression_costs %>
+                        </div>
+                        <div class="data-label">
+                          Transport costs
+                        </div>
+                        <div class="data-value">
+                          <%= supply_type.transport_costs %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
             </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.pressure_type_hydrogen %>
-            </div>
-            <div class="data-label">
-              pressure_type_oxygen
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.pressure_type_oxygen %>
-            </div>
-            <div class="data-label">
-              verified
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.verified %>
-            </div>
-            <div class="data-label">
-              available
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.available %>
-            </div>
-            <div class="data-label">
-              transport_costs
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.transport_costs %>
-            </div>
-            <div class="data-label">
-              compression_costs
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.compression_costs %>
-            </div>
-            <div class="data-label">
-              has_drftc
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.has_drtfc %>
-            </div>
-            <div class="data-label">
-              hydrogen_purity
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.hydrogen_purity %>
-            </div>
-            <div class="data-label">
-              oxygen_purity
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.oxygen_purity %>
-            </div>
-            <div class="data-label">
-              purification_onsite
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.purification_onsite %>
-            </div>
-            <div class="data-label">
-              prefixed_id
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.prefixed_id %>
-            </div>
+
           </div>
         </div>
       </div>

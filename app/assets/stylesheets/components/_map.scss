@@ -33,7 +33,8 @@
   pointer-events: none !important;
 }
 
-.mapboxgl-ctrl-top-left {
+.mapboxgl-ctrl-top-left,
+mapboxgl-ctrl-top-right {
   display: none;
 }
 

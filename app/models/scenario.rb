@@ -6,6 +6,10 @@ class Scenario < ApplicationRecord
   belongs_to :offtaker_location
   belongs_to :supplier_location
 
+  def present
+    ScenarioPresenter.new(self)
+  end
+
   def run_calculations
     attributes = CostCalculationService.new(self).call
     self.assign_attributes(attributes)

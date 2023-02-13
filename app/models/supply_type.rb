@@ -4,4 +4,7 @@ class SupplyType < ApplicationRecord
 
     validates :name, presence: true
 
+    def present
+        SupplyTypePresenter.new(self)
+    end
 end

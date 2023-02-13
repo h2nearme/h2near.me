@@ -1,4 +1,4 @@
-<% content_for :title, "Scenario details for '#{@scenario.offtaker_location.name}' to #{@scenario.supplier_location.name}" %>
+<% content_for :title, "Scenario details for #{@scenario.offtaker_location.name} to #{@scenario.supplier_location.name}" %>
 
 <div class="container">
   <div class="row">
@@ -81,13 +81,13 @@
               <%= @scenario.present.costs_pipeline %>
             </div>
             <div class="data-label">
-              Requried Offtaker h2: 
+              Required Offtaker h2: 
             </div>
             <div class="data-value <%= 'empty' unless @scenario.present.required_hydrogen_volume? %>">
               <%= @scenario.present.required_hydrogen_volume %>
             </div>
             <div class="data-label">
-              Requried Offtaker o2: 
+              Required Offtaker o2: 
             </div>
             <div class="data-value <%= 'empty' unless @scenario.present.required_oxygen_volume? %>">
               <%= @scenario.present.required_oxygen_volume %>

@@ -23,13 +23,6 @@ export default class extends Controller {
 
     const locations = JSON.parse(this.mapTarget.dataset.locations)
 
-    const directions = new Directions({
-      accessToken: mapboxgl.accessToken,
-      profile: 'mapbox/walking',
-    })
-
-    this.directions = directions
-    this.map.addControl(directions,'top-left');
     locations.forEach(location => {
       const markerElement = this.createElement() 
       
@@ -80,8 +73,19 @@ export default class extends Controller {
 
   createRoute(event) {
     event.preventDefault()
+    const location = event.currentTarget.dataset.location;
+    const destinationId = event.currentTarget.dataset.destinationId;
+    const data = {destinationId, location}
+    this.setDirections()
+    this.directions.on("route", (event) => this.storeRouteData(event, data)) 
+
+    this.directions.setOrigin(JSON.parse(this.mapTarget.dataset.center));
+    this.directions.setDestination(JSON.parse(location));
+  }
+
+  storeRouteData(event, data) {
     const routingResults = document.querySelector('#routing-results')
-    const destinationLocationId = event.currentTarget.dataset.destinationId
+    const destinationLocationId = data.destinationId
     const originLocationId = this.originLocationId
 
     this.directions.on("route", event => {
@@ -115,12 +119,15 @@ export default class extends Controller {
         }
       });
     })
+  }
 
-    const origin = JSON.parse(this.mapTarget.dataset.center)
-    const destination = JSON.parse(event.currentTarget.dataset.location)
-    this.directions.setOrigin(origin);
-    this.directions.setDestination(destination);
-    
+  setDirections() {
+    const directions = new Directions({
+      accessToken: mapboxgl.accessToken,
+      profile: `mapbox/driving`,
+    })
+    this.directions = directions
+    this.map.addControl(directions,'top-left');  
   }
 
   createElement() {
@@ -143,6 +150,7 @@ export default class extends Controller {
 
   drawRoute(event) {
     event.preventDefault()
+    this.setDirections()
 
     const origin = JSON.parse(this.mapTarget.dataset.center)
     const destination = JSON.parse(event.currentTarget.dataset.location)

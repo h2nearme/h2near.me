@@ -99,7 +99,10 @@ class Offtakers::OfftakerLocationsController < Offtakers::BaseController
       :required_oxygen_volume, 
       :required_hydrogen_pressure, 
       :required_hydrogen_purity,
-      :own_transport
+      :own_transport,
+      :investment_period_years,
+      :contract_period_years,
+      :interest_oxygen
     )
   end
 end

@@ -70,10 +70,11 @@ class Offtakers::OfftakerLocationsController < Offtakers::BaseController
       500, 
       units: :km
     ).joins(:supply_types).where(
-      'supply_types.minimum_hydrogen_volume <= ? AND supply_types.maximum_hydrogen_volume >= ? AND supply_types.pressure_type_hydrogen = ?',
+      'supply_types.minimum_hydrogen_volume <= ? AND supply_types.maximum_hydrogen_volume >= ? AND supply_types.pressure_type_hydrogen = ? AND supply_types.name = ?',
       (@offtaker_location.required_hydrogen_volume || 0),
       (@offtaker_location.required_hydrogen_volume || 0),
       offtaker_pressure_hydrogen,
+      @offtaker_location.required_hydrogen_purity
     ).where(
       verified: true,
       available: true,

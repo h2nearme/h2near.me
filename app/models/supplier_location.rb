@@ -3,6 +3,8 @@ class SupplierLocation < ApplicationRecord
 
   belongs_to :supplier
   has_many :scenarios
+  has_many :supply_types, inverse_of: :supplier_location
+  accepts_nested_attributes_for :supply_types, reject_if: :all_blank, allow_destroy: true
   geocoded_by :coordinates
 
   after_save :set_prefixed_id

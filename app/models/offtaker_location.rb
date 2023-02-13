@@ -2,12 +2,14 @@ class OfftakerLocation < ApplicationRecord
   include Hashid::Rails
 
   belongs_to :offtaker
-  has_many :scenarios
+  has_many :scenarios, dependent: :destroy
   geocoded_by :coordinates
 
   after_save :set_prefixed_id
 
   validates :name, presence: true
+  validates :required_hydrogen_volume, presence: true
+  validates :required_hydrogen_pressure, presence: true
 
   def coordinates
     [self.latitude, self.longitude]

@@ -45,11 +45,24 @@
           Hydrogen
         </h4>
         <div class="field">
-          <%= f.input :req_hydrogen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required hydrogen volume in kilos per day", label_html: { class: "form-label" } %>
+          <%= f.input :required_hydrogen_volume, class: "form-control", placeholder: "E.g. 600", label: "Required hydrogen volume in kilos per day", label_html: { class: "form-label" } %>
         </div>
 
         <div class="field">
-          <%= f.input :req_pressure_hydrogen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 300", label: "Required hydrogen pressure in bar", label_html: { class: "form-label" } %>
+          <%= f.input :required_hydrogen_pressure, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 300", label: "Required hydrogen pressure in bar", label_html: { class: "form-label" } %>
+        </div>
+        <div class="field">
+          <%= f.input :required_hydrogen_purity, collection: ['Standard', 'ITMs', 'Pure', 'High pure', 'Ultrapure'
+          ], prompt: "Select required purity", class: "form-control", label: "Required hydrogen purity", label_html: { class: "form-label" } %>
+        </div>
+        <h5 class="mt-4">
+          For pipeline options
+        </h5>
+        <div class="field">
+          <%= f.input :investment_period_years, class: "form-control", label: "Investment period in years", label_html: { class: "form-label" } %>
+        </div>
+        <div class="field">
+          <%= f.input :contract_period_years, class: "form-control", label: "Contract period in years", label_html: { class: "form-label" } %>
         </div>
       </div>
       
@@ -57,16 +70,14 @@
         <h4>
           Oxygen
         </h4>
-        <small>
-          Optional, only fill out if required
-        </small>
         <div class="field">
-          <%= f.input :req_oxygen_vol, class: "form-control", placeholder: "E.g. 600", label: "Required oxygen volume in kilos per day", label_html: { class: "form-label" } %>
+          <%= f.input :interest_oxygen, class: "form-control", label: "Interested in offtaking oxygen", label_html: { class: "form-label" } %>
         </div>
-        
+
         <div class="field">
-          <%= f.input :req_pressure_oxygen, collection: [300, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 700", label: "Required oxygen pressure in bar", label_html: { class: "form-label" } %>
+          <%= f.input :required_oxygen_volume, class: "form-control", placeholder: "E.g. 600", label: "Required oxygen volume in kilos per day", label_html: { class: "form-label" } %>
         </div>
+      
       </div>
 
       <%= f.input :own_transport, label: "Check this box if you wish to provide your own transport" %>

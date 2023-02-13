@@ -75,28 +75,45 @@
               Required hydrogen volume: 
             </div>
             <div class="data-value">
-              <%= @offtaker_location.req_hydrogen_vol %>
+              <%= @offtaker_location.required_hydrogen_volume %>
             </div>
             <div class="data-label">
               Required hydrogen pressure: 
             </div>
             <div class="data-value">
-              <%= @offtaker_location.req_pressure_hydrogen %>
+              <%= @offtaker_location.required_hydrogen_pressure %>
+            </div>
+            <div class="data-label">
+              Required hydrogen purity: 
+            </div>
+            <div class="data-value">
+              <%= @offtaker_location.required_hydrogen_purity %>
+            </div>
+            <div class="data-label">
+              Investment period in years:
+            </div>
+            <div class="data-value">
+              <%= @offtaker_location.investment_period_years %>
+            </div>
+            <div class="data-label">
+              Contract period in years:
+            </div>
+            <div class="data-value">
+              <%= @offtaker_location.contract_period_years %>
             </div>
             <div class="data-label">
               Required oxygen volume: 
             </div>
             <div class="data-value">
-              <%= @offtaker_location.req_oxygen_vol %>
+              <%= @offtaker_location.required_oxygen_volume %>
             </div>
             <div class="data-label">
-              Required oxygen pressure: 
+              Interest in offtaking oxygen:
             </div>
             <div class="data-value">
-              <%= @offtaker_location.req_pressure_oxygen %>
+              <%= @offtaker_location.interest_oxygen %>
             </div>
           </div>
-
         </div>
 
         <div class="tab-pane pb-4" id="locations" role="tabpanel" aria-labelledby="locations-tab">
@@ -105,7 +122,7 @@
           </ul>
         </div>
         <% if @supplier_locations.any? %>
-          <button class="btn btn-primary" data-location="<%= [@supplier_locations.first.longitude, @supplier_locations.first.latitude].to_json %>" data-action="click->maps#drawRoute">
+          <button class="btn btn-primary" data-location="<%= [@supplier_locations.first.longitude, @supplier_locations.first.latitude, (@supplier_locations.first.name || @supplier_locations.first.address), @supplier_locations.first.id].to_json %>" data-action="click->maps#drawRoute">
             Find nearest location <i class="fa-solid fa-location-crosshairs"></i>
           </button>
         <% else %>

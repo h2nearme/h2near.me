@@ -12,7 +12,7 @@ class ScenariosController < ApplicationController
       is_new_record = true
       @scenario = Scenario.new(scenario_params)
     end
-    @scenario.distance_pipeline = params["scenario"]["distance_pipeline"]
+    @scenario.distance = params["scenario"]["distance"]
     @scenario.save!
     
     respond_to do |format|
@@ -26,13 +26,11 @@ class ScenariosController < ApplicationController
   end
 
   def show
-    if @scenario.costs_pipeline_h2.nil? && 
-       @scenario.costs_road_h2.nil? &&
-       @scenario.costs_pipeline_o2.nil? && 
-       @scenario.costs_road_o2.nil?
+    if @scenario.costs_pipeline.nil? && 
+       @scenario.costs_road.nil?
         @scenario.run_calculations
     end
-    @cheapest = [@scenario.costs_road_h2, @scenario.costs_pipeline_h2, @scenario.costs_import_h2].min
+    @cheapest = [@scenario.costs_road, @scenario.costs_pipeline, @scenario.costs_import].min
   end
 
   def destroy
@@ -78,6 +76,6 @@ class ScenariosController < ApplicationController
   end
 
   def scenario_params
-    params.require(:scenario).permit(:distance_pipeline, :supplier_location_id, :offtaker_location_id)
+    params.require(:scenario).permit(:distance, :supplier_location_id, :offtaker_location_id)
   end
 end

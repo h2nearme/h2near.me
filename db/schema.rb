@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_31_104233) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_03_141622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,15 +22,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_104233) do
     t.string "postal_code"
     t.string "house_nr"
     t.boolean "own_transport"
-    t.float "req_hydrogen_vol"
-    t.float "req_oxygen_vol"
-    t.float "req_pressure_hydrogen"
-    t.float "req_pressure_oxygen"
+    t.float "required_hydrogen_volume"
+    t.float "required_oxygen_volume"
+    t.float "required_hydrogen_pressure"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "required_purity_hydrogen"
-    t.string "required_purity_oxygen"
+    t.string "required_hydrogen_purity"
     t.string "prefixed_id"
+    t.boolean "interest_oxygen", default: false
+    t.integer "investment_period_years", default: 0
+    t.integer "contract_period_years", default: 0
     t.index ["offtaker_id"], name: "index_offtaker_locations_on_offtaker_id"
   end
 
@@ -52,14 +53,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_104233) do
     t.bigint "supplier_location_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "costs_pipeline_h2"
-    t.float "costs_road_h2"
-    t.float "costs_import_h2"
-    t.float "distance_lorry"
-    t.float "costs_pipeline_o2"
-    t.float "costs_road_o2"
-    t.float "costs_import_o2"
-    t.float "distance_pipeline"
+    t.integer "costs_pipeline"
+    t.integer "costs_road"
+    t.integer "costs_import"
+    t.float "distance"
     t.boolean "favourite", default: false
     t.index ["offtaker_location_id"], name: "index_scenarios_on_offtaker_location_id"
     t.index ["supplier_location_id"], name: "index_scenarios_on_supplier_location_id"
@@ -72,22 +69,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_104233) do
     t.float "latitude"
     t.string "postal_code"
     t.string "house_nr"
-    t.string "supply_type"
-    t.float "min_hydrogen_vol"
-    t.float "max_hydrogen_vol"
-    t.float "min_oxygen_vol"
-    t.float "max_oxygen_vol"
     t.boolean "pickup_available"
-    t.string "pressure_type_hydrogen"
-    t.string "pressure_type_oxygen"
     t.boolean "verified"
     t.boolean "available"
-    t.integer "transport_costs"
-    t.integer "compression_costs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "hydrogen_purity"
-    t.string "oxygen_purity"
     t.boolean "purification_onsite"
     t.string "prefixed_id"
     t.float "has_drtfc"
@@ -107,8 +93,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_104233) do
     t.index ["reset_password_token"], name: "index_suppliers_on_reset_password_token", unique: true
   end
 
+  create_table "supply_types", force: :cascade do |t|
+    t.bigint "supplier_location_id", null: false
+    t.string "name"
+    t.float "minimum_hydrogen_volume"
+    t.float "maximum_hydrogen_volume"
+    t.float "pressure_type_hydrogen"
+    t.integer "compression_costs"
+    t.integer "transport_costs"
+    t.index ["supplier_location_id"], name: "index_supply_types_on_supplier_location_id"
+  end
+
   add_foreign_key "offtaker_locations", "offtakers"
   add_foreign_key "scenarios", "offtaker_locations"
   add_foreign_key "scenarios", "supplier_locations"
   add_foreign_key "supplier_locations", "suppliers"
+  add_foreign_key "supply_types", "supplier_locations"
 end

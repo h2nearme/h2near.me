@@ -8,6 +8,47 @@ offtaker = Offtaker.create(name: "Offtaker", email:"test@offtakers.com", passwor
 filepath_producers = Rails.root.join('./db/data/producer_data.csv')
 filepath_offtakers = Rails.root.join('./db/data/offtaker_data.csv')
 
+types = [{
+  name: 'Standard', # ~98% / 1nine
+  minimum_hydrogen_volume: 100,
+  maximum_hydrogen_volume: 100000000,
+  pressure_type_hydrogen: 300,
+  compression_costs: 1.1396,
+  transport_costs: 0.182269
+},
+{
+  name: 'ITMs', # ~99.8% / 2nines
+  minimum_hydrogen_volume: 100,
+  maximum_hydrogen_volume: 100000,
+  pressure_type_hydrogen: 700,
+  compression_costs: 1.1396,
+  transport_costs: 0.182269
+},
+{
+  name: 'Pure', # >=99.99% / 4nines
+  minimum_hydrogen_volume: 100,
+  maximum_hydrogen_volume: 10000000,
+  pressure_type_hydrogen: 700,
+  compression_costs: 1.1396,
+  transport_costs: 0.182269
+},
+{
+  name: 'High pure', # >=99.999% / 5nines
+  minimum_hydrogen_volume: 200,
+  maximum_hydrogen_volume: 100000,
+  pressure_type_hydrogen: 300,
+  compression_costs: 1.1396,
+  transport_costs: 0.182269
+},
+{
+  name: 'Ultrapure', # >=99.9999% / 6nines
+  minimum_hydrogen_volume: 400,
+  maximum_hydrogen_volume: 1000000,
+  pressure_type_hydrogen: 700,
+  compression_costs: 1.1396,
+  transport_costs: 0.182269
+}]
+
 CSV.foreach((filepath_producers), headers: true, col_sep: ";") do |row|
   name = row[1]
   lat = row[4].to_f
@@ -36,25 +77,21 @@ CSV.foreach((filepath_producers), headers: true, col_sep: ";") do |row|
     latitude: lat,
     postal_code: postal_code,
     house_nr: house_nr,
-    supply_type: supply_type,
-    min_hydrogen_vol: min_hydrogen_vol,
-    max_hydrogen_vol: max_hydrogen_vol,
-    min_oxygen_vol: min_oxygen_vol,
-    max_oxygen_vol: max_oxygen_vol,
     pickup_available: pickup_available,
-    pressure_type_hydrogen: pressure_type_hydrogen,
-    pressure_type_oxygen: pressure_type_oxygen,
     verified: verified,
     available: available,
-    transport_costs: transport_costs,
-    compression_costs: compression_costs,
     has_drtfc: has_drtfc,
-    hydrogen_purity: hydrogen_purity,
-    oxygen_purity: oxygen_purity,
   )
   supplier_location.supplier = supplier
   supplier_location.save!
   p supplier_location
+
+  types.first(rand(1..5)).each do |attributes|
+    p attributes
+    supply_type = SupplyType.new(attributes)
+    supply_type.supplier_location = supplier_location
+    supply_type.save!
+  end
 end
 
 CSV.foreach((filepath_offtakers), headers: true, col_sep: ";") do |row|
@@ -69,9 +106,10 @@ CSV.foreach((filepath_offtakers), headers: true, col_sep: ";") do |row|
     req_pressure_hydrogen = row[10].to_f 
     req_pressure_oxygen = row[11].to_f
     required_purity_hydrogen = row[12]
-    required_purity_oxygen = row[13]
+    interest_oxygen = row[14]
+    investment_period_years = row[15]
+    contract_period_years = row[16]
 
-  
     offtaker_location = OfftakerLocation.new(
       name: name,
       longitude: lon,
@@ -79,12 +117,13 @@ CSV.foreach((filepath_offtakers), headers: true, col_sep: ";") do |row|
       postal_code: postal_code,
       house_nr: house_nr,
       own_transport: own_transport,
-      req_hydrogen_vol: req_hydrogen_vol,
-      req_oxygen_vol: req_oxygen_vol,
-      req_pressure_hydrogen: req_pressure_hydrogen,
-      req_pressure_oxygen: req_pressure_oxygen,
-      required_purity_hydrogen: required_purity_hydrogen,
-      required_purity_oxygen: required_purity_oxygen
+      required_hydrogen_volume: req_hydrogen_vol,
+      required_oxygen_volume: req_oxygen_vol,
+      required_hydrogen_pressure: req_pressure_hydrogen,
+      required_hydrogen_purity: required_purity_hydrogen,
+      interest_oxygen: interest_oxygen,
+      investment_period_years: investment_period_years,
+      contract_period_years: contract_period_years
     )
     offtaker_location.offtaker = offtaker
     offtaker_location.save!

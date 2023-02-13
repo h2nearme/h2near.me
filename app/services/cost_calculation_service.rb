@@ -2,13 +2,11 @@ class CostCalculationService
 
   def initialize(scenario)
     @scenario = scenario
-    @req_offtaker_h2 = scenario.offtaker_location.req_hydrogen_vol.to_f #KG per day (12 hours)
-    @req_offtaker_o2 = scenario.offtaker_location.req_oxygen_vol.to_f
-    @re_offtaker_h2_purity = scenario.offtaker_location.required_purity_hydrogen
-    @scenario_distance_pipeline = scenario.distance_pipeline.to_f
-    @scenario_distance_lorry = scenario.distance_lorry.to_f
-    @req_offtaker_compression_h2 = scenario.offtaker_location.req_pressure_hydrogen
-    @req_offtaker_compression_02 = scenario.offtaker_location.req_pressure_oxygen
+    @req_offtaker_h2 = scenario.offtaker_location.required_hydrogen_volume.to_f #KG per day (12 hours)
+    @req_offtaker_o2 = scenario.offtaker_location.required_oxygen_volume.to_f
+    @re_offtaker_h2_purity = scenario.offtaker_location.required_hydrogen_purity
+    @scenario_distance = scenario.distance.to_f
+    @req_offtaker_compression_h2 = scenario.offtaker_location.required_hydrogen_pressure
     @offtaker_own_transport = scenario.offtaker_location.own_transport
     @scenario_hydrogen_purity = scenario.offtaker_locations.required_hydrogen_purity 
     @investment_period = scenario.offtaker_location.investment_period_years # years
@@ -63,7 +61,7 @@ class CostCalculationService
 
   end
 
-  def cost_road_h2(required_compression, required_purity)
+  def cost_road(required_compression, required_purity)
     # This function is used to calculate the costs to transport hydrogen over road between
     # an offtaker and a supplier. It considers the different type of required compression.
     
@@ -80,28 +78,28 @@ class CostCalculationService
       compression_costs = @costs_h2_700_comp
       storage_costs = @costs_h2_300_storage
     end
-    total_cost_transport_h2_lorry = @costs_lorry_h2 * @scenario_distance_pipeline # needs to change to distance_lorry
+    total_cost_transport_h2_lorry = @costs_lorry_h2 * @scenario_distance
     total_costs_h2_road = @req_offtaker_h2 * (cost_secondary_h2 + compression_costs + storage_costs + total_cost_transport_h2_lorry + get_purity_costs(required_purity))
     return total_costs_h2_road
   end
 
-  def cost_pipeline_h2(required_purity)
+  def cost_pipeline(required_purity)
     # This function is used to calculate the costs to transport hydrogen through a pipeline
     # from a supplier to an offtaker.
 
-    total_cost_transport_h2_pipeline = ( (@capex_pipe / @investment_period) * @scenario_distance_pipeline) + ( ((@opex_pipe / 365 ) * @contract_period ) * @scenario_distance_pipeline)
+    total_cost_transport_h2_pipeline = ( (@capex_pipe / @investment_period) * @scenario_distance) + ( ((@opex_pipe / 365 ) * @contract_period ) * @scenario_distance)
     total_costs_h2_pipeline = (@req_offtaker_h2 * (cost_secondary_h2 + get_purity_costs(required_purity) ) ) + total_cost_transport_h2_pipeline
     return total_costs_h2_pipeline
   end
 
   # def cost_road_o2(pressure)
   #   total_cost_o2 = (@capex_opex_elec + @grid_fees + @taxes + (@ws_elec_costs*8) ) - (@drtfc_discount*8)
-  #   total_cost_transport_o2 = @costs_lorry_o2 * @scenario_distance_pipeline
+  #   total_cost_transport_o2 = @costs_lorry_o2 * @scenario_distance
   #   total_costs_o2_road = @req_offtaker_o2 * (total_cost_o2 + @costs_o2_300_comp + @costs_o2_300_storage + total_cost_transport_o2)
   #   return total_costs_o2_road
   # end
 
-  def cost_import_h2(required_purity)
+  def cost_import(required_purity)
     total_costs_h2_import = @req_offtaker_h2 * (@costs_h2_import + get_purity_costs(required_purity) )
     return total_costs_h2_import
   end
@@ -125,20 +123,13 @@ class CostCalculationService
     if @req_offtaker_h2 > 0
       attributes.merge!(
         {
-          costs_road_h2: cost_road_h2(@required_compression, @scenario_hydrogen_purity),
-          costs_pipeline_h2: cost_pipeline_h2(@scenario_hydrogen_purity),
-          costs_import_h2: cost_import_h2(@scenario_hydrogen_purity)
+          costs_road: cost_road(@required_compression, @scenario_hydrogen_purity),
+          costs_pipeline: cost_pipeline(@scenario_hydrogen_purity),
+          costs_import: cost_import(@scenario_hydrogen_purity)
         }
       )
     end
 
-    # if @req_offtaker_o2 > 0
-    #  attributes.merge!(
-    #   {
-    #     costs_road_o2: total_costs_o2_road
-    #   }
-    #  )
-    # end
     return attributes
   end
 end

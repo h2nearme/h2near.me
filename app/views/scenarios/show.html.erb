@@ -65,44 +65,38 @@
             <div class="data-label">
               Distance: 
             </div>
-            <div class="data-value <%= 'empty' unless @scenario.distance_pipeline %>">
-              <%= number_with_precision(@scenario.distance_pipeline, precision: 2, delimiter: '.', separator: ',') %> km
+            <div class="data-value <%= 'empty' unless @scenario.distance %>">
+              <%= number_with_precision(@scenario.distance, precision: 2, delimiter: '.', separator: ',') %> km
             </div>
             <div class="data-label">
               Costs Road h2: 
             </div>
-            <div class="data-value <%= 'empty' unless @scenario.costs_road_h2 %>">
-              £ <%= number_with_precision(@scenario.costs_road_h2, precision: 2, delimiter: '.', separator: ',') %>
+            <div class="data-value <%= 'empty' unless @scenario.costs_road %>">
+              £ <%= number_with_precision(@scenario.costs_road, precision: 2, delimiter: '.', separator: ',') %>
             </div>
             <div class="data-label">
               Costs Pipeline h2: 
             </div>
-            <div class="data-value <%= 'empty' unless @scenario.costs_pipeline_h2 %>">
-              £ <%= number_with_precision(@scenario.costs_pipeline_h2, precision: 2, delimiter: '.', separator: ',') %>
-            </div>
-            <div class="data-label">
-              Costs Road o2: 
-            </div>
-            <div class="data-value <%= 'empty' unless @scenario.costs_road_o2 %>">
-              £ <%= number_with_precision(@scenario.costs_road_o2, precision: 2, delimiter: '.', separator: ',') %>
+            <div class="data-value <%= 'empty' unless @scenario.costs_pipeline %>">
+              £ <%= number_with_precision(@scenario.costs_pipeline, precision: 2, delimiter: '.', separator: ',') %>
             </div>
             <div class="data-label">
               Requried Offtaker h2: 
             </div>
-            <div class="data-value <%= 'empty' unless @scenario.offtaker_location.req_hydrogen_vol %>">
-              <%= number_with_precision(@scenario.offtaker_location.req_hydrogen_vol, precision: 2, delimiter: '.', separator: ',') %> kg
+            <div class="data-value <%= 'empty' unless @scenario.offtaker_location.required_hydrogen_volume %>">
+              <%= number_with_precision(@scenario.offtaker_location.required_hydrogen_volume, precision: 2, delimiter: '.', separator: ',') %> kg
             </div>
             <div class="data-label">
               Requried Offtaker o2: 
             </div>
-            <div class="data-value <%= 'empty' unless @scenario.offtaker_location.req_oxygen_vol %>">
-              <%= number_with_precision(@scenario.offtaker_location.req_oxygen_vol, precision: 2, delimiter: '.', separator: ',') %> kg
+            <div class="data-value <%= 'empty' unless @scenario.offtaker_location.required_oxygen_volume %>">
+              <%= number_with_precision(@scenario.offtaker_location.required_oxygen_volume, precision: 2, delimiter: '.', separator: ',') %> kg
             </div>
             <div class="data-label">
               Costs import h2: 
             </div>
-            <div class="data-value <%= 'empty' unless @scenario.costs_import_h2 %>">
-              £ <%= number_with_precision(@scenario.costs_import_h2, precision: 2, delimiter: '.', separator: ',') %>
+            <div class="data-value <%= 'empty' unless @scenario.costs_import %>">
+              £ <%= number_with_precision(@scenario.costs_import, precision: 2, delimiter: '.', separator: ',') %>
             </div>
             <div class="data-label">
               Cheapest option h2: 
@@ -155,25 +149,19 @@
               Required hydrogen volume: 
             </div>
             <div class="data-value">
-              <%= @scenario.offtaker_location.req_hydrogen_vol %>
+              <%= @scenario.offtaker_location.required_hydrogen_volume %>
             </div>
             <div class="data-label">
               Required hydrogen pressure: 
             </div>
             <div class="data-value">
-              <%= @scenario.offtaker_location.req_pressure_hydrogen %>
+              <%= @scenario.offtaker_location.required_hydrogen_pressure %>
             </div>
             <div class="data-label">
               Required oxygen volume: 
             </div>
             <div class="data-value">
-              <%= @scenario.offtaker_location.req_oxygen_vol %>
-            </div>
-            <div class="data-label">
-              Required oxygen pressure: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.req_pressure_oxygen %>
+              <%= @scenario.offtaker_location.required_oxygen_volume %>
             </div>
           </div>
         </div>

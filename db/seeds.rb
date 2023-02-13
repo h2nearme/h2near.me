@@ -106,7 +106,6 @@ CSV.foreach((filepath_offtakers), headers: true, col_sep: ";") do |row|
     req_pressure_hydrogen = row[10].to_f 
     req_pressure_oxygen = row[11].to_f
     required_purity_hydrogen = row[12]
-    required_purity_oxygen = row[13]
     interest_oxygen = row[14]
     investment_period_years = row[15]
     contract_period_years = row[16]

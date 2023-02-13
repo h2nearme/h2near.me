@@ -64,25 +64,19 @@ class Offtakers::OfftakerLocationsController < Offtakers::BaseController
   private
 
   def nearest_supplier_locations
-    offtaker_pressure_hydrogen = @offtaker_location.req_pressure_hydrogen.to_f.zero? ? 0.0 : ['both', @offtaker_location.req_pressure_hydrogen.to_f.to_s]
-    offtaker_pressure_oxygen = @offtaker_location.req_pressure_oxygen.to_f.zero? ? 0.0 : ['both', @offtaker_location.req_pressure_oxygen.to_f.to_s]
+    offtaker_pressure_hydrogen = @offtaker_location.required_hydrogen_pressure.to_f.zero? ? 0.0 : @offtaker_location.required_hydrogen_pressure.to_f.to_s
     locations = SupplierLocation.near(
       @offtaker_location.coordinates, 
       500, 
       units: :km
+    ).joins(:supply_types).where(
+      'supply_types.minimum_hydrogen_volume <= ? AND supply_types.maximum_hydrogen_volume >= ? AND supply_types.pressure_type_hydrogen = ?',
+      (@offtaker_location.required_hydrogen_volume || 0),
+      (@offtaker_location.required_hydrogen_volume || 0),
+      offtaker_pressure_hydrogen,
     ).where(
-      'min_hydrogen_vol <= ? AND max_hydrogen_vol >= ? AND min_oxygen_vol <= ? AND max_oxygen_vol >= ?',
-      (@offtaker_location.req_hydrogen_vol || 0),
-      (@offtaker_location.req_hydrogen_vol || 0),
-      (@offtaker_location.req_oxygen_vol || 0),
-      (@offtaker_location.req_oxygen_vol || 0),
-    ).where(
-      pressure_type_hydrogen: offtaker_pressure_hydrogen,
-      pressure_type_oxygen: offtaker_pressure_oxygen,
       verified: true,
       available: true,
-      hydrogen_purity: (@offtaker_location.required_purity_hydrogen || [nil, 'pure', 'high pure', 'ultrapure']),
-      oxygen_purity: (@offtaker_location.required_purity_oxygen || [nil, 'pure', 'high pure', 'ultrapure']),
     )
     if @offtaker_location.own_transport
       locations = locations.where(pickup_available: @offtaker_location.own_transport)
@@ -101,10 +95,9 @@ class Offtakers::OfftakerLocationsController < Offtakers::BaseController
       :latitude, 
       :postal_code, 
       :house_nr, 
-      :req_hydrogen_vol, 
-      :req_oxygen_vol, 
-      :req_pressure_hydrogen, 
-      :req_pressure_oxygen, 
+      :required_hydrogen_volume, 
+      :required_oxygen_volume, 
+      :required_hydrogen_pressure, 
       :own_transport
     )
   end

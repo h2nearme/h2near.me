@@ -12,11 +12,11 @@ class Scenario < ApplicationRecord
   end
 
   def compare_cheapest_h2(value)
-    if value == self.costs_road_h2
+    if value == self.costs_road
       return 'road'
-    elsif value == self.costs_pipeline_h2
+    elsif value == self.costs_pipeline
       return 'pipeline'
-    elsif value == self.costs_import_h2
+    elsif value == self.costs_import
       return 'import'
     end
   end

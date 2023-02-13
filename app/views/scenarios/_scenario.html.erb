@@ -1,6 +1,6 @@
   <li id="<%= dom_id scenario %>">
     <%= link_to scenario_path(scenario) do %>
-      <%= "#{offtaker_signed_in? ? scenario.supplier_location.name : scenario.offtaker_location.name} - #{scenario.distance_pipeline}km" %> &rarr;
+      <%= "#{offtaker_signed_in? ? scenario.supplier_location.name : scenario.offtaker_location.name} - #{scenario.distance}km" %> &rarr;
     <% end %>
     <button 
       data-action="click->maps#drawRoute" 

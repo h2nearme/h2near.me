@@ -1,4 +1,4 @@
-<%= simple_form_for [:suppliers, @supplier_location], class: "location-form" do |f| %>
+<%= simple_form_for [:suppliers, @supplier_location], class: "location-form", data: { turbo: false } do |f| %>
   <ul class="nav nav-pills" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="location-tab" data-bs-toggle="tab" data-bs-target="#location" type="button" role="tab" aria-controls="location" aria-selected="true">
@@ -63,9 +63,6 @@
         <h4>
           Location
         </h4>
-        <div class="field">
-          <%= f.input :supply_type, collection: ['hydrogen', 'oxygen', 'both'], prompt: "Please select an option", class: "form-control", label: "Does this location deliver hydrogen, oxygen or both?", label_html: { class: "form-label" } %>
-        </div>
 
         <div class="field">
           <%= f.input :pickup_available, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Is pickup with own transport available at this location?", label_html: { class: "form-label" } %>
@@ -80,18 +77,6 @@
         </div>
       </div>
 
-      <div class="field-group">
-        <h4>
-          Cost
-        </h4>
-        <div class="field">
-          <%= f.input :transport_costs, class: "form-control", placeholder: "Per km", label: "What are the transport costs at this location?", label_html: { class: "form-label" } %>
-        </div>
-
-        <div class="field">
-          <%= f.input :compression_costs, class: "form-control", placeholder: "Per kg", label: "What are the compression costs at this location?", label_html: { class: "form-label" } %>
-        </div>
-      </div>
 
 
       <div class="buttons py-4" data-controller="tabs">
@@ -108,47 +93,55 @@
     <div class="tab-pane pb-4" id="supply" role="tabpanel" aria-labelledby="supply-tab">
       <!-- SUPPLY TAB DATA !-->
 
-      <div class="field-group">
-        <h4>
-          Hydrogen
-        </h4>
-        <div class="field">
-          <%= f.input :min_hydrogen_vol, class: "form-control", placeholder: "In kg", label: "What is the minimum hydrogen volume required for offtakers?", label_html: { class: "form-label" } %>
-        </div>
+      <div class="accordion my-3" id="supply-types-accordion">
+        <%= f.simple_fields_for :supply_types do |p| %>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="<%= p.object.object_id %>">
+              <button class="accordion-button <%= 'collapsed' unless p.options[:child_index].zero? %>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= p.object.object_id %>" aria-expanded="true" aria-controls="collapse-<%= p.object.object_id %>">
+                <% if p.object.name %>
+                  <%= p.object.name %>
+                <% else %>
+                  <div class="text-primary">
+                    <i class="fa-solid fa-plus"></i> 
+                    <span class="ms-2 d-inline-block text-primary">
+                      Add new supply type
+                    </span>
+                  </div>
+                <% end %>
+              </button>
+            </h2>
+            <div id="collapse-<%= p.object.object_id %>" class="accordion-collapse collapse <%= 'show' if p.options[:child_index].zero? %>" aria-labelledby="<%= p.object.object_id %>" data-bs-parent="#supply-types-accordion">
+              <div class="accordion-body light-wrapper pb-5">
+                <%= f.input :id, as: :hidden %>
+                <div class="field">
+                  <%= p.input :name, class: "form-control", placeholder: "E.g. high pure", label: "What is the name for this purity of hydrogen?", label_html: { class: "form-label" } %>
+                </div>
 
-        <div class="field">
-          <%= f.input :max_hydrogen_vol, class: "form-control", placeholder: "In kg", label: "What is the maximum hydrogen volume required for offtakers?", label_html: { class: "form-label" } %>
-        </div>
+                <div class="field">
+                  <%= p.input :minimum_hydrogen_volume, class: "form-control", placeholder: "In kg", label: "What is the minimum hydrogen volume required for offtakers?", label_html: { class: "form-label" } %>
+                </div>
 
-        <div class="field">
-          <%= f.input :pressure_type_hydrogen, collection: [300, 700, 'both'], prompt: "Please select an option", class: "form-control", label: "What is the pressure type hydrogen is offered in?", label_html: { class: "form-label" } %>
-        </div>
+                <div class="field">
+                  <%= p.input :maximum_hydrogen_volume, class: "form-control", placeholder: "In kg", label: "What is the maximum hydrogen volume required for offtakers?", label_html: { class: "form-label" } %>
+                </div>
 
-        <div class="field">
-          <%= f.input :hydrogen_purity, collection: ['pure', 'high pure', 'ultrapure'], prompt: "Please select an option", class: "form-control", label: "What is the purity of hydrogen offered?", label_html: { class: "form-label" } %>
-        </div>
+                <div class="field">
+                  <%= p.input :pressure_type_hydrogen, collection: [300, 700, 'both'], prompt: "Please select an option", class: "form-control", label: "What is the pressure type hydrogen is offered in?", label_html: { class: "form-label" } %>
+                </div>
+
+                <div class="field">
+                  <%= p.input :compression_costs, class: "form-control", placeholder: "Per kg", label: "What are the compression costs at this location?", label_html: { class: "form-label" } %>
+                </div>
+
+                <div class="field">
+                  <%= p.input :transport_costs, class: "form-control", placeholder: "Per km", label: "What are the transport costs at this location?", label_html: { class: "form-label" } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
 
-      <div class="field-group">
-        <h4>
-          Oxygen
-        </h4>
-        <div class="field">
-          <%= f.input :min_oxygen_vol, class: "form-control", placeholder: "In kg", label: "What is the minimum oxygen volume required for offtakers?", label_html: { class: "form-label" } %>
-        </div>
-
-        <div class="field">
-          <%= f.input :max_oxygen_vol, class: "form-control", placeholder: "In kg", label: "What is the maximum oxygen volume required for offtakers?", label_html: { class: "form-label" } %>
-        </div>
-
-        <div class="field">
-          <%= f.input :pressure_type_oxygen, collection: [300, 700, 'both'], prompt: "Please select an option", class: "form-control", label: "What is the pressure type oxygen is offered in?", label_html: { class: "form-label" } %>
-        </div>
-
-        <div class="field">
-          <%= f.input :oxygen_purity, collection: ['pure', 'high pure', 'ultrapure'], prompt: "Please select an option", class: "form-control", label: "What is the purity of oxygen offered?", label_html: { class: "form-label" } %>
-        </div>
-      </div>
 
 
       <div class="buttons py-4" data-controller="tabs">

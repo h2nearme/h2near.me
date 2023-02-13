@@ -38,10 +38,11 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
   end
 
   def edit
+    @supplier_location.supply_types.build
   end
 
   def update
-    if @supplier_location.update(supplier_location_params)
+    if @supplier_location.update!(supplier_location_params)
       redirect_to suppliers_supplier_location_path(@supplier_location)
     else
       render :edit
@@ -84,7 +85,21 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
       :pressure_type_oxygen,
       :oxygen_purity,
       :transport_costs,
-      :compression_costs
+      :compression_costs,
+      supply_types_attributes: [
+        :id,
+        :verified,
+        :available,
+        :pickup_available,
+        :has_drtfc,
+        :purification_onsite,
+        :name,
+        :minimum_hydrogen_volume,
+        :maximum_hydrogen_volume,
+        :pressure_type_hydrogen,
+        :compression_costs,
+        :transport_costs
+      ]
     )
   end
 end

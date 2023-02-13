@@ -1,3 +1,6 @@
+require "json"
+require "open-uri"
+
 class CostCalculationService
 
   def initialize(scenario)
@@ -16,7 +19,7 @@ class CostCalculationService
     @opex_pipe = ENV['OPEX_PIPELINE'].to_f  # GBP per KG
     @grid_fees = ENV['GRID_FEES'].to_f  # GBP per KG
     @taxes = ENV['TAXES'].to_f  # GBP per KG
-    @ws_elec_costs = ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
+    @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
     @costs_lorry_h2 = ENV['COSTS_TRANSPORT_LORRY_H2'].to_f  # GBP per KM
     @costs_h2_300_comp = ENV['COSTS_H2_300_COMPRESSION'].to_f  # GBP per KG
     @costs_h2_700_comp = ENV['COSTS_H2_700_COMPRESSION'].to_f  # GBP per KG
@@ -38,7 +41,16 @@ class CostCalculationService
   private
 
   def get_current_electricty_price
-    # api call to get current price of electricty
+    begin
+      today = Date.tomorrow.strftime("%d-%m-%Y")
+      url = "https://odegdcpnma.execute-api.eu-west-2.amazonaws.com/development/prices?dno=14&voltage=HV&start=#{today}&end=#{today}"
+      cost_serialized = URI.open(url).read
+      cost_data = JSON.parse(cost_serialized)
+      cost =  cost_data['data']['data'][0]['Overall'] / 100
+      return (cost > 0 ? cost : nil)
+    rescue OpenURI::HTTPError
+      return nil
+    end
   end
 
   def cost_secondary_h2

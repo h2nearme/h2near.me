@@ -38,6 +38,6 @@ class ScenarioPresenter
   end
 
   def cheapest_option(cheapest)
-    "#{@scenario.compare_cheapest_h2(cheapest)&.capitalize} is the cheapest option at \n £ #{number_with_precision(cheapest, precision: 2, delimiter: '.', separator: ',')}"
+    "#{@scenario.compare_cheapest_h2(cheapest)&.capitalize} is the cheapest option at </br> £ #{number_with_precision(cheapest, precision: 2, delimiter: '.', separator: ',')}".html_safe
   end
 end

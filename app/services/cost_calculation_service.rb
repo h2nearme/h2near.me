@@ -46,7 +46,7 @@ class CostCalculationService
       url = "https://odegdcpnma.execute-api.eu-west-2.amazonaws.com/development/prices?dno=14&voltage=HV&start=#{today}&end=#{today}"
       cost_serialized = URI.open(url).read
       cost_data = JSON.parse(cost_serialized)
-      cost =  cost_data['data']['data'][0]['Overall'] / 100
+      cost =  (cost_data['data']['data'][0]['Overall'] / 100) * @energy_price_ratio
       return (cost > 0 ? cost : nil)
     rescue OpenURI::HTTPError
       return nil
@@ -82,8 +82,12 @@ class CostCalculationService
     # Returns:
     #    total cost over raod
 
+    if @offtaker_own_transport
+      costs_lorry =  0
+    else
+      costs_lorry = @costs_lorry_h2s
 
-    total_cost_transport_h2_lorry = @costs_lorry_h2 * @scenario_distance
+    total_cost_transport_h2_lorry = costs_lorry * @scenario_distance
     total_costs_h2_road = @req_offtaker_h2 * (cost_secondary_h2 + compression_and_storage_costs + total_cost_transport_h2_lorry + get_purity_costs)
     return total_costs_h2_road
   end
@@ -92,7 +96,7 @@ class CostCalculationService
     if @req_offtaker_compression_h2 == 300.0
       @costs_h2_300_comp + @costs_h2_300_storage
     elsif @req_offtaker_compression_h2 == 700.0
-      @costs_h2_700_comp + @costs_h2_300_storage
+      @costs_h2_700_comp + @costs_h2_700_storage
     else
       0
     end

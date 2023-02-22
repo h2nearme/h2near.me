@@ -1,6 +1,6 @@
 <% content_for :title, (request.path.include?('suppliers') ? "Supplier sign up" : "Offtaker sign up") %>
 
-<div class="container">
+<div class="container" data-controller="disabled-with-check">
   <div class="row">
     <div class="col-12 col-md-6">
       <h2><%= (request.path.include?('suppliers') ? "Supplier sign up" : "Offtaker sign up") %></h2>
@@ -26,8 +26,14 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
         </div>
 
-        <div class="actions">
-          <%= f.submit "Sign up", class: "btn btn-primary" %>
+        <div class="form-check mt-3">
+          <label for="consent" class="form-check-label">I consent to blabla and the <a href="#">policy</a></label>
+          <input type="checkbox" id="consent" class="form-check-input" data-action="input->disabled-with-check#handleInput">
+        </div>
+        <div class="actions" data-disabled-with-check-target="wrapper" data-balloon-pos="up-left" aria-label="Please accept the terms and conditions before submitting">
+          <%= f.button :button, class: "btn btn-primary", disabled: true, data: { 'disabled-with-check-target': 'button' } do %>
+            Submit
+          <% end %>
         </div>
       <% end %>
       <div class="links">

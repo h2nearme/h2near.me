@@ -16,12 +16,14 @@
         &larr; Back to dashboard
       <% end %>
       <div class="under-map-button">
-        <button class="btn btn-primary" data-location="<%= [@offtaker_locations.first.longitude, @offtaker_locations.first.latitude, (@offtaker_locations.first.name || @offtaker_locations.first.address), @offtaker_locations.first.id].to_json %>" data-action="click->maps#drawRoute">
-          <span class="text-light">
-            Find nearest location 
-          </span>
-          <i class="fa-solid fa-location-crosshairs"></i>
-        </button>
+        <% if @offtaker_locations.any? %>
+          <button class="btn btn-primary" data-location="<%= [@offtaker_locations.first.longitude, @offtaker_locations.first.latitude, (@offtaker_locations.first.name || @offtaker_locations.first.address), @offtaker_locations.first.id].to_json %>" data-action="click->maps#drawRoute">
+            <span class="text-light">
+              Find nearest location 
+            </span>
+            <i class="fa-solid fa-location-crosshairs"></i>
+          </button>
+        <% end %>
       </div>
       <h1 class="mt-4">
         Location details for <%= @supplier_location.name %>
@@ -161,6 +163,10 @@
               Nothing here yet
               <% if @offtaker_locations.any? %>
               , <a href="#" data-location="<%= [@offtaker_locations.first.longitude, @offtaker_locations.first.latitude, (@offtaker_locations.first.name || @offtaker_locations.first.address), @offtaker_locations.first.id].to_json %>" data-action="click->maps#drawRoute">Plot a route</a>
+              <% else %>
+                <div class="alert alert-info mt-3" role="alert">
+                  Unfortunately there are no supplier locations near this location.
+                </div>
               <% end %>
             <% end %>
           </ul>

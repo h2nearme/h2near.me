@@ -8,3 +8,23 @@ body {
   --accent-background: var(--mild-gray);
   --mild-background: var(--off-white);
 }
+
+body.supplier {
+  --accent-color: var(--mint);
+  --bs-link-color: var(--mint);
+}
+
+body.supplier .btn-primary {
+  --bs-btn-bg: var(--mint);
+  --bs-btn-border-color: var(--mint);
+  --bs-btn-hover-bg: var(--mint-dark);
+  --bs-btn-hover-border-color: var(--mint-dark);
+  --bs-btn-active-bg: var(--mint-dark);
+  --bs-btn-active-border-color: var(--mint-dark);
+  --bs-btn-disabled-bg: var(--mint);
+  --bs-btn-disabled-border-color: var(--mint);
+}
+
+body.supplier .nav-pills .nav-link.active {
+  background-color: var(--mint);
+}

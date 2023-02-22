@@ -24,6 +24,7 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
 
   def new
     @supplier_location = SupplierLocation.new
+    @supplier_location.supply_types.build
   end
 
   def create

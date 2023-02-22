@@ -21,9 +21,9 @@ class CostCalculationService
     @taxes = ENV['TAXES'].to_f  # GBP per KG
     @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
     @costs_lorry_h2 = ENV['COSTS_TRANSPORT_LORRY_H2'].to_f  # GBP per KM
-    @costs_h2_300_comp = ENV['COSTS_H2_300_COMPRESSION'].to_f  # GBP per KG
+    @costs_h2_350_comp = ENV['COSTS_H2_350_COMPRESSION'].to_f  # GBP per KG
     @costs_h2_700_comp = ENV['COSTS_H2_700_COMPRESSION'].to_f  # GBP per KG
-    @costs_h2_300_storage = ENV['COSTS_H2_300_STORAGE'].to_f  # GBP per KG
+    @costs_h2_350_storage = ENV['COSTS_H2_350_STORAGE'].to_f  # GBP per KG
     @costs_h2_700_storage = ENV['COSTS_H2_700_STORAGE'].to_f  # GBP per KG
     @drtfc_discount = ENV['DRTFC_DISCOUNT'].to_f  # GBP per KG
     @costs_h2_import = ENV['COSTS_H2_IMPORT'].to_f  # GBP per KG
@@ -93,8 +93,8 @@ class CostCalculationService
   end
 
   def compression_and_storage_costs
-    if @req_offtaker_compression_h2 == 300.0
-      @costs_h2_300_comp + @costs_h2_300_storage
+    if @req_offtaker_compression_h2 == 350.0
+      @costs_h2_350_comp + @costs_h2_350_storage
     elsif @req_offtaker_compression_h2 == 700.0
       @costs_h2_700_comp + @costs_h2_700_storage
     else
@@ -134,7 +134,7 @@ class CostCalculationService
 
     # if (scenario.supplier_location.has_drtfc == TRUE) then discount else 0
 
-    # if the required offtaker compression for hydrogen is 300 or both, then calculate cost of transport 
+    # if the required offtaker compression for hydrogen is 350 or both, then calculate cost of transport 
     # over road with the respective compression
 
 

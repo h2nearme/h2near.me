@@ -12,7 +12,7 @@ types = [{
   name: 'Standard', # ~98% / 1nine
   minimum_hydrogen_volume: 100,
   maximum_hydrogen_volume: 100000000,
-  pressure_type_hydrogen: 300,
+  pressure_type_hydrogen: 350,
   compression_costs: 1.1396,
   transport_costs: 0.182269
 },
@@ -36,7 +36,7 @@ types = [{
   name: 'High pure', # >=99.999% / 5nines
   minimum_hydrogen_volume: 200,
   maximum_hydrogen_volume: 100000,
-  pressure_type_hydrogen: 300,
+  pressure_type_hydrogen: 350,
   compression_costs: 1.1396,
   transport_costs: 0.182269
 },

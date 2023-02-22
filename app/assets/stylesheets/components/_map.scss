@@ -2,7 +2,7 @@
   position: sticky;
   top: 0px;
   right: 0;
-  width: 50vw;
+  width: calc(50vw - 12px);
   max-height: 100vh;
   height: 800px;
   background-color: var(--light-gray);

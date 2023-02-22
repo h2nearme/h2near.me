@@ -114,7 +114,13 @@
               <div class="accordion-body light-wrapper pb-5">
                 <%= f.input :id, as: :hidden %>
                 <div class="field">
-                  <%= p.input :name, class: "form-control", placeholder: "E.g. high pure", label: "What is the name for this purity of hydrogen?", label_html: { class: "form-label" } %>
+                  <%= p.input :name, collection: [
+                    'Standard', 
+                    'ITMs', 
+                    'Pure', 
+                    'High pure', 
+                    'Ultrapure'
+                    ], prompt: "Select required purity", class: "form-control", placeholder: "E.g. high pure", label: "What is the name for this purity of hydrogen?", label_html: { class: "form-label" } %>
                 </div>
 
                 <div class="field">

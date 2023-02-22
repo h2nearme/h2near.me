@@ -3,9 +3,9 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
 
   def dashboard
     if params[:q]
-      @supplier_locations = current_supplier.supplier_locations.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+      @supplier_locations = current_supplier.supplier_locations.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 5)
     else
-      @supplier_locations = current_supplier.supplier_locations.order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+      @supplier_locations = current_supplier.supplier_locations.order('updated_at DESC').paginate(page: params[:page], per_page: 5)
     end
     @scenarios = current_supplier.scenarios
     respond_to do |format|

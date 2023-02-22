@@ -63,13 +63,13 @@
                       class="rating <%= 'active' if scenario.favourite %>">
                         <i class="fa-solid fa-star"></i> 
                       </button>
-                      <a href="mailto:<%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>?subject=Contact via H2near.me" target="_blank">
-                        <%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>
-                      </a>
+                      <%= link_to scenario_path(scenario) do %>
+                        <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance %>km
+                      <% end %>
                     </div>
-                    <%= link_to scenario_path(scenario) do %>
-                      <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance %>km
-                    <% end %>
+                    <a href="mailto:<%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>?subject=Contact via H2near.me" target="_blank">
+                      <%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>
+                    </a>
                   </li>
                 <% end %>
               </ul>

@@ -1,6 +1,19 @@
 .pagination {
   display: grid;
   grid-auto-flow: column;
-  max-width: 300px;
   margin: 20px 0;
+  width: fit-content;
+}
+
+.pagination a:not(.previous_page):not(.next_page),
+em.current {
+  margin: 0px 5px;
+}
+
+.pagination .previous_page {
+  margin-right: 10px;
+}
+
+.pagination .next_page {
+  margin-left: 10px;
 }

@@ -98,7 +98,7 @@
             </div>
             <div class="accordion mb-3" id="supply-types-accordion">
               <h2 class="mb-3">
-                Supply details
+                Supply details by purity
               </h2>
               <% @supplier_location.supply_types.each_with_index do |supply_type, index| %>
                 <div class="accordion-item">
@@ -111,10 +111,13 @@
                     <div class="accordion-body light-wrapper pb-5">
                       <div class="data">
                         <div class="data-label">
-                          Name
+                          Name 
                         </div>
                         <div class="data-value">
                           <%= supply_type.name %>
+                          <span data-balloon-pos="up" aria-label="<%= supply_type.present.description %>">
+                            <i class="fa-solid fa-circle-question"></i>
+                          </span>
                         </div>
                         <div class="data-label">
                           Minimum hydrogen volume

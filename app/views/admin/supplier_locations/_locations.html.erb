@@ -1,0 +1,11 @@
+
+<% @supplier_locations.each do |supplier_location| %>
+  <%= render partial: "location", locals: { supplier_location: supplier_location } %>
+<% end %>
+<%= will_paginate @supplier_locations %>
+
+<% unless @supplier_locations.any? %>
+  <p>
+    No locations
+  </p>
+<% end %>

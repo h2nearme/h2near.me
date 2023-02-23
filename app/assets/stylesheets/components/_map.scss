@@ -43,6 +43,10 @@ mapboxgl-ctrl-top-right {
   text-align: center;
 }
 
+.admin .mapboxgl-popup-content button {
+  display: none;
+}
+
 .popup-content ~ div {
   text-align: center;
 }

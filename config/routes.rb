@@ -8,13 +8,14 @@ Rails.application.routes.draw do
     sessions: "offtakers/sessions"
    }
    devise_for :admins, controllers: { 
-    registrations: "admins/registrations",
-    sessions: "admins/sessions"
+    registrations: "admin/registrations",
+    sessions: "admin/sessions"
    }, path: 'admin'
 
   authenticate :admin, ->(admin) { admin } do
     namespace :admin do
       get '/', to: 'supplier_locations#index'
+      post '/supplier_locations/:id/verify', as: :verify, to: "supplier_locations#verify"
     end
   end
 

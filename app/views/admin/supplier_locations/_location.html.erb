@@ -1,0 +1,19 @@
+<li class="location-list-item">
+    <%= link_to suppliers_supplier_location_path(supplier_location), class: "location-list-data" do %>
+      <h2>
+        <%= supplier_location.name %>
+      </h2>
+      <p>
+        <%= supplier_location.address %>
+      </p>
+    <% end %>
+    <div class="location-list-actions">
+      <button data-controller="mark-verified" data-action="click->mark-verified#handleClick"
+      data-url="<%= admin_verify_url(supplier_location) %>"
+      aria-label="<%= supplier_location.verified ? 'This location is verified' : 'This location is not verified' %>"
+      data-balloon-pos="left"
+      class="btn <%=  supplier_location.verified ? 'btn-success active' : 'btn-warning' %>">
+        <i class="fa-solid fa-check"></i> 
+      </button>
+    </div>
+</li>

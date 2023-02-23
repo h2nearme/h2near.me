@@ -12,30 +12,40 @@
       </div>
     </div>
     <div class="col-12 position-relative">
-      <%= link_to suppliers_path, class: "back-button" do %>
+      <%= link_to (supplier_signed_in? ? suppliers_path : admin_path), class: "back-button" do %>
         &larr; Back to dashboard
       <% end %>
       <div class="under-map-button">
-        <% if @offtaker_locations.any? %>
+        <% if @offtaker_locations.any? && supplier_signed_in? %>
           <button class="btn btn-primary" data-location="<%= [@offtaker_locations.first.longitude, @offtaker_locations.first.latitude, (@offtaker_locations.first.name || @offtaker_locations.first.address), @offtaker_locations.first.id].to_json %>" data-action="click->maps#drawRoute">
             <span class="text-light">
               Find nearest location 
             </span>
             <i class="fa-solid fa-location-crosshairs"></i>
           </button>
+        <% elsif admin_signed_in? %>
+          <button data-controller="mark-verified" data-action="click->mark-verified#handleClick"
+          data-url="<%= admin_verify_url(@supplier_location) %>"
+          aria-label="<%= @supplier_location.verified ? 'This location is verified' : 'This location is not verified' %>"
+          data-balloon-pos="left"
+          class="btn <%=  @supplier_location.verified ? 'btn-success active' : 'btn-warning' %>">
+            <i class="fa-solid fa-check"></i> 
+          </button>
         <% end %>
       </div>
       <h1 class="mt-4">
         Location details for <%= @supplier_location.name %>
       </h1>
-      <div class="buttons my-3">
-        <%= link_to edit_suppliers_supplier_location_path(@supplier_location), class: "btn btn-warning" do %>
-            <i class="fa-solid fa-pen-to-square"></i>
-          <% end %>      
-        <%= link_to suppliers_supplier_location_path(@supplier_location), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this location?" }, class: "btn btn-danger"  do %>
-        <i class="fa-solid fa-trash-can"></i>
+      <% if supplier_signed_in? %>
+        <div class="buttons my-3">
+          <%= link_to edit_suppliers_supplier_location_path(@supplier_location), class: "btn btn-warning" do %>
+              <i class="fa-solid fa-pen-to-square"></i>
+            <% end %>      
+          <%= link_to suppliers_supplier_location_path(@supplier_location), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this location?" }, class: "btn btn-danger"  do %>
+          <i class="fa-solid fa-trash-can"></i>
+        <% end %>
+        </div>
       <% end %>
-      </div>
 
       <ul class="nav nav-pills" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -164,7 +174,7 @@
               <%= render partial: "scenarios/scenario", collection: @supplier_location.scenarios %>
             <% else %>
               Nothing here yet
-              <% if @offtaker_locations.any? %>
+              <% if @offtaker_locations.any? && supplier_signed_in? %>
               , <a href="#" data-location="<%= [@offtaker_locations.first.longitude, @offtaker_locations.first.latitude, (@offtaker_locations.first.name || @offtaker_locations.first.address), @offtaker_locations.first.id].to_json %>" data-action="click->maps#drawRoute">Plot a route</a>
               <% else %>
                 <div class="alert alert-info mt-3" role="alert">

@@ -1,5 +1,6 @@
 class Suppliers::SupplierLocationsController < Suppliers::BaseController
   before_action :set_supplier_location, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_supplier!, if: :current_admin, only: [:show]
 
   def dashboard
     if params[:q]

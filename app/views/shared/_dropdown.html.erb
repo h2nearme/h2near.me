@@ -1,8 +1,8 @@
-  <% if offtaker_signed_in? || supplier_signed_in? %>
+  <% if offtaker_signed_in? || supplier_signed_in? || admin_signed_in? %>
     <div class="bubble-dropdown-wrapper" data-controller="dropdown">
       <button data-action="click->dropdown#handleExpand">
         <span>
-          <%= current_offtaker&.email || current_supplier&.email %> 
+          <%= current_offtaker&.email || current_supplier&.email || current_admin&.email %> 
         </span>
         <i class="fas fa-caret-square-down"></i>
       </button>
@@ -16,6 +16,8 @@
               <%= link_to "Dashboard", offtakers_path %>
             <% elsif supplier_signed_in? %>
               <%= link_to "Dashboard", suppliers_path %>
+            <% elsif admin_signed_in? %>
+              <%= link_to "Dashboard", admin_path %>
             <% end %>
           </li>
           <li>
@@ -23,6 +25,8 @@
               <%= link_to "Log out", destroy_offtaker_session_path, method: :delete, data: { "turbo-method": :delete } %>
             <% elsif supplier_signed_in? %>
               <%= link_to "Log out", destroy_supplier_session_path, method: :delete, data: { "turbo-method": :delete } %>
+            <% elsif admin_signed_in? %>
+              <%= link_to "Log out", destroy_admin_session_path, method: :delete, data: { "turbo-method": :delete } %>
             <% end %>
           </li>
         </ul>

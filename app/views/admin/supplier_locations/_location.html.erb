@@ -1,5 +1,8 @@
 <li class="location-list-item">
     <%= link_to suppliers_supplier_location_path(supplier_location), class: "location-list-data" do %>
+      <p aria-label="Created at" data-balloon-pos="up">
+        <%= supplier_location.created_at.strftime('%e %b %Y %H:%M%p') %>
+      </p>
       <h2>
         <%= supplier_location.name %>
       </h2>

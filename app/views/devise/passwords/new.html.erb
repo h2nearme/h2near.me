@@ -1,10 +1,10 @@
 
-<% content_for :title, (request.path.include?('suppliers') ? "Forgot your supplier account password?" : "Forgot your offtaker account password?") %>
+<% content_for :title, "Forgot your #{set_user_type} account password?" %>
 
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-6">
-      <h2>Forgot your <%= (request.path.include?('suppliers') ? "supplier?" : "offtaker") %> account password?</h2>
+      <h2>Forgot your <%= set_user_type %> account password?</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'devise-form', data: { turbo: false } }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>

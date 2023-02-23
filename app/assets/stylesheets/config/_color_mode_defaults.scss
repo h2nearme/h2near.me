@@ -9,6 +9,8 @@ body {
   --mild-background: var(--off-white);
 }
 
+// SUPPLIER
+
 body.supplier {
   --accent-color: var(--mint);
   --bs-link-color: var(--mint);
@@ -27,4 +29,26 @@ body.supplier .btn-primary {
 
 body.supplier .nav-pills .nav-link.active {
   background-color: var(--mint);
+}
+
+// ADMIN
+
+body.admin {
+  --accent-color: var(--purple);
+  --bs-link-color: var(--purple);
+}
+
+body.admin .btn-primary {
+  --bs-btn-bg: var(--purple);
+  --bs-btn-border-color: var(--purple);
+  --bs-btn-hover-bg: var(--purple-dark);
+  --bs-btn-hover-border-color: var(--purple-dark);
+  --bs-btn-active-bg: var(--purple-dark);
+  --bs-btn-active-border-color: var(--purple-dark);
+  --bs-btn-disabled-bg: var(--purple);
+  --bs-btn-disabled-border-color: var(--purple);
+}
+
+body.admin .nav-pills .nav-link.active {
+  background-color: var(--purple);
 }

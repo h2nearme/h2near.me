@@ -142,6 +142,14 @@
                 <div class="field">
                   <%= p.input :transport_costs, class: "form-control", placeholder: "Per km", label: "What are the transport costs at this location?", label_html: { class: "form-label" } %>
                 </div>
+
+                <div class="field">
+                  <%= p.input :purity_proof, as: :file, input_html: { class: "form-control" }, label: "Please upload a proof of purity", label_html: { class: "form-label" } %>
+                </div>
+
+                <div class="field">
+                  <%= p.input :supply_proof, as: :file, input_html: { class: "form-control" }, label: "Please upload a proof of supply", label_html: { class: "form-label" } %>
+                </div>
               </div>
             </div>
           </div>

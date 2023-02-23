@@ -54,6 +54,7 @@ gem 'simple_form'
 gem 'will_paginate', '~> 3.3'
 gem 'geocoder'
 gem "hashid-rails", "~> 1.0"
+gem "cloudinary"
 
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

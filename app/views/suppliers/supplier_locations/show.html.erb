@@ -159,6 +159,22 @@
                         <div class="data-value">
                           <%= supply_type.transport_costs %>
                         </div>
+                        <div class="data-label">
+                          Proof of purity
+                        </div>
+                        <div class="data-value">
+                          <% if supply_type.purity_proof.attached? %>
+                            <%= link_to "Open file", cloudinary_url(supply_type.purity_proof.key), target: "_blank" %>
+                          <% end %>
+                        </div>
+                        <div class="data-label">
+                          Proof of supply
+                        </div>
+                        <div class="data-value">
+                          <% if supply_type.supply_proof.attached? %>
+                            <%= link_to "Open file", cloudinary_url(supply_type.supply_proof.key), target: "_blank" %>
+                          <% end %>
+                        </div>
                       </div>
                     </div>
                   </div>

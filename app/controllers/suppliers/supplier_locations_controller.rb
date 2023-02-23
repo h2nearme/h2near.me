@@ -89,7 +89,9 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
         :maximum_hydrogen_volume,
         :pressure_type_hydrogen,
         :compression_costs,
-        :transport_costs
+        :transport_costs,
+        :purity_proof,
+        :supply_proof
       ]
     )
   end

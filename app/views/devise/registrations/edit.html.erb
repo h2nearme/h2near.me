@@ -1,9 +1,9 @@
-<% content_for :title, (request.path.include?('suppliers') ? "Edit supplier account" : "Edit offtaker account") %>
+<% content_for :title, "Edit #{set_user_type} account" %>
 
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-6">
-      <h2>Edit <%= (request.path.include?('suppliers') ? "supplier" : "offtaker") %> account for <%= resource_name.to_s.humanize %></h2>
+      <h2>Edit <%= set_user_type %> account for <%= resource_name.to_s.humanize %></h2>
 
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "devise-form", data: { turbo: false } }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>

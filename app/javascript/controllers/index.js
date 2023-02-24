@@ -27,3 +27,9 @@ application.register("route", RouteController)
 
 import SearchController from "./search_controller"
 application.register("search", SearchController)
+
+import DisabledWithCheckController from "./disabled_with_check_controller"
+application.register("disabled-with-check", DisabledWithCheckController)
+
+import MarkVerifiedController from "./mark_verified_controller"
+application.register("mark-verified", MarkVerifiedController)

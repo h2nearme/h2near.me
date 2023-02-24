@@ -25,7 +25,7 @@
             </h1>
             <section id="locations" class="py-2">
               <h2 class="mt-3">
-                Locations
+                My locations
               </h2>
               <div class="location-list-wrapper" data-controller="search">
                 <div class="field">
@@ -60,13 +60,13 @@
                       class="rating <%= 'active' if scenario.favourite %>">
                         <i class="fa-solid fa-star"></i> 
                       </button>
+                      <%= link_to scenario_path(scenario) do %>
+                        <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance %>km
+                      <% end %>
+                    </div>
                       <a href="mailto:<%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>?subject=Contact via H2near.me" target="_blank">
                         <%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>
                       </a>
-                    </div>
-                    <%= link_to scenario_path(scenario) do %>
-                      <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance %>km
-                    <% end %>
                   </li>
                 <% end %>
               </ul>

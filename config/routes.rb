@@ -7,6 +7,19 @@ Rails.application.routes.draw do
     registrations: "offtakers/registrations",
     sessions: "offtakers/sessions"
    }
+   devise_for :admins, controllers: { 
+    registrations: "admin/registrations",
+    sessions: "admin/sessions"
+   }, path: 'admin'
+
+  authenticate :admin, ->(admin) { admin } do
+    namespace :admin do
+      get '/', to: 'supplier_locations#index'
+      post '/supplier_locations/:id/verify', as: :verify, to: "supplier_locations#verify"
+    end
+  end
+
+
 
   resources :scenarios, only: [:create, :show, :destroy]
   post '/scenarios/:id/mark-favourite', as: :mark_favourite, to: "scenarios#mark_favourite"

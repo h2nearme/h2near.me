@@ -1,11 +1,12 @@
 class Suppliers::SupplierLocationsController < Suppliers::BaseController
   before_action :set_supplier_location, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_supplier!, if: :current_admin, only: [:show]
 
   def dashboard
     if params[:q]
-      @supplier_locations = current_supplier.supplier_locations.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+      @supplier_locations = current_supplier.supplier_locations.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 5)
     else
-      @supplier_locations = current_supplier.supplier_locations.order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+      @supplier_locations = current_supplier.supplier_locations.order('updated_at DESC').paginate(page: params[:page], per_page: 5)
     end
     @scenarios = current_supplier.scenarios
     respond_to do |format|
@@ -24,6 +25,7 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
 
   def new
     @supplier_location = SupplierLocation.new
+    @supplier_location.supply_types.build
   end
 
   def create
@@ -87,7 +89,9 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
         :maximum_hydrogen_volume,
         :pressure_type_hydrogen,
         :compression_costs,
-        :transport_costs
+        :transport_costs,
+        :purity_proof,
+        :supply_proof
       ]
     )
   end

@@ -114,7 +114,13 @@
               <div class="accordion-body light-wrapper pb-5">
                 <%= f.input :id, as: :hidden %>
                 <div class="field">
-                  <%= p.input :name, class: "form-control", placeholder: "E.g. high pure", label: "What is the name for this purity of hydrogen?", label_html: { class: "form-label" } %>
+                  <%= p.input :name, collection: [
+                    'Standard', 
+                    'ITMs', 
+                    'Pure', 
+                    'High pure', 
+                    'Ultrapure'
+                    ], prompt: "Select required purity", class: "form-control", placeholder: "E.g. high pure", label: "What is the name for this purity of hydrogen?", label_html: { class: "form-label" } %>
                 </div>
 
                 <div class="field">
@@ -126,7 +132,7 @@
                 </div>
 
                 <div class="field">
-                  <%= p.input :pressure_type_hydrogen, collection: [300, 700, 'both'], prompt: "Please select an option", class: "form-control", label: "What is the pressure type hydrogen is offered in?", label_html: { class: "form-label" } %>
+                  <%= p.input :pressure_type_hydrogen, collection: [350, 700, 'both'], prompt: "Please select an option", class: "form-control", label: "What is the pressure type hydrogen is offered in?", label_html: { class: "form-label" } %>
                 </div>
 
                 <div class="field">
@@ -135,6 +141,14 @@
 
                 <div class="field">
                   <%= p.input :transport_costs, class: "form-control", placeholder: "Per km", label: "What are the transport costs at this location?", label_html: { class: "form-label" } %>
+                </div>
+
+                <div class="field">
+                  <%= p.input :purity_proof, as: :file, input_html: { class: "form-control" }, label: "Please upload a proof of purity", label_html: { class: "form-label" } %>
+                </div>
+
+                <div class="field">
+                  <%= p.input :supply_proof, as: :file, input_html: { class: "form-control" }, label: "Please upload a proof of supply", label_html: { class: "form-label" } %>
                 </div>
               </div>
             </div>

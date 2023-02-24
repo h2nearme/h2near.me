@@ -38,3 +38,13 @@
   --bs-btn-bg: var(--white);
   --bs-btn-border-color: var(--orange);
 }
+
+.rating [class^='fa'] {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #a39c9c;
+}
+
+.rating-button [class^='fa'] {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #bdbaba;
+}

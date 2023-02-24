@@ -19,19 +19,19 @@ class CostCalculationService
     @opex_pipe = ENV['OPEX_PIPELINE'].to_f  # GBP per KG
     @grid_fees = ENV['GRID_FEES'].to_f  # GBP per KG
     @taxes = ENV['TAXES'].to_f  # GBP per KG
-    @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
     @costs_lorry_h2 = ENV['COSTS_TRANSPORT_LORRY_H2'].to_f  # GBP per KM
-    @costs_h2_300_comp = ENV['COSTS_H2_300_COMPRESSION'].to_f  # GBP per KG
+    @costs_h2_350_comp = ENV['COSTS_H2_350_COMPRESSION'].to_f  # GBP per KG
     @costs_h2_700_comp = ENV['COSTS_H2_700_COMPRESSION'].to_f  # GBP per KG
-    @costs_h2_300_storage = ENV['COSTS_H2_300_STORAGE'].to_f  # GBP per KG
+    @costs_h2_350_storage = ENV['COSTS_H2_350_STORAGE'].to_f  # GBP per KG
     @costs_h2_700_storage = ENV['COSTS_H2_700_STORAGE'].to_f  # GBP per KG
     @drtfc_discount = ENV['DRTFC_DISCOUNT'].to_f  # GBP per KG
     @costs_h2_import = ENV['COSTS_H2_IMPORT'].to_f  # GBP per KG
-    @energy_price_ratio = ENV['ENERGY_PRCE_RATIO_GB_NI'].to_f 
+    @energy_price_ratio = ENV['ENERGY_PRICE_RATIO_GB_NI'].to_f 
     @costs_purification_twonines = ENV['COST_PURIFICATION_TWONINES'].to_f
     @costs_purification_fournines = ENV['COST_PURIFICATION_FOURNINES'].to_f
     @costs_purification_fivenines = ENV['COST_PURIFICATION_FIVENINES'].to_f
     @costs_purification_sixnines = ENV['COST_PURIFICATION_SIXNINES'].to_f
+    @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
   end
 
   def call
@@ -46,7 +46,7 @@ class CostCalculationService
       url = "https://odegdcpnma.execute-api.eu-west-2.amazonaws.com/development/prices?dno=14&voltage=HV&start=#{today}&end=#{today}"
       cost_serialized = URI.open(url).read
       cost_data = JSON.parse(cost_serialized)
-      cost =  cost_data['data']['data'][0]['Overall'] / 100
+      cost =  (cost_data['data']['data'][0]['Overall'] / 100) * @energy_price_ratio
       return (cost > 0 ? cost : nil)
     rescue OpenURI::HTTPError
       return nil
@@ -82,17 +82,17 @@ class CostCalculationService
     # Returns:
     #    total cost over raod
 
-
-    total_cost_transport_h2_lorry = @costs_lorry_h2 * @scenario_distance
+    costs_lorry = (@offtaker_own_transport ? 0 : @costs_lorry_h2)
+    total_cost_transport_h2_lorry = costs_lorry * @scenario_distance
     total_costs_h2_road = @req_offtaker_h2 * (cost_secondary_h2 + compression_and_storage_costs + total_cost_transport_h2_lorry + get_purity_costs)
     return total_costs_h2_road
   end
 
   def compression_and_storage_costs
-    if @req_offtaker_compression_h2 == 300.0
-      @costs_h2_300_comp + @costs_h2_300_storage
+    if @req_offtaker_compression_h2 == 350.0
+      @costs_h2_350_comp + @costs_h2_350_storage
     elsif @req_offtaker_compression_h2 == 700.0
-      @costs_h2_700_comp + @costs_h2_300_storage
+      @costs_h2_700_comp + @costs_h2_700_storage
     else
       0
     end
@@ -130,7 +130,7 @@ class CostCalculationService
 
     # if (scenario.supplier_location.has_drtfc == TRUE) then discount else 0
 
-    # if the required offtaker compression for hydrogen is 300 or both, then calculate cost of transport 
+    # if the required offtaker compression for hydrogen is 350 or both, then calculate cost of transport 
     # over road with the respective compression
 
 

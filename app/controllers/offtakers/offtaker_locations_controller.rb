@@ -3,9 +3,9 @@ class Offtakers::OfftakerLocationsController < Offtakers::BaseController
 
   def dashboard
     if params[:q]
-      @offtaker_locations = current_offtaker.offtaker_locations.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+      @offtaker_locations = current_offtaker.offtaker_locations.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 5)
     else
-      @offtaker_locations = current_offtaker.offtaker_locations.order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+      @offtaker_locations = current_offtaker.offtaker_locations.order('updated_at DESC').paginate(page: params[:page], per_page: 5)
     end
     @scenarios = current_offtaker.scenarios.order(favourite: :desc).order('updated_at DESC')
     respond_to do |format|

@@ -17,7 +17,7 @@ class OfftakerLocation < ApplicationRecord
 
   def address
     if self.house_nr && self.postal_code
-      "#{self.house_nr} - #{self.postal_code}"
+      "#{self.house_nr}#{"- #{self.postal_code}" unless self.postal_code.blank?}"
     else
       ""
     end

@@ -1,0 +1,46 @@
+<% content_for :title, "Admin dashboard" %>
+
+<div class="dashboard-wrapper">
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <ul class="list-unstyled">
+        <li>
+          <%= link_to "#locations" do %>
+            <i class="fa-solid fa-location-dot"></i> Locations
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    <div class="dashboard">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="mt-3">
+              Admin dashboard
+            </h1>
+            <section id="locations" class="py-2">
+              <h2 class="mt-3">
+                All locations
+              </h2>
+              <div class="location-list-wrapper" data-controller="search">
+                <div class="field">
+                  <input 
+                    type="text" 
+                    data-search-target="input" 
+                    data-action="input->search#handleInput" 
+                    data-url="<%= admin_url %>"
+                    class="form-control sized-input"
+                    placeholder="Search"
+                  >
+                </div>
+                <ul class="list-unstyled location-list" data-search-target="list">
+                  <%= render partial: "locations", locals: { supplier_locations: @supplier_locations } %>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

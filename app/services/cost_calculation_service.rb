@@ -31,7 +31,9 @@ class CostCalculationService
     @costs_purification_fournines = ENV['COST_PURIFICATION_FOURNINES'].to_f
     @costs_purification_fivenines = ENV['COST_PURIFICATION_FIVENINES'].to_f
     @costs_purification_sixnines = ENV['COST_PURIFICATION_SIXNINES'].to_f
-    @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
+    @ws_elec_costs = ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
+    # TURN API BACK ON WHEN LOADING ISSUE ON CALCULATE BUTTON IS FIXED
+    # @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
   end
 
   def call

@@ -31,9 +31,7 @@ class CostCalculationService
     @costs_purification_fournines = ENV['COST_PURIFICATION_FOURNINES'].to_f
     @costs_purification_fivenines = ENV['COST_PURIFICATION_FIVENINES'].to_f
     @costs_purification_sixnines = ENV['COST_PURIFICATION_SIXNINES'].to_f
-    @ws_elec_costs = ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
-    # TURN API BACK ON WHEN LOADING ISSUE ON CALCULATE BUTTON IS FIXED
-    # @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
+    @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
   end
 
   def call
@@ -43,15 +41,22 @@ class CostCalculationService
   private
 
   def get_current_electricty_price
-    begin
-      today = Date.tomorrow.strftime("%d-%m-%Y")
-      url = "https://odegdcpnma.execute-api.eu-west-2.amazonaws.com/development/prices?dno=14&voltage=HV&start=#{today}&end=#{today}"
-      cost_serialized = URI.open(url).read
-      cost_data = JSON.parse(cost_serialized)
-      cost =  (cost_data['data']['data'][0]['Overall'] / 100) * @energy_price_ratio
-      return (cost > 0 ? cost : nil)
-    rescue OpenURI::HTTPError
-      return nil
+    electricity_fee = ElectricityFee.first || ElectricityFee.new
+    if electricity_fee.new_record? || electricity_fee.updated_at < 1.day.ago
+      begin
+        today = Date.tomorrow.strftime("%d-%m-%Y")
+        url = "https://odegdcpnma.execute-api.eu-west-2.amazonaws.com/development/prices?dno=14&voltage=HV&start=#{today}&end=#{today}"
+        cost_serialized = URI.open(url).read
+        cost_data = JSON.parse(cost_serialized)
+        cost =  (cost_data['data']['data'][0]['Overall'] / 100) * @energy_price_ratio
+        electricity_fee.value = (cost > 0 ? cost : nil)
+        electricity_fee.save
+        return electricity_fee.value
+      rescue OpenURI::HTTPError
+        return nil
+      end
+    else
+      electricity_fee.value
     end
   end
 

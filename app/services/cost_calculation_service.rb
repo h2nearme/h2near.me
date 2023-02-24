@@ -44,7 +44,7 @@ class CostCalculationService
 
   def get_current_electricty_price
     begin
-      today = Date.tomorrow.strftime("%d-%m-%Y")
+      today = Date.today.strftime("%d-%m-%Y")
       url = "https://odegdcpnma.execute-api.eu-west-2.amazonaws.com/development/prices?dno=14&voltage=HV&start=#{today}&end=#{today}"
       cost_serialized = URI.open(url).read
       cost_data = JSON.parse(cost_serialized)

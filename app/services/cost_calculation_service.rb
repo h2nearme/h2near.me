@@ -13,6 +13,7 @@ class CostCalculationService
     @scenario_hydrogen_purity = scenario.offtaker_location.required_hydrogen_purity 
     @investment_period = scenario.offtaker_location.investment_period_years # years
     @contract_period = scenario.offtaker_location.contract_period_years # years
+    @pickup_available = scenario.supplier_location.pickup_available
     @capex_opex_elec = ENV['CAPEX_OPEX_ELECTROLYSER'].to_f  # GBP per KG
     @costs_elec_perkg_h2 = ENV['ELECTRICITY_PER_KG_H2'].to_f #KWH per KG H2
     @capex_pipe = ENV['CAPEX_PIPELINE'].to_f  # GBP per KG
@@ -69,7 +70,7 @@ class CostCalculationService
       'Ultrapure': @costs_purification_sixnines
     }
     return purifiction_cost[@scenario_hydrogen_purity.to_sym]
-
+    raise
   end
 
   def cost_road
@@ -82,10 +83,10 @@ class CostCalculationService
     # Returns:
     #    total cost over raod
 
-    if @offtaker_own_transport
+    if (@offtaker_own_transport && @pickup_available)
       costs_lorry =  0
     else
-      costs_lorry = @costs_lorry_h2s
+      costs_lorry = @costs_lorry_h2
 
     total_cost_transport_h2_lorry = costs_lorry * @scenario_distance
     total_costs_h2_road = @req_offtaker_h2 * (cost_secondary_h2 + compression_and_storage_costs + total_cost_transport_h2_lorry + get_purity_costs)

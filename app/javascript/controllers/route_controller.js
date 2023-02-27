@@ -51,8 +51,9 @@ export default class extends Controller {
         const directions = new Directions({
           accessToken: mapboxgl.accessToken,
           profile: 'mapbox/walking',
+          interactive: false
         })
-    
+        console.log(directions)
         setTimeout(() => {
           this.directions = directions
         

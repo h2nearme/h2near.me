@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_24_111417) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_24_114214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -104,6 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_24_111417) do
     t.integer "costs_import"
     t.float "distance"
     t.boolean "favourite", default: false
+    t.json "value_breakdown"
     t.index ["offtaker_location_id"], name: "index_scenarios_on_offtaker_location_id"
     t.index ["supplier_location_id"], name: "index_scenarios_on_supplier_location_id"
   end

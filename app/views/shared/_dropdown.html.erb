@@ -22,6 +22,15 @@
           </li>
           <li>
             <% if offtaker_signed_in? %>
+              <%= link_to "Account", edit_offtaker_registration_path %>
+            <% elsif supplier_signed_in? %>
+              <%= link_to "Account", edit_supplier_registration_path %>
+            <% elsif admin_signed_in? %>
+              <%= link_to "Account", edit_admin_registration_path %>
+            <% end %>
+          </li>
+          <li>
+            <% if offtaker_signed_in? %>
               <%= link_to "Log out", destroy_offtaker_session_path, method: :delete, data: { "turbo-method": :delete } %>
             <% elsif supplier_signed_in? %>
               <%= link_to "Log out", destroy_supplier_session_path, method: :delete, data: { "turbo-method": :delete } %>
@@ -43,7 +52,7 @@
       <div class="bubble-dropdown collapsed" data-target="dropdown.menu">
         <ul>
           <li>
-            <p>
+            <p class="supplier">
               Suppliers
             </p>
           </li>
@@ -54,7 +63,7 @@
             <%= link_to "Signup", new_supplier_registration_path, data: { action: "click->dropdown#close" } %>
           </li>
           <li>
-            <p>
+            <p class="offtaker">
               Offtakers
             </p>
           </li>

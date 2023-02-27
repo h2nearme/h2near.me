@@ -1,4 +1,5 @@
 class ScenariosController < ApplicationController
+  include Rails.application.routes.url_helpers
   before_action :set_scenario, only: [:show, :destroy, :mark_favourite]
 
   def create
@@ -19,6 +20,7 @@ class ScenariosController < ApplicationController
       format.json {
           render json: {
               scenario: @scenario,
+              scenario_url: scenario_url(@scenario),
               scenario_html: scenario_response(is_new_record), 
           }
       }

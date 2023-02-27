@@ -148,7 +148,39 @@ class CostCalculationService
         {
           costs_road: cost_road,
           costs_pipeline: cost_pipeline,
-          costs_import: cost_import
+          costs_import: cost_import,
+          value_breakdown: {
+            req_offtaker_h2: @req_offtaker_h2,
+            re_offtaker_h2_purity: @re_offtaker_h2_purity,
+            scenario_distance: @scenario_distance,
+            req_offtaker_compression_h2: @req_offtaker_compression_h2,
+            offtaker_own_transport: @offtaker_own_transport,
+            scenario_hydrogen_purity: @scenario_hydrogen_purity,
+            investment_period: @investment_period,
+            contract_period: @contract_period,
+            capex_opex_elec: @capex_opex_elec,
+            costs_elec_perkg_h2: @costs_elec_perkg_h2,
+            capex_pipe: @capex_pipe,
+            opex_pipe: @opex_pipe,
+            grid_fees: @grid_fees,
+            taxes: @taxes,
+            costs_lorry_h2: @costs_lorry_h2,
+            costs_h2_350_comp: @costs_h2_350_comp,
+            costs_h2_700_comp: @costs_h2_700_comp,
+            costs_h2_350_storage: @costs_h2_350_storage,
+            costs_h2_700_storage: @costs_h2_700_storage,
+            drtfc_discount: @drtfc_discount,
+            costs_h2_import: @costs_h2_import,
+            energy_price_ratio: @energy_price_ratio,
+            costs_purification_twonines: @costs_purification_twonines,
+            costs_purification_fournines: @costs_purification_fournines,
+            costs_purification_fivenines: @costs_purification_fivenines,
+            costs_purification_sixnines: @costs_purification_sixnines,
+            ws_elec_costs: @ws_elec_costs,
+            compression_and_storage_costs: compression_and_storage_costs,
+            cost_secondary_h2: cost_secondary_h2,
+            get_purity_costs: get_purity_costs
+          }.to_json
         }
       )
     end

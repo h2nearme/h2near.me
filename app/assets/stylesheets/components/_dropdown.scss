@@ -57,7 +57,7 @@
 .bubble-dropdown ul {
   background-color: var(--background);
   position: relative;
-  border: 1px solid var(--hard-color);
+  border: 1px solid var(--mild-color);
   padding: 0;
   list-style: none;
   margin: 0;
@@ -67,6 +67,11 @@
 
 .bubble-dropdown ul li.indented {
   padding-left: 20px;
+}
+
+.bubble-dropdown ul li:not(.indented):not(:first-child) {
+  border-top: 1px solid var(--mild-gray);
+  margin-top: 10px;
 }
 
 .bubble-dropdown ul li a,
@@ -94,6 +99,14 @@
 
 .bubble-dropdown-wrapper h2 i.fas {
   font-size: 24px;
+}
+
+.bubble-dropdown .supplier {
+  border-bottom: 4px solid var(--mint);
+}
+
+.bubble-dropdown .offtaker {
+  border-bottom: 4px solid var(--blue);
 }
 
 @media (max-width: 400px) {

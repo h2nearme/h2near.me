@@ -1,6 +1,6 @@
 class ScenariosController < ApplicationController
   include Rails.application.routes.url_helpers
-  before_action :set_scenario, only: [:show, :destroy, :mark_favourite]
+  before_action :set_scenario, only: [:show, :destroy, :mark_favourite, :calculate_again]
 
   def create
     is_new_record = false
@@ -55,6 +55,12 @@ class ScenariosController < ApplicationController
         }
     }
     end
+  end
+
+  def calculate_again
+    @scenario.run_calculations
+    @scenario.save
+    redirect_to scenario_path(@scenario)
   end
 
   private

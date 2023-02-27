@@ -5,6 +5,8 @@ class Scenario < ApplicationRecord
 
   belongs_to :offtaker_location
   belongs_to :supplier_location
+  
+  validates :distance, presence: true
 
   def present
     ScenarioPresenter.new(self)

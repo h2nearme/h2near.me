@@ -6,6 +6,7 @@ class OfftakerLocation < ApplicationRecord
   geocoded_by :coordinates
 
   after_save :set_prefixed_id
+  after_save :update_scenarios
 
   validates :name, presence: true
   validates :required_hydrogen_volume, presence: true
@@ -27,6 +28,13 @@ class OfftakerLocation < ApplicationRecord
     if self.prefixed_id.nil?
       self.prefixed_id = "o_#{self.id}"
       self.save
+    end
+  end
+
+  def update_scenarios
+    self.scenarios.each do |scenario|
+      scenario.run_calculations
+      scenario.save
     end
   end
   

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   resources :scenarios, only: [:create, :show, :destroy]
   post '/scenarios/:id/mark-favourite', as: :mark_favourite, to: "scenarios#mark_favourite"
+  post '/scenarios/:id/calculate-again', as: :calculate_again, to: "scenarios#calculate_again"
 
 
   namespace :suppliers, suppliers: true do 

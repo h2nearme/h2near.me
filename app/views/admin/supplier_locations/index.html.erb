@@ -58,6 +58,38 @@
               >
               </div>
             </section>
+            <section id="chart">
+              <h2 class="mt-3">
+                Scenarios created by month
+              </h2>
+              <%= column_chart Scenario.set_history_for_chart_month_creation(Date.today), 
+                colors: ["#4377BC"], 
+                height: '200px', 
+                width: '400px',
+                id: "scenarios-monthly",
+                curve: false
+              %>
+              <h2 class="mt-3">
+                Offtaker locations created by month
+              </h2>
+              <%= column_chart OfftakerLocation.set_history_for_chart_month_creation(Date.today), 
+                colors: ["#4377BC"], 
+                height: '200px', 
+                width: '400px',
+                id: "offtaker-locations-creation-monthly",
+                curve: false
+              %>
+              <h2 class="mt-3">
+                New offtaker location requested volume by month
+              </h2>
+              <%= column_chart OfftakerLocation.set_history_for_chart_month_volume(Date.today), 
+                colors: ["#4377BC"], 
+                height: '200px', 
+                width: '400px',
+                id: "offtaker-locations-volume-monthly",
+                curve: false
+              %>
+            </section>
           </div>
         </div>
       </div>

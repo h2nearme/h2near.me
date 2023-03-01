@@ -1,10 +1,10 @@
 class Admin::SupplierLocationsController < Admin::BaseController
   def index
     if params[:q]
-      @supplier_locations = SupplierLocation.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+      @supplier_locations = SupplierLocation.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 5)
 
     else
-      @supplier_locations = SupplierLocation.all.order('updated_at DESC').paginate(page: params[:page], per_page: 10)
+      @supplier_locations = SupplierLocation.all.order('updated_at DESC').paginate(page: params[:page], per_page: 5)
     end
     respond_to do |format|
       format.html

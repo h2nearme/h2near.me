@@ -25,8 +25,6 @@
               <%= link_to "Account", edit_offtaker_registration_path %>
             <% elsif supplier_signed_in? %>
               <%= link_to "Account", edit_supplier_registration_path %>
-            <% elsif admin_signed_in? %>
-              <%= link_to "Account", edit_admin_registration_path %>
             <% end %>
           </li>
           <li>

@@ -9,6 +9,11 @@
             <i class="fa-solid fa-location-dot"></i> Locations
           <% end %>
         </li>
+        <li>
+          <%= link_to "#statistics" do %>
+            <i class="fa-solid fa-map"></i> Heat map
+          <% end %>
+        </li>
       </ul>
     </div>
     <div class="dashboard">
@@ -36,6 +41,21 @@
                 <ul class="list-unstyled location-list" data-search-target="list">
                   <%= render partial: "locations", locals: { supplier_locations: @supplier_locations } %>
                 </ul>
+              </div>
+            </section>
+            <section id="statistics">
+              <h2 class="mt-3">
+                Offtaker volume heat map
+              </h2>
+              <div 
+                id="heat-map" 
+                data-controller="heat-map"
+                data-heat-map-target="map" 
+                data-center="<%= [-6.599110, 54.607009].to_json %>"
+                data-key="<%= ENV['MAPBOX_API_KEY'] %>"
+                data-zoom="8" 
+                data-locations="<%= OfftakerLocation.generate_geojson %>"
+              >
               </div>
             </section>
           </div>

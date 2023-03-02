@@ -20,13 +20,15 @@
               <%= link_to "Dashboard", admin_path %>
             <% end %>
           </li>
-          <li>
-            <% if offtaker_signed_in? %>
+          <% if offtaker_signed_in? %>
+            <li>
               <%= link_to "Account", edit_offtaker_registration_path %>
-            <% elsif supplier_signed_in? %>
+            </li>
+          <% elsif supplier_signed_in? %>
+            <li>
               <%= link_to "Account", edit_supplier_registration_path %>
-            <% end %>
-          </li>
+            </li>
+          <% end %>
           <li>
             <% if offtaker_signed_in? %>
               <%= link_to "Log out", destroy_offtaker_session_path, method: :delete, data: { "turbo-method": :delete } %>

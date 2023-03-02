@@ -3,6 +3,11 @@ class Offtakers::OfftakerLocationsController < Offtakers::BaseController
   skip_before_action :authenticate_offtaker!, if: :current_admin, only: [:show]
 
   def dashboard
+    if params[:q]
+      @offtaker_locations = current_offtaker.offtaker_locations.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 5)
+    else
+      @offtaker_locations = current_offtaker.offtaker_locations.order('updated_at DESC').paginate(page: params[:page], per_page: 5)
+    end
     @scenarios = current_offtaker.scenarios.order(favourite: :desc).order('updated_at DESC')
     respond_to do |format|
       format.html

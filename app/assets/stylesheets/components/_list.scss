@@ -58,6 +58,10 @@
   flex-basis: 200px;
 }
 
+ol > li {
+  margin: 5px 0;
+}
+
 @media (max-width: 768px) {
   .data-two-columns {
     grid-template-columns: 1fr;

@@ -1,0 +1,62 @@
+<% value_breakdown = JSON.parse(@scenario.value_breakdown) %>
+
+<div class="breakdown">
+  Pipeline
+  <div class="stacked-bar-chart">
+    <div style="width:<%= pipeline_breakdown(value_breakdown)[:production_percent] %>%;" aria-label="Production: <%= pipeline_breakdown(value_breakdown)[:production] %>" data-balloon-pos="up"></div>
+    <div style="width:<%= pipeline_breakdown(value_breakdown)[:compression_percent] %>%;" aria-label="Compression: <%= pipeline_breakdown(value_breakdown)[:compression] %>" data-balloon-pos="up"></div>
+    <div style="width:<%= pipeline_breakdown(value_breakdown)[:purification_percent] %>%;" aria-label="Purification: <%= pipeline_breakdown(value_breakdown)[:purification] %>" data-balloon-pos="up"></div>
+    <div style="width:<%= pipeline_breakdown(value_breakdown)[:transport_percent] %>%;" aria-label="Transport: <%= pipeline_breakdown(value_breakdown)[:transport] %>" data-balloon-pos="up"></div>
+  </div>
+  <ul class="stacked-bar-chart-legend">
+    <li>
+      <div class="orb"></div>
+      Production
+      <%= pipeline_breakdown(value_breakdown)[:production]  %>
+    </li>
+    <li>
+      <div class="orb"></div>
+      Compression
+      <%= pipeline_breakdown(value_breakdown)[:compression]  %>
+    </li>
+    <li>
+      <div class="orb"></div>
+      Purification
+      <%= pipeline_breakdown(value_breakdown)[:purification]  %>
+    </li>
+    <li>
+      <div class="orb"></div>
+      Transport
+      <%= pipeline_breakdown(value_breakdown)[:transport]  %>
+    </li>
+  </ul>
+  Road
+  <div class="stacked-bar-chart">
+    <div style="width:<%= road_breakdown(value_breakdown)[:production_percent] %>%;" aria-label="Production: <%= road_breakdown(value_breakdown)[:production] %>" data-balloon-pos="up"></div>
+    <div style="width:<%= road_breakdown(value_breakdown)[:compression_percent] %>%;" aria-label="Compression: <%= road_breakdown(value_breakdown)[:compression] %>" data-balloon-pos="up"></div>
+    <div style="width:<%= road_breakdown(value_breakdown)[:purification_percent] %>%;" aria-label="Purification: <%= road_breakdown(value_breakdown)[:purification] %>" data-balloon-pos="up"></div>
+    <div style="width:<%= road_breakdown(value_breakdown)[:transport_percent] %>%;" aria-label="Transport: <%= road_breakdown(value_breakdown)[:transport] %>" data-balloon-pos="up"></div>
+  </div>
+  <ul class="stacked-bar-chart-legend">
+    <li>
+      <div class="orb"></div>
+      Production
+      <%= road_breakdown(value_breakdown)[:production]  %>
+    </li>
+    <li>
+      <div class="orb"></div>
+      Compression
+      <%= road_breakdown(value_breakdown)[:compression]  %>
+    </li>
+    <li>
+      <div class="orb"></div>
+      Purification
+      <%= road_breakdown(value_breakdown)[:purification]  %>
+    </li>
+    <li>
+      <div class="orb"></div>
+      Transport
+      <%= road_breakdown(value_breakdown)[:transport]  %>
+    </li>
+  </ul>
+</div>

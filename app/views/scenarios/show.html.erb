@@ -114,6 +114,7 @@
             <div class="data-value <%= 'empty' unless @cheapest %>">
               <%= @scenario.present.cheapest_option(@cheapest) %>
             </div>
+            <%= render partial: "breakdown", locals: { scenario: @scenario } %>
           </div>
         </div>
         <div class="tab-pane pb-4" id="offtaker" role="tabpanel" aria-labelledby="offtaker-tab">

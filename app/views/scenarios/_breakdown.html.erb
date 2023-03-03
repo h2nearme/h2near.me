@@ -1,5 +1,5 @@
 <% value_breakdown = JSON.parse(@scenario.value_breakdown) %>
-
+<% if value_breakdown %>
 <div class="breakdown">
   Pipeline
   <div class="stacked-bar-chart">
@@ -60,3 +60,4 @@
     </li>
   </ul>
 </div>
+<% end %> 

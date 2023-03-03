@@ -44,7 +44,7 @@ class CostCalculationService
     electricity_fee = ElectricityFee.first || ElectricityFee.new
     if electricity_fee.new_record? || electricity_fee.updated_at < 1.day.ago
       begin
-        today = Date.tomorrow.strftime("%d-%m-%Y")
+        today = Date.today.strftime("%d-%m-%Y")
         url = "https://odegdcpnma.execute-api.eu-west-2.amazonaws.com/development/prices?dno=14&voltage=HV&start=#{today}&end=#{today}"
         cost_serialized = URI.open(url).read
         cost_data = JSON.parse(cost_serialized)

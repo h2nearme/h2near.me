@@ -61,20 +61,15 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "h2nearme_production"
+
   config.action_mailer.default_url_options = { host: "https://h2near.me" }
-
-  config.action_mailer.perform_caching = false
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    authentication: :plain,
-    port: 587,
-    address: "smtp.mailgun.org",
-    user_name: ENV["MAILGUN_USERNAME"],
-    password: ENV["MAILGUN_PASSWORD"],
-    domain: 'h2near.me/',
-    enable_starttls_auto: true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+      api_key: ENV['MAILGUN_API_KEY'],
+      domain: ENV["MAILGUN_DOMAIN"],
+      api_host: 'api.eu.mailgun.net' # Uncomment this line for EU region domains
   }
-
 
 
   # Ignore bad email addresses and do not raise email delivery errors.

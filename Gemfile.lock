@@ -137,6 +137,8 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailgun-ruby (1.2.8)
+      rest-client (>= 2.0.2)
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -277,6 +279,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   letter_opener
+  mailgun-ruby (~> 1.2, >= 1.2.8)
   pg (~> 1.1)
   pry-rails
   puma (~> 5.0)

@@ -56,6 +56,7 @@ gem 'geocoder'
 gem "hashid-rails", "~> 1.0"
 gem "cloudinary"
 gem "chartkick"
+gem 'mailgun-ruby', '~> 1.2', '>= 1.2.8'
 
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

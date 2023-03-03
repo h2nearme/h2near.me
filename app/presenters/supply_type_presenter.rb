@@ -6,11 +6,11 @@ class SupplyTypePresenter
   end
 
   def compression_costs
-     "£ #{number_with_precision(@supply_type.compression_costs, precision: 2, delimiter: '.', separator: ',')}"
+     "£ #{number_with_precision(@supply_type.compression_costs, precision: 0, delimiter: '.', separator: ',')}"
   end
 
   def transport_costs
-    "£ #{number_with_precision(@supply_type.transport_costs, precision: 2, delimiter: '.', separator: ',')}"
+    "£ #{number_with_precision(@supply_type.transport_costs, precision: 0, delimiter: '.', separator: ',')}"
   end
 
   def description

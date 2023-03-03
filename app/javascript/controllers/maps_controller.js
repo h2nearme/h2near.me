@@ -75,8 +75,10 @@ export default class extends Controller {
     event.preventDefault()
     const location = event.currentTarget.dataset.location;
     const destinationId = event.currentTarget.dataset.destinationId;
-    const data = {destinationId, location}
+    const button = event.currentTarget
+    const data = {destinationId, location, button}
     this.setDirections()
+    data.button.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
     this.directions.on("route", (event) => this.storeRouteData(event, data)) 
 
     this.directions.setOrigin(JSON.parse(this.mapTarget.dataset.center));
@@ -87,38 +89,39 @@ export default class extends Controller {
     const routingResults = document.querySelector('#routing-results')
     const destinationLocationId = data.destinationId
     const originLocationId = this.originLocationId
+    const button = data.button
 
-    this.directions.on("route", event => {
-      const routes = event.route
-      const distance = Math.round(routes[0].distance / 100) / 10
-      routingResults.innerHTML = `
-        <div>
-          <p id="distance">
-            ${distance}km
-          </p>
-        </div>
-      
-      `
-      Rails.ajax({
-        type: "POST",
-        url: `${window.location.origin}/scenarios`,
-        data: `scenario[distance]=${distance}&scenario[${originLocationId[1] === 'supplier' ? 'offtaker' : 'supplier'}_location_id]=${destinationLocationId}&scenario[${originLocationId[1]}_location_id]=${originLocationId[0]}`,
-        dataType: "text/vnd.turbo-stream.html",
-        success: (data) => {
-          const scenariosList = document.querySelector('#scenarios');
-          scenariosList.insertAdjacentHTML('beforeend', data['scenario_html'])
-          const listItem = document.querySelector(`#scenario_${data['scenario']['id']}`)
-          document.querySelectorAll('#scenarios li').forEach(scenario => {
-            scenario.classList.remove('active')
-          })
-          listItem.classList.add('active')
-          this.showLocationsTab()
-        },
-        error: (data) => {
-          console.log(data)
-        }
-      });
-    })
+    const routes = event.route
+    const distance = Math.round(routes[0].distance / 100) / 10
+    routingResults.innerHTML = `
+      <div>
+        <p id="distance">
+          ${distance}km
+        </p>
+      </div>
+    
+    `
+    Rails.ajax({
+      type: "POST",
+      url: `${window.location.origin}/scenarios`,
+      data: `scenario[distance]=${distance}&scenario[${originLocationId[1] === 'supplier' ? 'offtaker' : 'supplier'}_location_id]=${destinationLocationId}&scenario[${originLocationId[1]}_location_id]=${originLocationId[0]}`,
+      dataType: "text/vnd.turbo-stream.html",
+      success: (data) => {
+        const scenariosList = document.querySelector('#scenarios');
+        scenariosList.insertAdjacentHTML('beforeend', data['scenario_html'])
+        const listItem = document.querySelector(`#scenario_${data['scenario']['id']}`)
+        document.querySelectorAll('#scenarios li').forEach(scenario => {
+          scenario.classList.remove('active')
+        })
+        listItem.classList.add('active')
+        this.showLocationsTab()
+        button.innerHTML = "Success"
+        location.assign(data['scenario_url']);
+      },
+      error: (data) => {
+        console.log(data)
+      }
+    });
   }
 
   setDirections() {

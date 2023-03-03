@@ -8,6 +8,9 @@
         </p>
       <% end %>
       <div class="location-list-actions">
+        <%= link_to offtakers_offtaker_location_path(offtaker_location), class: "btn btn-primary" do %>
+          <i class="fa-solid fa-eye"></i>
+        <% end %>
         <%= link_to offtakers_offtaker_location_path(offtaker_location), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this location?" }, class: "btn btn-danger"  do %>
           <i class="fa-solid fa-trash-can"></i>
         <% end %>

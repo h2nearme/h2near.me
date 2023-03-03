@@ -13,6 +13,16 @@
         <%= link_to scenario_path(@scenario), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this scenario?" }, class: "btn btn-danger"  do %>
           <i class="fa-solid fa-trash-can"></i>
         <% end %>
+        <%= button_to calculate_again_path(@scenario), 
+              method: :post, 
+              'aria-label': "Re-run calculations", 
+              class: "btn btn-info",
+              form_class: "d-inline-block",
+              data: { 
+                'balloon-pos': 'up' 
+                } do %>
+          <i class="fa-solid fa-retweet"></i>
+        <% end %>
         <% if offtaker_signed_in? %>
           <button
           data-controller="mark-favourite" data-action="click->mark-favourite#handleClick"
@@ -104,6 +114,7 @@
             <div class="data-value <%= 'empty' unless @cheapest %>">
               <%= @scenario.present.cheapest_option(@cheapest) %>
             </div>
+            <%= render partial: "breakdown", locals: { scenario: @scenario } %>
           </div>
         </div>
         <div class="tab-pane pb-4" id="offtaker" role="tabpanel" aria-labelledby="offtaker-tab">

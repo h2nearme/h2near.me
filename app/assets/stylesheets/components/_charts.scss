@@ -1,0 +1,51 @@
+.stacked-bar-chart {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  border: 1px solid var(--foreground);
+  margin-bottom: 20px;
+}
+
+.stacked-bar-chart > div {
+  height: 100%;
+  display: inline-block;
+}
+
+.stacked-bar-chart > div:nth-child(1),
+.stacked-bar-chart-legend li:nth-child(1) .orb {
+  background-color: #053742;
+}
+
+.stacked-bar-chart > div:nth-child(2),
+.stacked-bar-chart-legend li:nth-child(2) .orb {
+  background-color: #39A2DB;
+}
+
+.stacked-bar-chart > div:nth-child(3),
+.stacked-bar-chart-legend li:nth-child(3) .orb {
+  background-color:#A2DBFA;
+}
+
+.stacked-bar-chart > div:nth-child(4),
+.stacked-bar-chart-legend li:nth-child(4) .orb {
+  background-color: #E8F0F2;
+}
+
+.stacked-bar-chart > div:not(:last-child) {
+  border-right: 1px solid var(--foreground);
+}
+
+.stacked-bar-chart-legend li .orb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--foreground);
+}
+
+.stacked-bar-chart-legend li {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  gap: 10px;
+  align-items: center;
+  list-style: none;
+}

@@ -1,5 +1,6 @@
 class Offtakers::OfftakerLocationsController < Offtakers::BaseController
   before_action :set_offtaker_location, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_offtaker!, if: :current_admin, only: [:show]
 
   def dashboard
     if params[:q]

@@ -9,6 +9,21 @@
             <i class="fa-solid fa-location-dot"></i> Locations
           <% end %>
         </li>
+        <li>
+          <%= link_to "#statistics" do %>
+            <i class="fa-solid fa-map"></i> Heat map
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "#chart" do %>
+            <i class="fa-solid fa-chart-simple"></i> Charts
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "#metrics" do %>
+            <i class="fa-solid fa-list-ol"></i> Metrics
+          <% end %>
+        </li>
       </ul>
     </div>
     <div class="dashboard">
@@ -22,6 +37,9 @@
               <h2 class="mt-3">
                 All locations
               </h2>
+              <div class="alert alert-info mt-3" role="alert">
+                With the button on the right you can verify supplier locations, unverified locations will not show up on the platform.
+              </div>
               <div class="location-list-wrapper" data-controller="search">
                 <div class="field">
                   <input 
@@ -36,6 +54,177 @@
                 <ul class="list-unstyled location-list" data-search-target="list">
                   <%= render partial: "locations", locals: { supplier_locations: @supplier_locations } %>
                 </ul>
+              </div>
+            </section>
+            <section id="statistics">
+              <h2 class="my-3 section-header">
+                <i class="fa-solid fa-map"></i> Offtaker volume heat map
+              </h2>
+              <div 
+                id="heat-map" 
+                data-controller="heat-map"
+                data-heat-map-target="map" 
+                data-center="<%= [-6.599110, 54.607009].to_json %>"
+                data-key="<%= ENV['MAPBOX_API_KEY'] %>"
+                data-zoom="8" 
+                data-locations="<%= OfftakerLocation.generate_geojson %>"
+              >
+              </div>
+            </section>
+            <section id="chart" class="pt-4 mt-4">
+              <h2 class="section-header">
+                <i class="fa-solid fa-chart-simple"></i> Charts
+              </h2>
+              <div class="row py-4">
+                <h2 class="my-3">
+                  Offtaker locations
+                </h2>
+                <div class="col-12 col-md-6">
+                  <h4>
+                    Created by month
+                  </h4>
+                  <%= column_chart OfftakerLocation.set_history_for_chart_month_creation(Date.today), 
+                    colors: ["#4377BC"], 
+                    height: '200px', 
+                    width: '400px',
+                    id: "offtaker-locations-creation-monthly"
+                  %>
+                </div>
+                <div class="col-12 col-md-6">
+                  <h4>
+                    Requested volume per month
+                  </h4>
+                  <%= column_chart OfftakerLocation.set_history_for_chart_month_volume(Date.today), 
+                    colors: ["#4377BC"], 
+                    height: '200px', 
+                    width: '400px',
+                    id: "offtaker-locations-volume-monthly"
+                  %>
+                </div>
+              </div>
+              <hr>
+              <div class="row pt-4">
+                <h2 class="my-3">
+                  Scenarios
+                </h2>
+                <div class="col-12 col-md-6">
+                  <h4>
+                    Created by month
+                  </h4>
+                  <%= column_chart Scenario.set_history_for_chart_month_creation(Date.today), 
+                    colors: ["#4377BC"], 
+                    height: '200px', 
+                    width: '400px',
+                    id: "scenarios-monthly-creation"
+                  %>
+                </div>
+                <div class="col-12 col-md-6">
+                  <h4>
+                    Cheapest option per month
+                  </h4>
+                  <%= line_chart Scenario.set_history_for_chart_month_cost_comparison(Date.today), 
+                    colors: ["#4377BC"], 
+                    height: '200px', 
+                    width: '400px',
+                    id: "scenarios-monthly-cost-comparison"
+                  %>
+                </div>
+              </div>
+              <div class="row pt-4">
+                <div class="col-12 col-md-6">
+                  <h4>
+                    Average distance per month
+                  </h4>
+                  <%= column_chart Scenario.set_history_for_chart_month_average_distance(Date.today), 
+                    colors: ["#4377BC"], 
+                    height: '200px', 
+                    width: '400px',
+                    id: "scenarios-monthly-average-distance"
+                  %>
+                </div>
+                <div class="col-12 col-md-6">
+                  <h4>
+                    Average pipeline costs per month
+                  </h4>
+                  <%= column_chart Scenario.set_history_for_chart_month_average_pipeline_cost(Date.today), 
+                    colors: ["#4377BC"], 
+                    height: '200px', 
+                    width: '400px',
+                    id: "scenarios-monthly-average-pipeline-costs"
+                  %>
+                </div>
+              </div>
+              <div class="row py-4">
+                <div class="col-12 col-md-6">
+                  <h4>
+                    Average road costs per month
+                  </h4>
+                  <%= column_chart Scenario.set_history_for_chart_month_average_road_cost(Date.today), 
+                    colors: ["#4377BC"], 
+                    height: '200px', 
+                    width: '400px',
+                    id: "scenarios-monthly-average-road-costs"
+                  %>
+                </div>             
+              </div>
+              <hr>
+              <div class="row py-4">
+                <h2 class="my-3">
+                  Offtaker accounts
+                </h2>
+                <div class="col-12 col-md-6">
+                  <h4>
+                    Created by month
+                  </h4>
+                  <%= column_chart Offtaker.set_history_for_chart_month_creation(Date.today), 
+                    colors: ["#4377BC"], 
+                    height: '200px', 
+                    width: '400px',
+                    id: "offtakers-monthly-creation"
+                  %>
+                </div>
+                <div class="col-12 col-md-6">
+                  <h4>
+                    Average scenarios created by new accounts
+                  </h4>
+                  <%= column_chart Offtaker.set_history_for_chart_month_scenarios_per_offtaker(Date.today), 
+                    colors: ["#4377BC"], 
+                    height: '200px', 
+                    width: '400px',
+                    id: "offtakers-monthly-scenario-creation"
+                  %>
+                </div>
+              </div>
+            </section>
+            <section id="metrics">
+              <h2 class="my-3 section-header">
+                <i class="fa-solid fa-list-ol"></i> Metrics
+              </h2>
+              <div class="row py-4">
+                <div class="col-12 col-md-6">
+                  <h4 class="mb-2">
+                    Top offtaker locations by volume required
+                  </h4>
+                  <ol class="list-group list-group-numbered mt-3">
+                    <% @top_five_offtaker_location_by_volume_required.each do |offtaker_location| %>
+                      <li class="list-group-item">
+                        <%= offtaker_location.name %> - <%= offtaker_location.required_hydrogen_volume %>
+                      </li>
+                    <% end %>
+                  </ol>
+                </div>
+                <div class="col-12 col-md-6">
+                  <h4 class="mb-2">
+                    Top supplier locations by amount of scenarios
+                  </h4>
+                  <ol class="list-group list-group-numbered mt-3">
+                    <% @top_five_supplier_location_by_scenarios.each do |supplier_location| %>
+                      <li class="list-group-item">
+                        <%= supplier_location[0] %> - <%= supplier_location[1] %> scenarios
+                      </li>
+                    <% end %>
+                  </ol>    
+                </div>
               </div>
             </section>
           </div>

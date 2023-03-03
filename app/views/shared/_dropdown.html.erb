@@ -20,6 +20,15 @@
               <%= link_to "Dashboard", admin_path %>
             <% end %>
           </li>
+          <% if offtaker_signed_in? %>
+            <li>
+              <%= link_to "Account", edit_offtaker_registration_path %>
+            </li>
+          <% elsif supplier_signed_in? %>
+            <li>
+              <%= link_to "Account", edit_supplier_registration_path %>
+            </li>
+          <% end %>
           <li>
             <% if offtaker_signed_in? %>
               <%= link_to "Log out", destroy_offtaker_session_path, method: :delete, data: { "turbo-method": :delete } %>
@@ -43,7 +52,7 @@
       <div class="bubble-dropdown collapsed" data-target="dropdown.menu">
         <ul>
           <li>
-            <p>
+            <p class="supplier">
               Suppliers
             </p>
           </li>
@@ -54,7 +63,7 @@
             <%= link_to "Signup", new_supplier_registration_path, data: { action: "click->dropdown#close" } %>
           </li>
           <li>
-            <p>
+            <p class="offtaker">
               Offtakers
             </p>
           </li>

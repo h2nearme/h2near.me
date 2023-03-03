@@ -33,3 +33,6 @@ application.register("disabled-with-check", DisabledWithCheckController)
 
 import MarkVerifiedController from "./mark_verified_controller"
 application.register("mark-verified", MarkVerifiedController)
+
+import HeatMapController from "./heat_map_controller"
+application.register("heat-map", HeatMapController)

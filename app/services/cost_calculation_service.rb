@@ -31,9 +31,7 @@ class CostCalculationService
     @costs_purification_fournines = ENV['COST_PURIFICATION_FOURNINES'].to_f
     @costs_purification_fivenines = ENV['COST_PURIFICATION_FIVENINES'].to_f
     @costs_purification_sixnines = ENV['COST_PURIFICATION_SIXNINES'].to_f
-    @ws_elec_costs = ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
-    # TURN API BACK ON WHEN LOADING ISSUE ON CALCULATE BUTTON IS FIXED
-    # @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
+    @ws_elec_costs = get_current_electricty_price || ENV['COSTS_WHOLESALE_ELECTRICITY'].to_f  # GBP per KWH
   end
 
   def call
@@ -43,15 +41,22 @@ class CostCalculationService
   private
 
   def get_current_electricty_price
-    begin
-      today = Date.tomorrow.strftime("%d-%m-%Y")
-      url = "https://odegdcpnma.execute-api.eu-west-2.amazonaws.com/development/prices?dno=14&voltage=HV&start=#{today}&end=#{today}"
-      cost_serialized = URI.open(url).read
-      cost_data = JSON.parse(cost_serialized)
-      cost =  (cost_data['data']['data'][0]['Overall'] / 100) * @energy_price_ratio
-      return (cost > 0 ? cost : nil)
-    rescue OpenURI::HTTPError
-      return nil
+    electricity_fee = ElectricityFee.first || ElectricityFee.new
+    if electricity_fee.new_record? || electricity_fee.updated_at < 1.day.ago
+      begin
+        today = Date.tomorrow.strftime("%d-%m-%Y")
+        url = "https://odegdcpnma.execute-api.eu-west-2.amazonaws.com/development/prices?dno=14&voltage=HV&start=#{today}&end=#{today}"
+        cost_serialized = URI.open(url).read
+        cost_data = JSON.parse(cost_serialized)
+        cost =  (cost_data['data']['data'][0]['Overall'] / 100) * @energy_price_ratio
+        electricity_fee.value = (cost > 0 ? cost : nil)
+        electricity_fee.save
+        return electricity_fee.value
+      rescue OpenURI::HTTPError
+        return nil
+      end
+    else
+      electricity_fee.value
     end
   end
 
@@ -86,6 +91,8 @@ class CostCalculationService
 
     costs_lorry = (@offtaker_own_transport ? 0 : @costs_lorry_h2)
     total_cost_transport_h2_lorry = costs_lorry * @scenario_distance
+    @road_transport_costs = total_cost_transport_h2_lorry
+    @road_compression_and_storage_costs = compression_and_storage_costs
     total_costs_h2_road = @req_offtaker_h2 * (cost_secondary_h2 + compression_and_storage_costs + total_cost_transport_h2_lorry + get_purity_costs)
     return total_costs_h2_road
   end
@@ -112,6 +119,7 @@ class CostCalculationService
     end
 
     total_cost_transport_h2_pipeline = ( (@capex_pipe / (investment_period * 365)) * @scenario_distance) + ( ((@opex_pipe / 365 ) * @contract_period ) * @scenario_distance)
+    @pipeline_transport_costs = total_cost_transport_h2_pipeline
     total_costs_h2_pipeline = (@req_offtaker_h2 * (cost_secondary_h2 + get_purity_costs ) ) + total_cost_transport_h2_pipeline
     return total_costs_h2_pipeline
   end
@@ -143,7 +151,42 @@ class CostCalculationService
         {
           costs_road: cost_road,
           costs_pipeline: cost_pipeline,
-          costs_import: cost_import
+          costs_import: cost_import,
+          value_breakdown: {
+            req_offtaker_h2: @req_offtaker_h2,
+            re_offtaker_h2_purity: @re_offtaker_h2_purity,
+            scenario_distance: @scenario_distance,
+            req_offtaker_compression_h2: @req_offtaker_compression_h2,
+            offtaker_own_transport: @offtaker_own_transport,
+            scenario_hydrogen_purity: @scenario_hydrogen_purity,
+            investment_period: @investment_period,
+            contract_period: @contract_period,
+            capex_opex_elec: @capex_opex_elec,
+            costs_elec_perkg_h2: @costs_elec_perkg_h2,
+            capex_pipe: @capex_pipe,
+            opex_pipe: @opex_pipe,
+            grid_fees: @grid_fees,
+            taxes: @taxes,
+            costs_lorry_h2: @costs_lorry_h2,
+            costs_h2_350_comp: @costs_h2_350_comp,
+            costs_h2_700_comp: @costs_h2_700_comp,
+            costs_h2_350_storage: @costs_h2_350_storage,
+            costs_h2_700_storage: @costs_h2_700_storage,
+            drtfc_discount: @drtfc_discount,
+            costs_h2_import: @costs_h2_import,
+            energy_price_ratio: @energy_price_ratio,
+            costs_purification_twonines: @costs_purification_twonines,
+            costs_purification_fournines: @costs_purification_fournines,
+            costs_purification_fivenines: @costs_purification_fivenines,
+            costs_purification_sixnines: @costs_purification_sixnines,
+            ws_elec_costs: @ws_elec_costs,
+            compression_and_storage_costs: compression_and_storage_costs,
+            cost_secondary_h2: cost_secondary_h2,
+            get_purity_costs: get_purity_costs,
+            road_transport_costs: @road_transport_costs,
+            pipeline_transport_costs: @pipeline_transport_costs,
+            road_compression_and_storage_costs: @road_compression_and_storage_costs
+          }.to_json
         }
       )
     end

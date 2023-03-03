@@ -79,6 +79,10 @@ div[data-controller="route"] .popup-content {
   padding-bottom: 0px;
 }
 
+#heat-map {
+  height: 800px;
+}
+
 @media (max-width: 768px) {
   #map {
     width: 100vw;

@@ -1,0 +1,2 @@
+class ElectricityFee < ApplicationRecord
+end

@@ -36,3 +36,6 @@ application.register("mark-verified", MarkVerifiedController)
 
 import HeatMapController from "./heat_map_controller"
 application.register("heat-map", HeatMapController)
+
+import ElaborateController from "./elaborate_controller"
+application.register("elaborate", ElaborateController)

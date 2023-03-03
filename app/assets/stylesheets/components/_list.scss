@@ -15,10 +15,25 @@
   padding: 5px 10px;
   min-height: 24px;
   box-sizing: content-box;
+  display: flex;
+  justify-content: space-between;
 }
 
 .data-value.empty {
   opacity: 0.3;
+}
+
+.data-value p {
+  margin: 0;
+}
+
+.data-unit {
+  flex-grow: 1;
+  margin-left: 5px;
+}
+
+.data-row {
+  grid-column: 1 / span 2;
 }
 
 .data-two-columns {

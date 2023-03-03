@@ -1,0 +1,30 @@
+.logos {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 30px;
+  grid-auto-rows: 100px;
+  grid-auto-columns: 100px;
+}
+
+.footer .logos {
+  flex-grow: 1;
+  padding-left: 30px;
+}
+
+.logos > a {
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+}
+
+.logos > a:hover img {
+  filter: grayscale(0%);
+}
+
+.logos img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 300ms ease;
+}

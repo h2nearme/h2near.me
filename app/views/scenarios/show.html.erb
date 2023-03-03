@@ -82,98 +82,44 @@
               Costs Road H2: 
             </div>
             <div class="data-value <%= 'empty' unless @scenario.costs_road %>">
-              <%= @scenario.present.costs_road %>
+              <%= @scenario.present.costs_road %> <span class="text-secondary data-unit">/ day</span>
             </div>
             <div class="data-label">
               Costs Pipeline H2: 
             </div>
             <div class="data-value <%= 'empty' unless @scenario.costs_pipeline %>">
-              <%= @scenario.present.costs_pipeline %>
+              <%= @scenario.present.costs_pipeline %> <span class="text-secondary data-unit">/ day</span>
             </div>
             <div class="data-label">
               Required Offtaker H2: 
             </div>
             <div class="data-value <%= 'empty' unless @scenario.present.required_hydrogen_volume? %>">
-              <%= @scenario.present.required_hydrogen_volume %>
+              <%= @scenario.present.required_hydrogen_volume %> <span class="text-secondary data-unit">/ day</span>
             </div>
             <div class="data-label">
               Costs import H2: 
             </div>
             <div class="data-value <%= 'empty' unless @scenario.costs_import %>">
-              <%= @scenario.present.costs_import %>
+              <%= @scenario.present.costs_import %> <span class="text-secondary data-unit">/ day</span>
             </div>
             <div class="data-label">
               Cheapest option H2: 
             </div>
             <div class="data-value <%= 'empty' unless @cheapest %>">
-              <%= @scenario.present.cheapest_option(@cheapest) %>
+              <p>
+                <%= @scenario.present.cheapest_option(@cheapest) %> <span class="text-secondary data-unit">/ day</span>
+              </p>
             </div>
-            <%= render partial: "breakdown", locals: { scenario: @scenario } %>
+            <div class="data-row">
+              <h2 class="mt-4">
+                Breakdown per day
+              </h2>
+              <%= render partial: "breakdown", locals: { scenario: @scenario } %>
+            </div>
           </div>
         </div>
         <div class="tab-pane pb-4" id="offtaker" role="tabpanel" aria-labelledby="offtaker-tab">
-          <div class="data">
-            <div class="data-label">
-              Name: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.name %>
-            </div>
-            <div class="data-label">
-              Longitude: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.longitude %>
-            </div>
-            <div class="data-label">
-              Latitude: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.latitude %>
-            </div>
-            <div class="data-label">
-              Postal code: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.postal_code %>
-            </div>
-            <div class="data-label">
-              House number: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.house_nr %>
-            </div>
-            <div class="data-label">
-              Arranges own transport: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.own_transport %>
-            </div>
-            <div class="data-label">
-              Required hydrogen volume: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.required_hydrogen_volume %> kg
-            </div>
-            <div class="data-label">
-              Required hydrogen pressure: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.required_hydrogen_pressure %>
-            </div>
-            <div class="data-label">
-              Required hydrogen purity: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.required_hydrogen_purity %>
-            </div>
-            <div class="data-label">
-              Required oxygen volume: 
-            </div>
-            <div class="data-value">
-              <%= @scenario.offtaker_location.required_oxygen_volume %>
-            </div>
-          </div>
+          <%= render partial: "offtakers/offtaker_locations/offtaker_location_details", locals: { offtaker_location: @scenario.offtaker_location } %>
         </div>
         <div class="tab-pane pb-4" id="supplier" role="tabpanel" aria-labelledby="supplier-tab">
           <div class="data">

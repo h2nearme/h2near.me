@@ -118,7 +118,8 @@ class CostCalculationService
       investment_period = 1
     end
 
-    total_cost_transport_h2_pipeline = ( (@capex_pipe / (investment_period * 365)) * @scenario_distance) + ( ((@opex_pipe / 365 ) * @contract_period ) * @scenario_distance)
+    # opex = kg/year & capex = GBP/km
+    total_cost_transport_h2_pipeline = ( (@capex_pipe / (investment_period * 365)) * @scenario_distance) + ( (@opex_pipe / (@contract_period * 365)) * @scenario_distance)
     @pipeline_transport_costs = total_cost_transport_h2_pipeline
     total_costs_h2_pipeline = (@req_offtaker_h2 * (cost_secondary_h2 + get_purity_costs ) ) + total_cost_transport_h2_pipeline
     return total_costs_h2_pipeline

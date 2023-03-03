@@ -35,3 +35,6 @@
 
 /node_modules
 .env*
+
+#ignore csv data
+/db/data/*

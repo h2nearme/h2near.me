@@ -55,7 +55,7 @@
         </div>
 
         <div class="field">
-          <%= f.input :available, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Is this location currently available?", label_html: { class: "form-label" } %>
+          <%= f.input :available, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Is hydrogen currently available at this location", label_html: { class: "form-label" } %>
         </div>
       </div>
 
@@ -65,15 +65,38 @@
         </h4>
 
         <div class="field">
-          <%= f.input :pickup_available, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Is pickup with own transport available at this location?", label_html: { class: "form-label" } %>
+          <%= f.input :pickup_available, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Can off-takers use their own transport to pickup at this location?", label_html: { class: "form-label" } %>
         </div>
 
         <div class="field">
-          <%= f.input :has_drtfc, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Does this location offer DRTFC?", label_html: { class: "form-label" } %>
+          <label for="<%= "drtfc-#{f.object.object_id}" %>" class="form-label">
+            Does this location offer dRTFC?
+            <a data-bs-toggle="collapse" href="#collapse-drtfc-<%= f.object.object_id %>" role="button" aria-expanded="false" aria-controls="collapse-drtfc-<%= f.object.object_id %>">
+              <i class="fa-solid fa-circle-question"></i>
+            </a>
+          </label>
+          <%= f.input :has_drtfc, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: false, input_html: { id: "drtfc-#{f.object.object_id}" } %>
+          <div class="collapse mt-2" id="collapse-drtfc-<%= f.object.object_id %>">
+            <div class="card card-body">
+              Under the Renewable Transport
+              Fuel Obligations Order set out by the Department of Transport the production of clean hydrogen is rewarded with certificates that can be traded between suppliers of fossil transport fuels, eligible biofuels and traders. dRTFCs can therefore create an additional income stream for producers of clean hydrogen. For more info see: <a target="_blank" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/998434/rtfo-guidance-part-1-process-guidance-2021.pdf">DfT RTFO Guidance</a>
+            </div>
+          </div>
         </div>
 
         <div class="field">
-          <%= f.input :purification_onsite, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: "Does this location offer purification on-site?", label_html: { class: "form-label" } %>
+          <label for="<%= "purification-onsite-#{f.object.object_id}" %>" class="form-label">
+            Does this location offer purification on-site?
+            <a data-bs-toggle="collapse" href="#collapse-purification-onsite-<%= f.object.object_id %>" role="button" aria-expanded="false" aria-controls="collapse-purification-onsite-<%= f.object.object_id %>">
+              <i class="fa-solid fa-circle-question"></i>
+            </a>
+          </label>
+          <%= f.input :purification_onsite, collection: [['Yes', true], ['No', false]], prompt: "Please select an option", class: "form-control", label: false, input_html: { id: "purification-onsite-#{f.object.object_id}" } %>
+          <div class="collapse mt-2" id="collapse-purification-onsite-<%= f.object.object_id %>">
+            <div class="card card-body">
+              The purification of hydrogen is the process of removing impurities and contaminants from hydrogen gas to produce a pure and high-quality product. Hydrogen gas can be contaminated with a variety of impurities, including water vapour, carbon monoxide, and other gases. The hydrogen purification process involves the use of specialized equipment and techniques to remove these impurities and produce a hydrogen gas that meets the required purity standards. For more info see: <a target="_blank" href="https://hyfindr.com/hydrogen-purification/">Hydrogen Purification</a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -113,14 +136,17 @@
             <div id="collapse-<%= p.object.object_id %>" class="accordion-collapse collapse <%= 'show' if p.options[:child_index].zero? %>" aria-labelledby="<%= p.object.object_id %>" data-bs-parent="#supply-types-accordion">
               <div class="accordion-body light-wrapper pb-5">
                 <%= f.input :id, as: :hidden %>
-                <div class="field">
+                <div class="field" data-controller="elaborate">
                   <%= p.input :name, collection: [
                     'Standard', 
                     'ITMs', 
                     'Pure', 
                     'High pure', 
                     'Ultrapure'
-                    ], prompt: "Select required purity", class: "form-control", placeholder: "E.g. high pure", label: "What is the name for this purity of hydrogen?", label_html: { class: "form-label" } %>
+                    ], prompt: "Select required purity", class: "form-control", placeholder: "E.g. high pure", label: "What is the name for this purity of hydrogen?", label_html: { class: "form-label" }, input_html: { 'data-action': 'input->elaborate#handleInput' } %>
+                    <div class="alert alert-info d-none" data-elaborate-target="display" role="alert">
+                      
+                    </div>
                 </div>
 
                 <div class="field">
@@ -132,7 +158,18 @@
                 </div>
 
                 <div class="field">
-                  <%= p.input :pressure_type_hydrogen, collection: [350, 700, 'both'], prompt: "Please select an option", class: "form-control", label: "What is the pressure type hydrogen is offered in?", label_html: { class: "form-label" } %>
+                  <label for="<%= "pressure-type-#{p.object.object_id}" %>" class="form-label">
+                    What is the pressure type hydrogen is offered in?
+                    <a data-bs-toggle="collapse" href="#collapse-pressure-type-<%= p.object.object_id %>" role="button" aria-expanded="false" aria-controls="collapse-pressure-type-<%= p.object.object_id %>">
+                      <i class="fa-solid fa-circle-question"></i>
+                    </a>
+                  </label>
+                  <%= p.input :pressure_type_hydrogen, collection: [350, 700, 'both'], prompt: "Please select an option", class: "form-control", label: false, input_html: { id: "pressure-type-#{p.object.object_id}" } %>
+                  <div class="collapse mt-2" id="collapse-pressure-type-<%= p.object.object_id %>">
+                    <div class="card card-body">
+                      Hydrogen is typically produced at relatively low pressures (20–30 bar) and must be compressed prior to transport. Most compressors used today for gaseous hydrogen compression are either positive displacement compressors or centrifugal compressors. For more info see: <a target="_blank" href="https://www.energy.gov/eere/fuelcells/gaseous-hydrogen-compression">Gaseous Hydrogen Compression</a>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="field">
@@ -144,11 +181,35 @@
                 </div>
 
                 <div class="field">
-                  <%= p.input :purity_proof, as: :file, input_html: { class: "form-control" }, label: "Please upload a proof of purity", label_html: { class: "form-label" } %>
+                  <label for="<%= "supply-#{p.object.object_id}" %>" class="form-label">
+                    Please upload a proof of purity 
+                    <a data-bs-toggle="collapse" href="#collapse-proof-of-purity-<%= p.object.object_id %>" role="button" aria-expanded="false" aria-controls="collapse-proof-of-purity-<%= p.object.object_id %>">
+                      <i class="fa-solid fa-circle-question"></i>
+                    </a>
+                  </label>
+                  <%= p.input :purity_proof, as: :file, input_html: { class: "form-control", id: "purity-#{p.object.object_id}" }, label: false %>
+
+                  <div class="collapse mt-2" id="collapse-proof-of-purity-<%= p.object.object_id %>">
+                    <div class="card card-body">
+                      Proof of purity can be obtained by an independent audit. An example of this process can be found here: <a target="_blank" href="https://www.certifhy.eu/wp-content/uploads/2021/11/Approval-of-Certification-Body.pdf">CertifHy Procedure 0.3</a>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="field">
-                  <%= p.input :supply_proof, as: :file, input_html: { class: "form-control" }, label: "Please upload a proof of supply", label_html: { class: "form-label" } %>
+                  <label for="<%= "supply-#{p.object.object_id}" %>" class="form-label">
+                    Please upload a proof of supply 
+                    <a data-bs-toggle="collapse" href="#collapse-proof-of-supply-<%= p.object.object_id %>" role="button" aria-expanded="false" aria-controls="collapse-proof-of-supply-<%= p.object.object_id %>">
+                      <i class="fa-solid fa-circle-question"></i>
+                    </a>
+                  </label>
+                  <%= p.input :supply_proof, as: :file, input_html: { class: "form-control", id: "supply-#{p.object.object_id}" }, label: false %>
+
+                  <div class="collapse mt-2" id="collapse-proof-of-supply-<%= p.object.object_id %>">
+                    <div class="card card-body">
+                      Proof of supply can be obtained by an independent audit. An example of this process can be found here: <a target="_blank" href="https://www.certifhy.eu/wp-content/uploads/2021/11/Approval-of-Certification-Body.pdf">CertifHy Procedure 0.3</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

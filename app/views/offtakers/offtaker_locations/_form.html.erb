@@ -45,24 +45,52 @@
           Hydrogen
         </h4>
         <div class="field">
-          <%= f.input :required_hydrogen_volume, class: "form-control", placeholder: "E.g. 600", label: "Required hydrogen volume in kilos per day", label_html: { class: "form-label" } %>
+          <%= f.input :required_hydrogen_volume, class: "form-control", placeholder: "E.g. 600", label: "Required volume of hydrogen in kilograms per day", label_html: { class: "form-label" } %>
         </div>
 
         <div class="field">
           <%= f.input :required_hydrogen_pressure, collection: [350, 700], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 300", label: "Required hydrogen pressure in bar", label_html: { class: "form-label" } %>
         </div>
-        <div class="field">
+        <div class="field" data-controller="elaborate">
           <%= f.input :required_hydrogen_purity, collection: ['Standard', 'ITMs', 'Pure', 'High pure', 'Ultrapure'
-          ], prompt: "Select required purity", class: "form-control", label: "Required hydrogen purity", label_html: { class: "form-label" } %>
+          ], prompt: "Select required purity", class: "form-control", label: "Required hydrogen purity", label_html: { class: "form-label" }, input_html: { 'data-action': 'input->elaborate#handleInput' } %>
+          <div class="alert alert-info d-none" data-elaborate-target="display" role="alert">
+            
+          </div>
         </div>
         <h5 class="mt-4">
           For pipeline options
         </h5>
         <div class="field">
-          <%= f.input :investment_period_years, class: "form-control", label: "Investment period in years", label_html: { class: "form-label" } %>
+          <label for="<%= "investment-period-#{f.object.object_id}" %>" class="form-label">
+            Investment period in years
+            <a data-bs-toggle="collapse" href="#collapse-investment-period-<%= f.object.object_id %>" role="button" aria-expanded="false" aria-controls="collapse-investment-period-<%= f.object.object_id %>">
+              <i class="fa-solid fa-circle-question"></i>
+            </a>
+          </label>
+          <%= f.input :investment_period_years, class: "form-control", label: false, input_html: { id: "investment-period-#{f.object.object_id}" } %>
+          <div class="collapse mt-2" id="collapse-investment-period-<%= f.object.object_id %>">
+            <div class="card card-body">
+              The total upfront capital expenditure for the installation of a dedicated pipeline will be expressed in years hence we are looking for an investment period or asset lifetime to deduct the total capital expenditure by. If unsure, use the average lifetime of 25 years of a dedicated pipeline.
+            </div>
+          </div>
         </div>
         <div class="field">
-          <%= f.input :contract_period_years, class: "form-control", label: "Contract period in years", label_html: { class: "form-label" } %>
+          <label for="<%= "contract-period-#{f.object.object_id}" %>" class="form-label">
+            Contract period in years
+            <a data-bs-toggle="collapse" href="#collapse-contract-period-<%= f.object.object_id %>" role="button" aria-expanded="false" aria-controls="collapse-contract-period-<%= f.object.object_id %>">
+              <i class="fa-solid fa-circle-question"></i>
+            </a>
+          </label>
+          <%= f.input :contract_period_years, class: "form-control", label: false, input_html: { id: "contract-period-#{f.object.object_id}" } %>
+          <div class="collapse mt-2" id="collapse-contract-period-<%= f.object.object_id %>">
+            <div class="card card-body">
+              The total operational expenditure for the installation of a dedicated pipeline will be expressed in years hence we are looking for an expected contract period to deduct the total operational expenditure by. If unsure, use an average contract period of 10 years.
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <%= f.input :own_transport, label: "Check this box if you wish to provide your own transport" %>
         </div>
       </div>
       
@@ -80,7 +108,6 @@
       
       </div>
 
-      <%= f.input :own_transport, label: "Check this box if you wish to provide your own transport" %>
 
       <div class="buttons py-4" data-controller="tabs">
         <button id="next" data-target="#location-tab" data-action="click->tabs#handleClick" class="btn btn-secondary">

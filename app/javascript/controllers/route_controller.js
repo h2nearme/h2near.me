@@ -53,7 +53,6 @@ export default class extends Controller {
           profile: 'mapbox/walking',
           interactive: false
         })
-        console.log(directions)
         setTimeout(() => {
           this.directions = directions
         

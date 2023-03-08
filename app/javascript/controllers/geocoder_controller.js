@@ -52,7 +52,6 @@ export default class extends Controller {
   addGeocoder() {
     this.geocoder.addTo(this.inputTarget);
     this.geocoder.on('result', (event) => {
-      console.log('query is producing a result')
       const longitude = event.result.center[0] || null
       const latitude = event.result.center[1] || null
       this.longitudeTarget.value = longitude

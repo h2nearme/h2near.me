@@ -46,8 +46,13 @@
     </li>
     <li>
       <div class="orb"></div>
-      Compression: £
-      <%= road_breakdown(value_breakdown)[:compression]  %>
+      <p class="m-0">
+        Compression: £
+        <%= road_breakdown(value_breakdown)[:compression]  %>
+        <span data-balloon-pos="up" aria-label="Compression is not relevant for pipeline cost breakdown">
+          <i class="fa-solid fa-circle-question"></i>
+        </span>
+      </p>
     </li>
     <li>
       <div class="orb"></div>

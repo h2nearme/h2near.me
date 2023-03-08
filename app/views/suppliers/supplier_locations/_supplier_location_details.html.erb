@@ -1,0 +1,38 @@
+<div class="data">
+  <div class="data-label">
+    Name
+  </div>
+  <div class="data-value">
+    <%= supplier_location.name %>
+  </div>
+  <div class="data-label">
+    Longitude
+  </div>
+  <div class="data-value">
+    <%= supplier_location.longitude %>
+  </div>
+  <div class="data-label">
+    Latitude
+  </div>
+  <div class="data-value">
+    <%= supplier_location.latitude %>
+  </div>
+  <div class="data-label">
+    Postal code
+  </div>
+  <div class="data-value">
+    <%= supplier_location.postal_code %>
+  </div>
+  <div class="data-label">
+    House number
+  </div>
+  <div class="data-value">
+    <%= supplier_location.house_nr %>
+  </div>
+  <div class="data-label">
+    Can off-takers use their own transport to pickup at this location?
+  </div>
+  <div class="data-value">
+    <%= supplier_location.pickup_available ? 'Yes' : 'No' %>
+  </div>
+</div>

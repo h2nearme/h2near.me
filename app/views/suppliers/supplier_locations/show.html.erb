@@ -67,44 +67,7 @@
               <h2 class="mb-3">
                 Location details
               </h2>
-              <div class="data">
-                <div class="data-label">
-                  name
-                </div>
-                <div class="data-value">
-                  <%= @supplier_location.name %>
-                </div>
-                <div class="data-label">
-                  longitude
-                </div>
-                <div class="data-value">
-                  <%= @supplier_location.longitude %>
-                </div>
-                <div class="data-label">
-                  latitude
-                </div>
-                <div class="data-value">
-                  <%= @supplier_location.latitude %>
-                </div>
-                <div class="data-label">
-                  postal_code
-                </div>
-                <div class="data-value">
-                  <%= @supplier_location.postal_code %>
-                </div>
-                <div class="data-label">
-                  house_nr
-                </div>
-                <div class="data-value">
-                  <%= @supplier_location.house_nr %>
-                </div>
-                <div class="data-label">
-                  pickup_available
-                </div>
-                <div class="data-value">
-                  <%= @supplier_location.pickup_available %>
-                </div>
-              </div>
+              <%= render partial: "suppliers/supplier_locations/supplier_location_details", locals: { supplier_location: @supplier_location } %>
             </div>
             <div class="accordion mb-3" id="supply-types-accordion">
               <h2 class="mb-3">
@@ -119,63 +82,7 @@
                   </h2>
                   <div id="collapse-<%= supply_type.id %>" class="accordion-collapse collapse <%= 'show' if index.zero? %>" aria-labelledby="<%= supply_type.id %>" data-bs-parent="#supply-types-accordion">
                     <div class="accordion-body light-wrapper pb-5">
-                      <div class="data">
-                        <div class="data-label">
-                          Name 
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.name %>
-                          <span data-balloon-pos="up" aria-label="<%= supply_type.present.description %>">
-                            <i class="fa-solid fa-circle-question"></i>
-                          </span>
-                        </div>
-                        <div class="data-label">
-                          Minimum hydrogen volume
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.minimum_hydrogen_volume %>
-                        </div>
-                        <div class="data-label">
-                          Maximum hydrogen volume
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.maximum_hydrogen_volume %>
-                        </div>
-                        <div class="data-label">
-                          Pressure type hydrogen
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.pressure_type_hydrogen %>
-                        </div>
-                        <div class="data-label">
-                          Compression costs
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.compression_costs %>
-                        </div>
-                        <div class="data-label">
-                          Transport costs
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.transport_costs %>
-                        </div>
-                        <div class="data-label">
-                          Proof of purity
-                        </div>
-                        <div class="data-value">
-                          <% if supply_type.purity_proof.attached? %>
-                            <%= link_to "Open file", cloudinary_url(supply_type.purity_proof.key), target: "_blank" %>
-                          <% end %>
-                        </div>
-                        <div class="data-label">
-                          Proof of supply
-                        </div>
-                        <div class="data-value">
-                          <% if supply_type.supply_proof.attached? %>
-                            <%= link_to "Open file", cloudinary_url(supply_type.supply_proof.key), target: "_blank" %>
-                          <% end %>
-                        </div>
-                      </div>
+                      <%= render partial: "suppliers/supplier_locations/supply_type_details", locals: { supply_type: supply_type } %>
                     </div>
                   </div>
                 </div>

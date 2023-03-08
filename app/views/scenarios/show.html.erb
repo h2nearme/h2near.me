@@ -59,6 +59,9 @@
 
       <div class="tab-content my-4" id="myTabContent">
         <div class="tab-pane show active pb-4" id="scenario" role="tabpanel" aria-labelledby="scenario-tab">
+          <div class="alert alert-info mt-3" role="alert">
+            Dislaimer: All data displayed should be considered indicative, no rights can be derived from calculations performed on this platform. 
+          </div>
           <div class="data">
             <div class="data-label">
               Offtaker location: 
@@ -122,49 +125,11 @@
           <%= render partial: "offtakers/offtaker_locations/offtaker_location_details", locals: { offtaker_location: @scenario.offtaker_location } %>
         </div>
         <div class="tab-pane pb-4" id="supplier" role="tabpanel" aria-labelledby="supplier-tab">
-          <div class="data">
-            <div class="data-label">
-              name
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.name %>
-            </div>
-            <div class="data-label">
-              longitude
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.longitude %>
-            </div>
-            <div class="data-label">
-              latitude
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.latitude %>
-            </div>
-            <div class="data-label">
-              postal_code
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.postal_code %>
-            </div>
-            <div class="data-label">
-              house_nr
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.house_nr %>
-            </div>
-            <div class="data-label">
-              pickup_available
-            </div>
-            <div class="data-value">
-              <%= @scenario.supplier_location.pickup_available %>
-            </div>
-          </div>
+          <%= render partial: "suppliers/supplier_locations/supplier_location_details", locals: { supplier_location: @scenario.supplier_location } %>
           <div class="data-wrapper data-list">
             <h4 class="my-3">
               Supply details by purity
             </h4>
-
 
             <div class="accordion my-3" id="supply-types-accordion">
               <% @scenario.supplier_location.supply_types.each_with_index do |supply_type, index| %>
@@ -176,47 +141,7 @@
                   </h2>
                   <div id="collapse-<%= supply_type.id %>" class="accordion-collapse collapse <%= 'show' if supply_type.name === @scenario.offtaker_location.required_hydrogen_purity %>" aria-labelledby="<%= supply_type.id %>" data-bs-parent="#supply-types-accordion">
                     <div class="accordion-body light-wrapper pb-5">
-                      <div class="data">
-                        <div class="data-label">
-                          Name 
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.name %> 
-                          <span data-balloon-pos="up" aria-label="<%= supply_type.present.description %>">
-                            <i class="fa-solid fa-circle-question"></i>
-                          </span>
-                        </div>
-                        <div class="data-label">
-                          Minimum hydrogen volume
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.minimum_hydrogen_volume %> kg
-                        </div>
-                        <div class="data-label">
-                          Maximum hydrogen volume
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.maximum_hydrogen_volume %> kg
-                        </div>
-                        <div class="data-label">
-                          Pressure type hydrogen
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.pressure_type_hydrogen %>
-                        </div>
-                        <div class="data-label">
-                          Compression costs
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.present.compression_costs %>
-                        </div>
-                        <div class="data-label">
-                          Transport costs
-                        </div>
-                        <div class="data-value">
-                          <%= supply_type.present.transport_costs %>
-                        </div>
-                      </div>
+                      <%= render partial: "suppliers/supplier_locations/supply_type_details", locals: { supply_type: supply_type } %>
                     </div>
                   </div>
                 </div>

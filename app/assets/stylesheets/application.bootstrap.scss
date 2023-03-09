@@ -15,6 +15,13 @@
 @import "components/index";
 @import "layouts/index";
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 main {
-  min-height: calc(100vh - 110px);
+  flex-grow: 1;
 }

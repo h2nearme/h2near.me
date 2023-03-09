@@ -1,12 +1,18 @@
 #map {
   position: sticky;
-  top: 0px;
+  top: 50px;
   right: 0;
   width: calc(50vw - 12px);
   max-height: 100vh;
-  height: 800px;
+  height: 700px;
   background-color: var(--light-gray);
   z-index: 1;
+}
+
+.suppliers\/supplier_locations-show #map {
+  border-radius: 30px;
+  overflow: hidden;
+  margin: 20px 0;
 }
 
 #map.full-width {
@@ -84,6 +90,9 @@ div[data-controller="route"] .popup-content {
 }
 
 @media (max-width: 768px) {
+  #map.sticky {
+    top: 0;
+  }
   #map {
     width: 100vw;
     position: absolute;
@@ -92,10 +101,31 @@ div[data-controller="route"] .popup-content {
   }
   .map-padding {
     width: 100%;
-    height: 300px;
+    height: 370px;
   }
   #map:empty::before {
     width: 100%;
     height: 100%;
+  }
+  #map {
+    top: 120px;
+    height: 350px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    border-radius: 30px;
+    box-shadow: 0px 0px 5px rgba(1, 1, 1, 0.3);
+  }
+}
+
+@media (min-width: 768px) {
+  .suppliers\/supplier_locations-new #map,
+  .scenarios-show #map,
+  .offtakers\/offtaker_locations-show #map,
+  .offtakers\/offtaker_locations-new #map {
+    width: 100%;
+    margin-top: 50px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 5px rgb(1 1 1 / 30%);
   }
 }

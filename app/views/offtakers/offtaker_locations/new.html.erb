@@ -2,7 +2,7 @@
 
 <div class="container" data-controller="geocoder" data-key="<%= ENV['MAPBOX_API_KEY'] %>">
   <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6 pb-4 order-2 order-md-1">
       <div class="form-wrapper">
         <div class="form">
           <%= link_to offtakers_path, class: "back-button" do %>
@@ -15,9 +15,9 @@
         </div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6 order-1 order-md-2">
       <div id="map" data-geocoder-target="map"></div>
-      <div id="hidden-coordinate-input" data-geocoder-target="hiddenInput" class="d-non"></div>
+      <div class="map-padding"></div>
     </div>
   </div>
 </div>

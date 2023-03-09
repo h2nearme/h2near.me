@@ -29,18 +29,15 @@
 }
 
 .devise {
-  position: relative;
   padding-top: 200px;
 }
 
-.devise::after {
-  content: "";
+.devise > canvas {
   width: 50vw;
   height: calc(100vh - 110px);
   position: absolute;
   top: 0;
   right: 0;
-  background-color: var(--accent-color);
 }
 
 .sized-input {
@@ -48,7 +45,7 @@
 }
 
 @media (max-width: 768px) {
-  .devise::after {
+  .devise > canvas {
     display: none;
   }
 

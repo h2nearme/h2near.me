@@ -7,6 +7,26 @@
 
 .sidebar {
   border-right: 1px solid var(--medium-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar > a {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.sidebar > a #logo {
+  max-width: 60%;
+}
+
+.sidebar > ul {
+  border-top: 1px solid var(--medium-color);
 }
 
 .sidebar ul li {
@@ -24,8 +44,40 @@
   margin-right: 10px;
 }
 
+.dashboard {
+  padding-top: 80px;
+  padding-bottom: 100px;
+  grid-column: 2;
+}
+
+.dashboard .bubble-dropdown-wrapper {
+  height: inherit;
+  position: absolute;
+  top: 0;
+  right: 12px;
+}
+
 @media (max-width: 920px) {
   .dashboard-container {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .sidebar {
+    position: static;
+    width: 100vw;
+    height: auto;
+  }
+  .sidebar > a {
+    padding: 30px 0;
+  }
+  .sidebar > a #logo {
+    max-width: 200px;
+  }
+  .dashboard {
+    grid-column: 1;
+    padding-top: 0;
+  }
+  .sidebar ul {
+    display: none;
   }
 }

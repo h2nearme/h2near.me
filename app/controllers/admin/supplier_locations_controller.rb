@@ -1,5 +1,6 @@
 class Admin::SupplierLocationsController < Admin::BaseController
   def index
+    @dashboard = true
     if params[:q]
       @supplier_locations = SupplierLocation.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 5)
 

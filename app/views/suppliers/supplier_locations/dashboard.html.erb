@@ -3,6 +3,9 @@
 <div class="dashboard-wrapper">
   <div class="dashboard-container">
     <div class="sidebar">
+      <%= link_to root_path do %>
+        <%= render partial: 'shared/logo' %>
+      <% end %>
       <ul class="list-unstyled">
         <li>
           <%= link_to "#locations" do %>
@@ -17,7 +20,8 @@
       </ul>
     </div>
     <div class="dashboard">
-      <div class="container">
+      <div class="container position-relative pt-4">
+      <%= render partial: "shared/dropdown" %>
         <div class="row">
           <div class="col-12">
             <h1 class="mt-3">

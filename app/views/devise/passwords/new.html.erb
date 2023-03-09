@@ -24,3 +24,12 @@
     </div>
   </div>
 </div>
+<canvas id="wavy" data-color="
+  <% if set_user_type == 'supplier' %>
+    <%= '#006d77' %>
+  <% elsif set_user_type == 'offtaker' %>
+    <%= '#4377BC' %>
+  <% elsif set_user_type == 'admin' %>
+    <%= '#8b7095' %>
+  <% end %>"
+data-controller="waves"></canvas>

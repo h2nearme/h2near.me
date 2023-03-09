@@ -1,3 +1,11 @@
+.pages-home .bubble-dropdown:not(.collapsed) ul {
+  border: none;
+  border: 1px solid #e7e7e7;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  margin-top: 10px;
+}
+
 .bubble-dropdown-wrapper {
   position: relative;
   display: flex;
@@ -46,6 +54,9 @@
   padding-top: 10px;
   overflow: hidden;
   height: auto;
+  border-radius: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
   transition: max-height 300ms ease, padding 300ms ease;
 }
 
@@ -57,12 +68,15 @@
 .bubble-dropdown ul {
   background-color: var(--background);
   position: relative;
-  border: 1px solid var(--mild-color);
   padding: 0;
   list-style: none;
   margin: 0;
-  margin-top: 32px;
-  padding-bottom: 20px;
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  margin-top: 31px;
+  padding-bottom: 10px;
 }
 
 .bubble-dropdown ul li.indented {

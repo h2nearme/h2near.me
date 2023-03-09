@@ -5,7 +5,9 @@
   </head>
 
   <body class="<%= "#{params[:controller]}-#{params[:action]}" %> <%= set_user_type %>">
-    <%= render 'shared/navbar' %>
+    <% unless @dashboard %>
+      <%= render 'shared/navbar' %>
+    <% end %>
     <%= render 'shared/flashes' %>
     <main class="<%= 'devise' if devise_controllers %>">
       <%= yield %>

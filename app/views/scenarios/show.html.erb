@@ -46,6 +46,11 @@
           </button>
         </li>
         <li class="nav-item" role="presentation">
+          <button class="nav-link" id="breakdown-tab" data-bs-toggle="tab" data-bs-target="#breakdown" type="button" role="tab" aria-controls="breakdown" aria-selected="false">
+            Cost breakdown
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
           <button class="nav-link" id="offtaker-tab" data-bs-toggle="tab" data-bs-target="#offtaker" type="button" role="tab" aria-controls="offtaker" aria-selected="false">
             Offtaker location
           </button>
@@ -113,13 +118,13 @@
                 <%= @scenario.present.cheapest_option(@cheapest) %> <span class="text-secondary data-unit">/ day</span>
               </p>
             </div>
-            <div class="data-row">
-              <h2 class="mt-4">
-                Breakdown per day
-              </h2>
-              <%= render partial: "breakdown", locals: { scenario: @scenario } %>
-            </div>
           </div>
+        </div>
+        <div class="tab-pane pb-4" id="breakdown" role="tabpanel" aria-labelledby="breakdown-tab">
+          <h2 class="mt-4">
+            Breakdown per day
+          </h2>
+          <%= render partial: "breakdown", locals: { scenario: @scenario } %>
         </div>
         <div class="tab-pane pb-4" id="offtaker" role="tabpanel" aria-labelledby="offtaker-tab">
           <%= render partial: "offtakers/offtaker_locations/offtaker_location_details", locals: { offtaker_location: @scenario.offtaker_location } %>
@@ -154,17 +159,18 @@
 
     <% if offtaker_signed_in? %>
       <%= link_to offtakers_offtaker_location_path(@scenario.offtaker_location), class: "btn btn-primary" do %>
-        Find other locations &rarr;
+        Explore other locations &rarr;
       <% end %>
     <% end %>
 
     </div>
     <div class="col-12 col-md-6 order-1 order-md-2">
-      <div data-controller="route">
+      <div data-controller="route" class="h-100 position-relative">
         <div id="routing-results"></div>
 
         <div 
           id="map" 
+          class="sticky"
           data-route-target="map" 
           data-key="<%= ENV['MAPBOX_API_KEY'] %>" 
           data-center="<%= [@scenario.offtaker_location.longitude, @scenario.offtaker_location.latitude].to_json %>" 

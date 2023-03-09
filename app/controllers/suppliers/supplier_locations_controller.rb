@@ -3,6 +3,7 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
   skip_before_action :authenticate_supplier!, if: :current_admin, only: [:show]
 
   def dashboard
+    @dashboard = true
     if params[:q]
       @supplier_locations = current_supplier.supplier_locations.where("name ILIKE ?", "%#{params[:q]}%").order('updated_at DESC').paginate(page: params[:page], per_page: 5)
     else

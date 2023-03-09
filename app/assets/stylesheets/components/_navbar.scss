@@ -1,3 +1,12 @@
+.pages-home .navbar-h2-wrapper,
+.suppliers\/supplier_locations-show .navbar-h2-wrapper,
+.suppliers\/supplier_locations-new .navbar-h2-wrapper,
+.scenarios-show .navbar-h2-wrapper,
+.offtakers\/offtaker_locations-show .navbar-h2-wrapper,
+.offtakers\/offtaker_locations-new .navbar-h2-wrapper {
+  border: none;
+}
+
 .navbar-h2-wrapper {
   background-color: var(--background);
   border-bottom: 1px solid var(--medium-color);

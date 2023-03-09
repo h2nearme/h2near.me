@@ -5,13 +5,10 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 
 export default class extends Controller {
-  static targets = ["map", "input", "result", "longitude", "latitude", "postalCode", "house", "hiddenInput"];
+  static targets = ["map", "input", "result", "longitude", "latitude", "postalCode", "house"];
 
   connect() {
     mapboxgl.accessToken = this.element.dataset.key;
-    if (this.longitudeTarget.value && this.latitudeTarget.value) {
-      this.pinOnMap(this.longitudeTarget.value, this.latitudeTarget.value)
-    }
 
     const geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
@@ -32,6 +29,9 @@ export default class extends Controller {
       attributionControl: false,
     });
     this.map = map
+    if (this.longitudeTarget.value && this.latitudeTarget.value) {
+      this.pinOnMap(this.longitudeTarget.value, this.latitudeTarget.value)
+    }
     this.addGeocoder()
     this.addPointerSelection()
   }

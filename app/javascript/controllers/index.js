@@ -39,3 +39,6 @@ application.register("heat-map", HeatMapController)
 
 import ElaborateController from "./elaborate_controller"
 application.register("elaborate", ElaborateController)
+
+import WavesController from "./waves_controller"
+application.register("waves", WavesController)

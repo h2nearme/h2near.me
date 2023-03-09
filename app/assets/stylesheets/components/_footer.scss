@@ -1,5 +1,8 @@
 .footer-wrapper {
   border-top: 1px solid var(--medium-color);
+  z-index: 9999;
+  position: relative;
+  background-color: var(--background);
 }
 
 .footer {
@@ -12,11 +15,23 @@
   width: 100px;
 }
 
+.pages-home .footer-wrapper,
+.suppliers\/supplier_locations-show .footer-wrapper,
+.suppliers\/supplier_locations-new .footer-wrapper,
+.scenarios-show .footer-wrapper,
+.offtakers\/offtaker_locations-show .footer-wrapper,
+.offtakers\/offtaker_locations-new .footer-wrapper {
+  border: none;
+}
+
 
 @media (max-width: 768px) {
   .footer {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+  }
+  .footer #logo-icon {
+    display: none;
   }
 }

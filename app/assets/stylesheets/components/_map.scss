@@ -122,7 +122,9 @@ div[data-controller="route"] .popup-content {
   .suppliers\/supplier_locations-new #map,
   .scenarios-show #map,
   .offtakers\/offtaker_locations-show #map,
-  .offtakers\/offtaker_locations-new #map {
+  .offtakers\/offtaker_locations-new #map,
+  .offtakers\/offtaker_locations-edit #map,
+  .suppliers\/supplier_locations-edit #map {
     width: 100%;
     margin-top: 50px;
     border-radius: 30px;

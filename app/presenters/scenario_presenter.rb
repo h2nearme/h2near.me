@@ -6,7 +6,11 @@ class ScenarioPresenter
   end
 
   def distance
-    "#{number_with_precision(@scenario.distance, precision: 0, delimiter: ',', separator: ',')} km"
+    "#{number_with_precision(@scenario.distance, precision: 2, delimiter: ',', separator: ',')} km"
+  end
+
+  def distance_straight_line
+    "#{number_with_precision(@scenario.distance_straight_line, precision: 2, delimiter: ',', separator: ',')} km"
   end
 
   def costs_road
@@ -15,6 +19,10 @@ class ScenarioPresenter
 
   def costs_pipeline
     "£ #{number_with_precision(@scenario.costs_pipeline, precision: 0, delimiter: ',', separator: ',')}"
+  end
+
+  def costs_pipeline_straight_line
+    "£ #{number_with_precision(@scenario.costs_pipeline_straight_line, precision: 0, delimiter: ',', separator: ',')}"
   end
 
   def costs_import

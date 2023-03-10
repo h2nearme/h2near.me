@@ -11,6 +11,9 @@ class OfftakerLocation < ApplicationRecord
   validates :name, presence: true
   validates :required_hydrogen_volume, presence: true
   validates :required_hydrogen_pressure, presence: true
+  validates :latitude, presence: true
+  validates :longitude, presence: true
+
 
   def coordinates
     [self.latitude, self.longitude]

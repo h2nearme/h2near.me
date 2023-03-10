@@ -5,9 +5,12 @@
 .field-group {
   background-color: var(--mild-background);
   padding: 10px;
-  border-radius: 10px;
   margin: 10px 0;
-  border: 1px solid var(--light-gray);
+}
+
+.form-control.disabled {
+  pointer-events: none;
+  background-color: #e9ecef;
 }
 
 // DEVISE ACCOUNT MANAGEMENT FORMS

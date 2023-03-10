@@ -85,6 +85,28 @@
             </div>
             <div class="data-value <%= 'empty' unless @scenario.distance %>">
               <%= @scenario.present.distance %>
+              <a data-bs-toggle="collapse" href="#collapse-distance" role="button" aria-expanded="false" aria-controls="collapse-distance">
+                <i class="fa-solid fa-circle-question"></i>
+              </a>
+            </div>
+            <div class="collapse mt-2 data-row" id="collapse-distance">
+              <div class="card card-body">
+                This is the distance calculated following road networks, the other distance displayed is calculated 'as the crow flies'.
+              </div>
+            </div>
+            <div class="data-label">
+              Distance straight line: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.distance_straight_line %>">
+              <%= @scenario.present.distance_straight_line %>
+              <a data-bs-toggle="collapse" href="#collapse-straight-line" role="button" aria-expanded="false" aria-controls="collapse-straight-line">
+                <i class="fa-solid fa-circle-question"></i>
+              </a>
+            </div>
+            <div class="collapse mt-2 data-row" id="collapse-straight-line">
+              <div class="card card-body">
+                This is the distance 'as the crow flies', the other distance shown is the calculated distance following road networks.
+              </div>
             </div>
             <div class="data-label">
               Costs Road H2: 
@@ -97,6 +119,36 @@
             </div>
             <div class="data-value <%= 'empty' unless @scenario.costs_pipeline %>">
               <%= @scenario.present.costs_pipeline %> <span class="text-secondary data-unit">/ day</span>
+              <a data-bs-toggle="collapse" href="#collapse-cost-pipeline" role="button" aria-expanded="false" aria-controls="collapse-cost-pipeline">
+                <i class="fa-solid fa-circle-question"></i>
+              </a>
+            </div>
+            <div class="collapse mt-2 data-row" id="collapse-cost-pipeline">
+              <div class="card card-body">
+                <p class="m-0">
+                  This is the approximate cost calculated for building a pipeline, per day, based on values provided by both the supplier location and the offtaker location.
+                  <br>
+                  This indication of costs follows the distance between locations by <strong>road networks</strong>
+                </p>
+              </div>
+            </div>
+            <div class="data-label">
+              Costs Pipeline H2 straight line: 
+            </div>
+            <div class="data-value <%= 'empty' unless @scenario.costs_pipeline_straight_line %>">
+              <%= @scenario.present.costs_pipeline_straight_line %> <span class="text-secondary data-unit">/ day</span>
+              <a data-bs-toggle="collapse" href="#collapse-cost-straight-line" role="button" aria-expanded="false" aria-controls="collapse-cost-straight-line">
+                <i class="fa-solid fa-circle-question"></i>
+              </a>
+            </div>
+            <div class="collapse mt-2 data-row" id="collapse-cost-straight-line">
+              <div class="card card-body">
+                <p class="m-0">
+                  This is the approximate cost calculated for building a pipeline, per day, based on values provided by both the supplier location and the offtaker location.
+                  <br>
+                  This indication of costs follows the distance between locations <strong>as the crow flies, in a straight line</strong>.
+                </p>
+              </div>
             </div>
             <div class="data-label">
               Required Offtaker H2: 

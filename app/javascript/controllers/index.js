@@ -45,3 +45,9 @@ application.register("waves", WavesController)
 
 import ResultPreviewController from "./result_preview_controller"
 application.register("result-preview", ResultPreviewController)
+
+import ChartScopeToggleController from "./chart_scope_toggle_controller.js"
+application.register("chart-scope-toggle", ChartScopeToggleController)
+
+import ChartsController from "./charts_controller.js"
+application.register("charts", ChartsController)

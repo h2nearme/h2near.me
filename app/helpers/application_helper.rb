@@ -1,4 +1,14 @@
 module ApplicationHelper
+  def back_link
+    if admin_signed_in?
+      admin_path
+    elsif offtaker_signed_in?
+      offtakers_path
+    elsif supplier_signed_in?
+      suppliers_path
+    end
+  end
+
   def devise_controllers
     params[:controller].include?('devise') || params[:controller].include?('registrations') || params[:controller].include?('sessions') 
   end

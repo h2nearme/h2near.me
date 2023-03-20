@@ -42,3 +42,6 @@ application.register("elaborate", ElaborateController)
 
 import WavesController from "./waves_controller"
 application.register("waves", WavesController)
+
+import ResultPreviewController from "./result_preview_controller"
+application.register("result-preview", ResultPreviewController)

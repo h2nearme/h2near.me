@@ -46,6 +46,13 @@ export default class extends Controller {
       this.pinOnMap(longitude, latitude)
       this.postalCodeTarget.value = null
       this.houseTarget.value = null
+      const inputEvent = new Event('input', {
+          bubbles: true,
+          cancelable: true,
+      });
+        
+      this.longitudeTarget.dispatchEvent(inputEvent);
+      this.latitudeTarget.dispatchEvent(inputEvent);
     });
   }
 
@@ -60,6 +67,13 @@ export default class extends Controller {
       this.houseTarget.value = event.result.address || null
   
       this.pinOnMap(longitude, latitude)
+      const inputEvent = new Event('input', {
+        bubbles: true,
+        cancelable: true,
+      });
+        
+      this.longitudeTarget.dispatchEvent(inputEvent);
+      this.latitudeTarget.dispatchEvent(inputEvent);
     });
   }
 

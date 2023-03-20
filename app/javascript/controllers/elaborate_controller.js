@@ -30,7 +30,11 @@ export default class extends Controller {
         Aircraft and space-vehicle on-board propulsion and electrical energy requirements; off-road vehicles
       `,
     }
-    this.displayTarget.innerHTML = explanations[event.currentTarget.value]
-    this.displayTarget.classList.remove('d-none')
+    if(!(event.currentTarget.value === '')) {
+      this.displayTarget.innerHTML = explanations[event.currentTarget.value]
+      this.displayTarget.classList.remove('d-none')
+    } else {
+      this.displayTarget.classList.add('d-none')
+    }
   }
 }

@@ -1,4 +1,4 @@
-<%= simple_form_for [:offtakers, @offtaker_location], class: "location-form", data: { turbo: false } do |f| %>
+<%= simple_form_for [:offtakers, @offtaker_location], class: "location-form", data: { turbo: false, controller: "result-preview", url: suppliers_filter_path } do |f| %>
   <ul class="nav nav-pills" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="location-tab" data-bs-toggle="tab" data-bs-target="#location" type="button" role="tab" aria-controls="location" aria-selected="true">
@@ -17,10 +17,10 @@
       <div class="geo-input my-4" data-geocoder-target="input"></div>
 
       <div class="field">
-        <%= f.input :longitude, class: "form-control", placeholder: "Location longitude", input_html: { class: "disabled", data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+        <%= f.input :longitude, class: "form-control", placeholder: "Location longitude", input_html: { class: "disabled", data: { "geocoder-target": 'longitude', 'result-preview-target': 'longitude' } }, label_html: { class: "form-label" } %>
       </div>
       <div class="field">
-        <%= f.input :latitude, class: "form-control", placeholder: "Location latitude", input_html: { class: "disabled", data: { "geocoder-target": 'latitude' } }, label_html: { class: "form-label" } %>
+        <%= f.input :latitude, class: "form-control", placeholder: "Location latitude", input_html: { class: "disabled", data: { "geocoder-target": 'latitude', 'result-preview-target': 'latitude' } }, label_html: { class: "form-label" } %>
       </div>
       <div class="field">
         <%= f.input :postal_code, class: "form-control", placeholder: "Location postal code", input_html: { class: "disabled", data: { "geocoder-target": 'postalCode' } }, label_html: { class: "form-label" } %>
@@ -45,15 +45,15 @@
           Hydrogen
         </h4>
         <div class="field">
-          <%= f.input :required_hydrogen_volume, class: "form-control", placeholder: "E.g. 600", label: "Required volume of hydrogen in kilograms per day", label_html: { class: "form-label" } %>
+          <%= f.input :required_hydrogen_volume, class: "form-control", placeholder: "E.g. 600", input_html: { data: { 'result-preview-target': 'volume' } }, label: "Required volume of hydrogen in kilograms per day", label_html: { class: "form-label" } %>
         </div>
 
         <div class="field">
-          <%= f.input :required_hydrogen_pressure, collection: [350.0, 700.0], prompt: "Select pressure type", class: "form-control", placeholder: "E.g. 300", label: "Required hydrogen pressure in bar", label_html: { class: "form-label" } %>
+          <%= f.input :required_hydrogen_pressure, collection: [350.0, 700.0], prompt: "Select pressure type", class: "form-control", input_html: { data: { 'result-preview-target': 'pressure' } }, placeholder: "E.g. 300", label: "Required hydrogen pressure in bar", label_html: { class: "form-label" } %>
         </div>
         <div class="field" data-controller="elaborate">
           <%= f.input :required_hydrogen_purity, collection: ['Standard', 'ITMs', 'Pure', 'High pure', 'Ultrapure'
-          ], prompt: "Select required purity", class: "form-control", label: "Required hydrogen purity", label_html: { class: "form-label" }, input_html: { 'data-action': 'input->elaborate#handleInput' } %>
+          ], prompt: "Select required purity", class: "form-control", label: "Required hydrogen purity", label_html: { class: "form-label" }, input_html: { 'data-action': 'input->elaborate#handleInput', 'data-result-preview-target': 'purity' } %>
           <div class="alert alert-info d-none" data-elaborate-target="display" role="alert">
             
           </div>

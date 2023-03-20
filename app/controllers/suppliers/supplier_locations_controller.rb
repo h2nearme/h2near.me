@@ -1,6 +1,7 @@
 class Suppliers::SupplierLocationsController < Suppliers::BaseController
   before_action :set_supplier_location, only: [:show, :edit, :update, :destroy]
   skip_before_action :authenticate_supplier!, if: :current_admin, only: [:show]
+  skip_before_action :authenticate_supplier!, only: [:filter]
 
   def dashboard
     @dashboard = true
@@ -15,6 +16,30 @@ class Suppliers::SupplierLocationsController < Suppliers::BaseController
       format.json {
           render json: {
               locations: render_to_string(partial: "suppliers/supplier_locations/locations", formats: [:html]), 
+          }
+      }
+    end
+  end
+
+  def filter
+    @supplier_locations_count = SupplierLocation.near(
+      [params[:latitude].to_f, params[:longitude].to_f], 
+      500, 
+      units: :km
+    ).joins(:supply_types).where(
+      'supply_types.minimum_hydrogen_volume <= ? AND supply_types.maximum_hydrogen_volume >= ? AND supply_types.pressure_type_hydrogen = ? AND supply_types.name = ?',
+      params[:volume].to_f,
+      params[:volume].to_f,
+      params[:pressure].to_f,
+      params[:purity]
+    ).where(
+      verified: true,
+      available: true,
+    ).length
+    respond_to do |format|
+      format.json {
+          render json: {
+              supplier_locations_count: @supplier_locations_count
           }
       }
     end

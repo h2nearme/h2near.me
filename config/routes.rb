@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   namespace :suppliers, suppliers: true do 
     get '/', to: 'supplier_locations#dashboard'
+    get '/filter', to: 'supplier_locations#filter', as: :filter
     resources :supplier_locations, except: [:index]
   end
 

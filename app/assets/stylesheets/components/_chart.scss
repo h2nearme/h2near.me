@@ -1,0 +1,131 @@
+.chart-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.chart-controls button {
+  border: none;
+  cursor: pointer;
+}
+
+.dark .chart-controls > button {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+.dark .chart-controls > button:focus {
+  outline-color: var(--mild-gray);
+}
+
+.light .chart-controls > button {
+  background-color: #f7f7f7;
+  color: var(--foreground);
+}
+
+.light .chart-controls > button:focus {
+  outline-color: var(--mild-gray);
+}
+
+.chart-controls > button {
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.chart-wrapper.chart-large {
+  max-width: 800px;
+  margin: 20px 0;
+  margin-top: 60px;
+}
+
+.chart-calendar-container .activity-calendar.wide {
+  margin-top: 45px;
+}
+
+.chart-calendar-container {
+  max-width: 800px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 20px;
+}
+
+.chart-wrapper {
+  width: 100%;
+  max-width: 500px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0px 0px 5px rgba(1,1,1,0.2);
+}
+
+.chart-controls-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-wrapper canvas {
+  margin: 30px 0;
+}
+
+.chart-spacing {
+  margin-top: 20px;
+}
+
+.chart-wrapper.chart-spacing canvas {
+  margin: 0;
+}
+
+.chart-wrapper .chart-controls-content .bubble-dropdown-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.chart-controls-content i.fa-solid {
+  background-color: var(--foreground);
+  color: var(--background);
+  padding: 3px 5px;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-left: 3px;
+}
+
+.chart-wrapper .bubble-dropdown-wrapper > button span {
+  min-width: auto;
+}
+
+.chart-wrapper .bubble-dropdown-wrapper h2 {
+  align-items: center;
+}
+
+.chart-wrapper .bubble-dropdown {
+  top: 32px;
+}
+
+.chart-wrapper .bubble-dropdown.collapsed {
+  padding: 0;
+}
+
+.chart-wrapper .bubble-dropdown ul {
+  margin-top: 0;
+}
+
+.chart-wrapper .bubble-dropdown-wrapper h2 span {
+  width: fit-content;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+@media (max-width: 920px) {
+  .chart-calendar-container {
+    grid-template-columns: 1fr;
+  }
+}

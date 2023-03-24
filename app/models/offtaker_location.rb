@@ -45,15 +45,20 @@ class OfftakerLocation < ApplicationRecord
     end
   end
 
-  def self.generate_geojson
+  def self.generate_geojson(filter_types)
     {
       "type":"FeatureCollection",
-      "features": generate_features
+      "features": generate_features(filter_types)
     }.to_json
   end
 
-  def self.generate_features
-    self.all.map do |offtaker_location|
+  def self.generate_features(filter_types)
+    if filter_types.any?
+      offtaker_locations = self.where(required_hydrogen_purity: filter_types.map {|type| type.downcase })
+    else
+      offtaker_locations = self.all
+    end
+    offtaker_locations.map do |offtaker_location|
       {
         "type":"Feature",
         "properties":{ 
@@ -69,7 +74,34 @@ class OfftakerLocation < ApplicationRecord
     end
   end
 
-  def self.compose_chart_data(start_date)
+  def self.compose_chart_data_weekly(start_date)
+    past_week_dates = (start_date..(start_date + 6.days).to_date).map{ |date| date }
+    past_week_offtaker_locations = OfftakerLocation.where(created_at: (start_date..(start_date + 6.days).to_date))
+    formatted_dates = past_week_dates.map do |date|
+      offtaker_locations = past_week_offtaker_locations.select {|offtaker_location| offtaker_location.created_at.to_date == date }
+      [date.strftime("%a"), (offtaker_locations.inject(0) do |sum, offtaker_location|
+        sum += yield(offtaker_location)
+      end)]
+    end
+    return formatted_dates
+  end
+
+  def self.compose_chart_data_monthly(start_date)
+    week_numbers_this_month = (start_date.beginning_of_month.to_date..start_date.end_of_month.to_date).uniq {|date| date.strftime("%U")}.map {|date| date.strftime("%U").to_i}
+    past_month_offtaker_locations = OfftakerLocation.where(created_at: (start_date.beginning_of_month.to_date..start_date.end_of_month.to_date))
+    grouped_by_weeknumber = past_month_offtaker_locations.group_by {|offtaker_location| offtaker_location.created_at.strftime("%U").to_i }
+
+    formatted_weeks = grouped_by_weeknumber.map {|week_number, offtaker_locations| [week_number, (offtaker_locations.inject(0) do |sum, offtaker_location|
+      sum += yield(offtaker_location)
+    end)]}
+    padded_weeks = week_numbers_this_month.map do |number| 
+      week_with_data = formatted_weeks.find {|week_number, sum| number == week_number }
+      ["Week #{number} | #{start_date.strftime("%b")}", (week_with_data ? week_with_data[1].round(2) : 0)]
+    end
+    return padded_weeks
+  end
+
+  def self.compose_chart_data_yearly(start_date)
     months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     past_year_offtaker_locations = OfftakerLocation.where(created_at: (start_date.beginning_of_year.to_date..start_date.end_of_year.to_date))
     grouped_by_month = past_year_offtaker_locations.group_by {|offtaker_location| offtaker_location.created_at.strftime("%b") }
@@ -83,21 +115,54 @@ class OfftakerLocation < ApplicationRecord
     return padded_months
   end
 
-  def self.set_history_for_chart_month_creation(start_date)
-    compose_chart_data(start_date) do |offtaker_location|
-      1
+  def self.set_history_for_chart_creation(start_date, variant)
+    case variant
+    when 'weekly'
+      compose_chart_data_weekly(start_date) do |offtaker_location|
+        1
+      end
+    when 'monthly'
+      compose_chart_data_monthly(start_date) do |offtaker_location|
+        1
+      end
+    when 'yearly'
+      compose_chart_data_yearly(start_date) do |offtaker_location|
+        1
+      end
     end
   end
 
-  def self.set_history_for_chart_month_volume(start_date)
-    compose_chart_data(start_date) do |offtaker_location|
-      (offtaker_location&.required_hydrogen_volume || 0)
+  def self.set_history_for_chart_volume(start_date, variant)
+    case variant
+    when 'weekly'
+      compose_chart_data_weekly(start_date) do |offtaker_location|
+        (offtaker_location&.required_hydrogen_volume || 0)
+      end
+    when 'monthly'
+      compose_chart_data_monthly(start_date) do |offtaker_location|
+        (offtaker_location&.required_hydrogen_volume || 0)
+      end
+    when 'yearly'
+      compose_chart_data_yearly(start_date) do |offtaker_location|
+        (offtaker_location&.required_hydrogen_volume || 0)
+      end
     end
   end
 
-  def self.set_history_for_chart_month_oxygen_interest(start_date)
-    compose_chart_data(start_date) do |offtaker_location|
-      (offtaker_location&.interest_oxygen ? 1 : 0)
+  def self.set_history_for_chart_oxygen_interest(start_date, variant)
+    case variant
+    when 'weekly'
+      compose_chart_data_weekly(start_date) do |offtaker_location|
+        (offtaker_location&.interest_oxygen ? 1 : 0)
+      end
+    when 'monthly'
+      compose_chart_data_monthly(start_date) do |offtaker_location|
+        (offtaker_location&.interest_oxygen ? 1 : 0)
+      end
+    when 'yearly'
+      compose_chart_data_yearly(start_date) do |offtaker_location|
+        (offtaker_location&.interest_oxygen ? 1 : 0)
+      end
     end
   end
   

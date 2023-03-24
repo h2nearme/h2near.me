@@ -32,9 +32,13 @@
               <%= link_to suppliers_path, class: 'btn btn-primary btn-inverted' do %>
                 Go to your dashboard &rarr;
               <% end %>
+            <% elsif current_admin %>
+              <%= link_to admin_path, class: 'btn btn-primary btn-inverted' do %>
+                Go to your dashboard &rarr;
+              <% end %>
             <% else %>
               <p>
-                <%= link_to new_offtaker_registration_path, class: 'btn btn-primary btn-inverted' do %>
+                <%= link_to new_offtakers_offtaker_location_path, class: 'btn btn-primary btn-inverted' do %>
                   Enter your information &rarr;
                 <% end %>
               </p>

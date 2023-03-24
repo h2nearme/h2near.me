@@ -1,0 +1,27 @@
+.ribbon:empty {
+  top: -45px;
+}
+
+.ribbon:not(:empty) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  background-color: var(--blue);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  transition: top 300ms ease;
+}
+
+.ribbon p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.ribbon small {
+  display: block;
+  opacity: 0.6;
+  font-size: 12px;
+}

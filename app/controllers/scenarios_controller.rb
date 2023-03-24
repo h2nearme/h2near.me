@@ -3,6 +3,7 @@ class ScenariosController < ApplicationController
   before_action :set_scenario, only: [:show, :destroy, :mark_favourite, :calculate_again]
 
   def create
+    session.delete(:first_visit)
     is_new_record = false
     @scenario = Scenario.find_by(
       supplier_location_id: params[:scenario][:supplier_location_id],

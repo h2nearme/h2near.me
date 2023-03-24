@@ -1,0 +1,66 @@
+  <div class="chart-wrapper <%= defined?(extra_class) ? extra_class : '' %>" data-controller="charts chart-scope-toggle" data-action="reloadChart@window->charts#reload">
+    <div class="chart-container" 
+      data-target="charts.container chart-scope-toggle.config" 
+      data-date="<%= marker_date.beginning_of_week %>" 
+      data-url="<%= weekly_url %>"
+      data-chart-id="<%= "chart-#{name}" %>"
+      data-variant="week"
+      data-type="quantity"
+      data-total="<%= total %>"
+      data-height="<%= height %>"
+      data-unit="<%= unit %>"
+    >
+        <div class="chart-controls">
+          <button data-action="click->charts#previous">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="chart-controls-content">
+            <div class="bubble-dropdown-wrapper" data-controller="dropdown">
+              <button data-action="click->dropdown#handleExpand closeBubble@window->dropdown#handleExpand">
+                <h2>
+                  <span data-target="chart-scope-toggle.display">
+                    Weekly
+                  </span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </h2>
+              </button>
+              <div class="bubble-dropdown collapsed" data-target="dropdown.menu">
+                <ul>
+                  <li>
+                    <button data-action="click->chart-scope-toggle#handleScopeChange" data-url="<%= weekly_url %>" data-title="Weekly" data-variant="week">
+                      Weekly
+                    </button>
+                  </li>
+                  <li>
+                    <button data-action="click->chart-scope-toggle#handleScopeChange" data-url="<%= monthly_url %>" data-title="Monthly" data-variant="month">
+                      Monthly
+                    </button>
+                  </li>
+                  <li>
+                    <button data-action="click->chart-scope-toggle#handleScopeChange" data-url="<%= yearly_url %>" data-title="Yearly" data-variant="year">
+                      Yearly
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <small data-target="charts.display">
+              (<%= marker_date.beginning_of_week.strftime("%b %d - %Y") %> until <%= (marker_date.beginning_of_week + 6.days).strftime("%b %d - %Y") %>)
+            </small>
+            <small data-target="charts.sum">
+            
+            </small>
+          </div>
+          <button data-action="click->charts#next">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <%= column_chart "#{weekly_url}?marker_date=#{marker_date.beginning_of_week}", 
+          colors: ["#4377BC"], 
+          height: height, 
+          id: "chart-#{name}",
+          curve: false
+        %>
+    </div>
+</div>
+

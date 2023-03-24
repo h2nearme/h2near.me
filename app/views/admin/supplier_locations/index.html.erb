@@ -37,7 +37,7 @@
             <h1 class="mt-3">
               Admin dashboard
             </h1>
-            <section id="locations" class="py-2">
+            <section id="locations">
               <h2 class="mt-3">
                 All locations
               </h2>
@@ -55,13 +55,21 @@
                     placeholder="Search"
                   >
                 </div>
+                <form action="<%= admin_url %>" data-controller="checkbox" class="my-3">
+                  <% ['Standard', 'ITMs', 'Pure', 'High pure', 'Ultrapure'].each do |type| %>
+                    <div class="form-check d-inline-block me-2">
+                        <input type="checkbox" class="form-check-input" id="type-<%= type.object_id %>" name="supply_type[<%= type %>]" value="true" <%= 'checked' if params[:supply_type] && params[:supply_type][type] %> data-action="change->checkbox#handleChange">
+                        <label for="type-<%= type.object_id %>" class="form-check-label"><%= type %></label>
+                    </div>
+                  <% end %>
+                </form>
                 <ul class="list-unstyled location-list" data-search-target="list">
                   <%= render partial: "locations", locals: { supplier_locations: @supplier_locations } %>
                 </ul>
               </div>
             </section>
             <section id="statistics">
-              <h2 class="my-3 section-header">
+              <h2 class="section-header">
                 <i class="fa-solid fa-map"></i> Offtaker volume heat map
               </h2>
               <div 
@@ -71,15 +79,23 @@
                 data-center="<%= [-6.599110, 54.607009].to_json %>"
                 data-key="<%= ENV['MAPBOX_API_KEY'] %>"
                 data-zoom="8" 
-                data-locations="<%= OfftakerLocation.generate_geojson %>"
+                data-locations="<%= OfftakerLocation.generate_geojson(@request_filter_types) %>"
               >
               </div>
+              <form action="<%= admin_url(anchor: 'heat-map') %>" data-controller="checkbox" class="my-3">
+                <% ['Standard', 'ITMs', 'Pure', 'High pure', 'Ultrapure'].each do |type| %>
+                  <div class="form-check d-inline-block me-2">
+                    <input type="checkbox" class="form-check-input" id="type-<%= type.object_id %>" name="request_type[<%= type %>]" value="true" <%= 'checked' if params[:request_type] && params[:request_type][type] %> data-action="change->checkbox#handleChange">
+                    <label for="type-<%= type.object_id %>" class="form-check-label"><%= type %></label>
+                  </div>
+                <% end %>
+              </form>
             </section>
-            <section id="chart" class="pt-4 mt-4">
+            <section id="chart">
               <h2 class="section-header">
                 <i class="fa-solid fa-chart-simple"></i> Charts
               </h2>
-              <div class="row py-4">
+              <div class="row pb-4">
                 <h2 class="my-3">
                   Offtaker locations
                 </h2>
@@ -87,36 +103,52 @@
                   <h4>
                     Created by month
                   </h4>
-                  <%= column_chart OfftakerLocation.set_history_for_chart_month_creation(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "offtaker-locations-creation-monthly"
-                  %>
+
+                  <%= render partial: "column_chart", locals: { 
+                    marker_date: Date.today, 
+                    weekly_url: api_v1_charts_offtaker_location_weekly_url,
+                    monthly_url: api_v1_charts_offtaker_location_monthly_url,
+                    yearly_url: api_v1_charts_offtaker_location_yearly_url,
+                    height: '220px', 
+                    name: 'location-creation',
+                    extra_class: "chart-spacing",
+                    total: true,
+                    unit: 'locations'
+                    } %>
                 </div>
                 <div class="col-12 col-md-6">
                   <h4>
-                    Requested volume per month
+                    Requested volume
                   </h4>
-                  <%= column_chart OfftakerLocation.set_history_for_chart_month_volume(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "offtaker-locations-volume-monthly"
-                  %>
+                  <%= render partial: "column_chart", locals: { 
+                    marker_date: Date.today, 
+                    weekly_url: api_v1_charts_offtaker_location_volume_weekly_url,
+                    monthly_url: api_v1_charts_offtaker_location_volume_monthly_url,
+                    yearly_url: api_v1_charts_offtaker_location_volume_yearly_url,
+                    height: '220px', 
+                    name: 'location-volume',
+                    extra_class: "chart-spacing",
+                    total: true,
+                    unit: 'kilos'
+                    } %>
                 </div>
               </div>
               <div class="row py-4">
                 <div class="col-12 col-md-6">
                   <h4>
-                    Interest in oxygen offtake per month
+                    Interest in oxygen offtake
                   </h4>
-                  <%= column_chart OfftakerLocation.set_history_for_chart_month_oxygen_interest(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "offtaker-locations-oxygen-interest-monthly"
-                  %>
+                  <%= render partial: "column_chart", locals: { 
+                    marker_date: Date.today, 
+                    weekly_url: api_v1_charts_offtaker_location_oxygen_interest_weekly_url,
+                    monthly_url: api_v1_charts_offtaker_location_oxygen_interest_monthly_url,
+                    yearly_url: api_v1_charts_offtaker_location_oxygen_interest_yearly_url,
+                    height: '220px', 
+                    name: 'oxygen-interest',
+                    extra_class: "chart-spacing",
+                    total: true,
+                    unit: 'locations interested'
+                    } %>
                 </div>
               </div>
               <hr>
@@ -128,61 +160,69 @@
                   <h4>
                     Created by month
                   </h4>
-                  <%= column_chart Scenario.set_history_for_chart_month_creation(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "scenarios-monthly-creation"
-                  %>
+                  <%= render partial: "column_chart", locals: { 
+                    marker_date: Date.today, 
+                    weekly_url: api_v1_charts_scenario_weekly_url,
+                    monthly_url: api_v1_charts_scenario_monthly_url,
+                    yearly_url: api_v1_charts_scenario_yearly_url,
+                    height: '220px', 
+                    name: 'scenario-creation',
+                    extra_class: "chart-spacing",
+                    total: true,
+                    unit: 'scenarios'
+                    } %>
                 </div>
                 <div class="col-12 col-md-6">
                   <h4>
-                    Cheapest option per month
+                    Average road costs
                   </h4>
-                  <%= line_chart Scenario.set_history_for_chart_month_cost_comparison(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "scenarios-monthly-cost-comparison"
-                  %>
+                  <%= render partial: "column_chart", locals: { 
+                    marker_date: Date.today, 
+                    weekly_url: api_v1_charts_average_road_costs_weekly_url,
+                    monthly_url: api_v1_charts_average_road_costs_monthly_url,
+                    yearly_url: api_v1_charts_average_road_costs_yearly_url,
+                    height: '220px', 
+                    name: 'average-road-costs',
+                    extra_class: "chart-spacing",
+                    total: false,
+                    unit: 'pounds'
+                    } %>
                 </div>
               </div>
               <div class="row pt-4">
                 <div class="col-12 col-md-6">
                   <h4>
-                    Average distance per month
+                    Average distance
                   </h4>
-                  <%= column_chart Scenario.set_history_for_chart_month_average_distance(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "scenarios-monthly-average-distance"
-                  %>
+                  <%= render partial: "column_chart", locals: { 
+                    marker_date: Date.today, 
+                    weekly_url: api_v1_charts_average_distance_weekly_url,
+                    monthly_url: api_v1_charts_average_distance_monthly_url,
+                    yearly_url: api_v1_charts_average_distance_yearly_url,
+                    height: '220px', 
+                    name: 'average-distance',
+                    extra_class: "chart-spacing",
+                    total: false,
+                    unit: 'km'
+                    } %>
+
                 </div>
                 <div class="col-12 col-md-6">
                   <h4>
-                    Average pipeline costs per month
+                    Average pipeline costs
                   </h4>
-                  <%= column_chart Scenario.set_history_for_chart_month_average_pipeline_cost(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "scenarios-monthly-average-pipeline-costs"
-                  %>
+                  <%= render partial: "column_chart", locals: { 
+                    marker_date: Date.today, 
+                    weekly_url: api_v1_charts_average_pipeline_costs_weekly_url,
+                    monthly_url: api_v1_charts_average_pipeline_costs_monthly_url,
+                    yearly_url: api_v1_charts_average_pipeline_costs_yearly_url,
+                    height: '220px', 
+                    name: 'average-pipeline-cost',
+                    extra_class: "chart-spacing",
+                    total: false,
+                    unit: 'pounds'
+                    } %>
                 </div>
-              </div>
-              <div class="row py-4">
-                <div class="col-12 col-md-6">
-                  <h4>
-                    Average road costs per month
-                  </h4>
-                  <%= column_chart Scenario.set_history_for_chart_month_average_road_cost(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "scenarios-monthly-average-road-costs"
-                  %>
-                </div>             
               </div>
               <hr>
               <div class="row py-4">
@@ -193,28 +233,38 @@
                   <h4>
                     Created by month
                   </h4>
-                  <%= column_chart Offtaker.set_history_for_chart_month_creation(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "offtakers-monthly-creation"
-                  %>
+                  <%= render partial: "column_chart", locals: { 
+                    marker_date: Date.today, 
+                    weekly_url: api_v1_charts_offtaker_weekly_url,
+                    monthly_url: api_v1_charts_offtaker_monthly_url,
+                    yearly_url: api_v1_charts_offtaker_yearly_url,
+                    height: '220px', 
+                    name: 'offtaker-creation',
+                    extra_class: "chart-spacing",
+                    total: true,
+                    unit: 'offtakers'
+                    } %>
                 </div>
                 <div class="col-12 col-md-6">
                   <h4>
                     Average scenarios created by new accounts
                   </h4>
-                  <%= column_chart Offtaker.set_history_for_chart_month_scenarios_per_offtaker(Date.today), 
-                    colors: ["#4377BC"], 
-                    height: '200px', 
-                    width: '400px',
-                    id: "offtakers-monthly-scenario-creation"
-                  %>
+                  <%= render partial: "column_chart", locals: { 
+                    marker_date: Date.today, 
+                    weekly_url: api_v1_charts_offtaker_scenarios_created_weekly_url,
+                    monthly_url: api_v1_charts_offtaker_scenarios_created_monthly_url,
+                    yearly_url: api_v1_charts_offtaker_scenarios_created_yearly_url,
+                    height: '220px', 
+                    name: 'offtaker-scenarios-created',
+                    extra_class: "chart-spacing",
+                    total: false,
+                    unit: 'scenarios'
+                    } %>
                 </div>
               </div>
             </section>
             <section id="metrics">
-              <h2 class="my-3 section-header">
+              <h2 class="section-header">
                 <i class="fa-solid fa-list-ol"></i> Metrics
               </h2>
               <div class="row py-4">

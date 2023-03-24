@@ -68,7 +68,7 @@
               <i class="fa-solid fa-circle-question"></i>
             </a>
           </label>
-          <%= f.input :investment_period_years, class: "form-control", label: false, input_html: { id: "investment-period-#{f.object.object_id}" } %>
+          <%= f.input :investment_period_years, class: "form-control", label: false, input_html: { id: "investment-period-#{f.object.object_id}", value: (@offtaker_location.investment_period_years.zero? ? 1 : @offtaker_location.investment_period_years) } %>
           <div class="collapse mt-2" id="collapse-investment-period-<%= f.object.object_id %>">
             <div class="card card-body">
               The total upfront capital expenditure for the installation of a dedicated pipeline will be expressed in years hence we are looking for an investment period or asset lifetime to deduct the total capital expenditure by. If unsure, use the average lifetime of 25 years of a dedicated pipeline.
@@ -82,7 +82,7 @@
               <i class="fa-solid fa-circle-question"></i>
             </a>
           </label>
-          <%= f.input :contract_period_years, class: "form-control", label: false, input_html: { id: "contract-period-#{f.object.object_id}" } %>
+          <%= f.input :contract_period_years, class: "form-control", label: false, input_html: { id: "contract-period-#{f.object.object_id}", value: (@offtaker_location.contract_period_years.zero? ? 1 : @offtaker_location.contract_period_years) } %>
           <div class="collapse mt-2" id="collapse-contract-period-<%= f.object.object_id %>">
             <div class="card card-body">
               The total operational expenditure for the installation of a dedicated pipeline will be expressed in years hence we are looking for an expected contract period to deduct the total operational expenditure by. If unsure, use an average contract period of 10 years.

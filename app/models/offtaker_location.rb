@@ -13,6 +13,8 @@ class OfftakerLocation < ApplicationRecord
   validates :required_hydrogen_pressure, presence: true
   validates :latitude, presence: true
   validates :longitude, presence: true
+  validates :investment_period_years, numericality: { greater_than: 0 }
+  validates :contract_period_years, numericality: { greater_than: 0 }
 
 
   def coordinates

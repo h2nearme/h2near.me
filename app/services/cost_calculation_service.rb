@@ -108,7 +108,7 @@ class CostCalculationService
   end
 
   def cost_pipeline
-    # This function is used to calculate the costs to transport hydrogen through a pipeline
+    # This function is used to calculate the costs to transport hydrogen through a pipeline.
     # from a supplier to an offtaker.
 
     investment_period = 1

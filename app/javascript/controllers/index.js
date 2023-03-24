@@ -51,3 +51,6 @@ application.register("chart-scope-toggle", ChartScopeToggleController)
 
 import ChartsController from "./charts_controller.js"
 application.register("charts", ChartsController)
+
+import CheckboxController from "./checkbox_controller"
+application.register("checkbox", CheckboxController)

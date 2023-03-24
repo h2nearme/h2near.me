@@ -27,7 +27,7 @@
             <h1 class="mt-3">
               Offtaker dashboard
             </h1>
-            <section id="locations" class="py-2">
+            <section id="locations">
               <h2 class="mt-3">
                 Your locations
               </h2>
@@ -51,35 +51,39 @@
                 Add new location <i class="fa-solid fa-plus"></i>
               <% end %>
             </section>
-            <section id="scenarios" class="py-2">
+            <section id="scenarios">
               <h2>
                 Scenarios
               </h2>
               <ul class="list-unstyled">
-                <% @scenarios.order('created_at DESC').each do |scenario| %>
-                  <li id="<%= dom_id scenario %>">
-                    <span>
-                      <%= scenario.created_at.strftime('%e %b %Y %H:%M%p') %>
-                    </span>
-                    <div class="button-wrapper">
-                      <button data-controller="mark-favourite" data-action="click->mark-favourite#handleClick"
-                      data-url="<%= mark_favourite_url(scenario) %>"
-                      class="rating <%= 'active' if scenario.favourite %>">
-                        <i class="fa-solid fa-star"></i> 
-                      </button>
-                      <%= link_to scenario_path(scenario) do %>
-                        <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance %>km
-                      <% end %>
-                    </div>
-                    <div class="actions">
-                      <a href="mailto:<%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>?subject=Contact via H2near.me" target="_blank">
-                        <%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>
-                      </a>
-                      <%= link_to scenario_path(scenario), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this scenario?" }, class: "btn btn-danger btn-sm ms-3"  do %>
-                        <i class="fa-solid fa-trash-can"></i>
-                      <% end %>
-                    </div>
-                  </li>
+                <% if @scenarios.any? %>
+                  <% @scenarios.order('created_at DESC').each do |scenario| %>
+                    <li id="<%= dom_id scenario %>">
+                      <span>
+                        <%= scenario.created_at.strftime('%e %b %Y %H:%M%p') %>
+                      </span>
+                      <div class="button-wrapper">
+                        <button data-controller="mark-favourite" data-action="click->mark-favourite#handleClick"
+                        data-url="<%= mark_favourite_url(scenario) %>"
+                        class="rating <%= 'active' if scenario.favourite %>">
+                          <i class="fa-solid fa-star"></i> 
+                        </button>
+                        <%= link_to scenario_path(scenario) do %>
+                          <%= scenario.offtaker_location.name %> &rarr; <%= scenario.supplier_location.name %> - <%= scenario.distance %>km
+                        <% end %>
+                      </div>
+                      <div class="actions">
+                        <a href="mailto:<%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>?subject=Contact via H2near.me" target="_blank">
+                          <%= offtaker_signed_in? ? scenario.supplier_location.supplier.email : scenario.offtaker_location.offtaker.email %>
+                        </a>
+                        <%= link_to scenario_path(scenario), method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure you want to delete this scenario?" }, class: "btn btn-danger btn-sm ms-3"  do %>
+                          <i class="fa-solid fa-trash-can"></i>
+                        <% end %>
+                      </div>
+                    </li>
+                  <% end %>
+                <% else %>
+                  Nothing here yet! Create a scenario first
                 <% end %>
               </ul>
             </section>

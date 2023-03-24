@@ -58,7 +58,7 @@
     </div>
     <div class="collapse mt-2 data-row" id="collapse-hydrogen-purity">
       <div class="card card-body">
-        <%= purity_elaboration[offtaker_location.required_hydrogen_purity.to_sym].html_safe %>
+        <%= purity_elaboration[offtaker_location.required_hydrogen_purity.capitalize.to_sym].html_safe %>
       </div>
     </div>
     <div class="data-label">

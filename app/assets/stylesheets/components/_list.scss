@@ -27,6 +27,13 @@
   margin: 0;
 }
 
+.data-value a[data-bs-toggle='collapse'] {
+  flex-grow: 1;
+  justify-content: end;
+  display: flex;
+  text-decoration: none;
+}
+
 .data-unit {
   flex-grow: 1;
   margin-left: 5px;

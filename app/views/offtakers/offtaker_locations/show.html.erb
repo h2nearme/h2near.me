@@ -3,7 +3,7 @@
 <div class="container" data-controller="maps">
   <div class="row">
     <div class="col-12 col-md-6 pb-4 order-2 order-md-1">
-      <%= link_to offtakers_path, class: "back-button" do %>
+      <%= link_to back_link, class: "back-button" do %>
         &larr; Back to dashboard
       <% end %>
       <h1>
@@ -42,7 +42,7 @@
           </ul>
         </div>
         <% if @supplier_locations.any? %>
-          <button class="btn btn-primary" data-location="<%= [@supplier_locations.first.longitude, @supplier_locations.first.latitude, (@supplier_locations.first.name || @supplier_locations.first.address), @supplier_locations.first.id].to_json %>" data-action="click->maps#drawRoute">
+          <button class="btn btn-primary" data-location="<%= [@supplier_locations.first.longitude, @supplier_locations.first.latitude, (@supplier_locations.first.name || @supplier_locations.first.address), @supplier_locations.first.id].to_json %>" data-action="click->maps#drawRoute" aria-label="Click here to start analysing locations" <%= "data-balloon-pos=up data-balloon-visible" if session[:first_visit] %>>
             Find nearest location <i class="fa-solid fa-location-crosshairs"></i>
           </button>
         <% else %>
@@ -52,7 +52,6 @@
         <% end %>
 
       </div>
-
     </div>
     <div class="col-12 col-md-6 order-1 order-md-2">
       <div>

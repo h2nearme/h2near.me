@@ -45,15 +45,20 @@ class OfftakerLocation < ApplicationRecord
     end
   end
 
-  def self.generate_geojson
+  def self.generate_geojson(filter_types)
     {
       "type":"FeatureCollection",
-      "features": generate_features
+      "features": generate_features(filter_types)
     }.to_json
   end
 
-  def self.generate_features
-    self.all.map do |offtaker_location|
+  def self.generate_features(filter_types)
+    if filter_types.any?
+      offtaker_locations = self.where(required_hydrogen_purity: filter_types.map {|type| type.downcase })
+    else
+      offtaker_locations = self.all
+    end
+    offtaker_locations.map do |offtaker_location|
       {
         "type":"Feature",
         "properties":{ 

@@ -1,7 +1,6 @@
 .dashboard-container {
   display: grid;
   grid-template-columns: 300px 1fr;
-  gap: 50px;
   min-height: calc(100vh - 110px);
 }
 
@@ -14,6 +13,7 @@
   width: 270px;
   display: flex;
   flex-direction: column;
+  background-color: white;
 }
 
 .sidebar > a {
@@ -50,11 +50,27 @@
   grid-column: 2;
 }
 
+.dashboard section {
+  background-color: white;
+  padding: 30px 80px;
+  box-shadow: 0px 0px 5px rgba(1,1,1,0.2);
+  margin: 50px 0;
+}
+
+.dashboard hr {
+  margin: 50px 0;
+  border-color: #d8c1c1;
+}
+
 .dashboard .bubble-dropdown-wrapper {
   height: inherit;
   position: absolute;
   top: 0;
   right: 12px;
+}
+
+.admin\/supplier_locations-index {
+  background-color: #f7f7f7;
 }
 
 @media (max-width: 920px) {

@@ -19,7 +19,7 @@ export default class extends Controller {
       attributionControl: false,
     });
     this.map = map
-
+    new mapboxgl.Marker().setLngLat(JSON.parse(this.mapTarget.dataset.center)).addTo(map);
 
     const locations = JSON.parse(this.mapTarget.dataset.locations)
 

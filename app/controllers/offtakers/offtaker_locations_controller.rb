@@ -1,6 +1,7 @@
 class Offtakers::OfftakerLocationsController < Offtakers::BaseController
   before_action :set_offtaker_location, only: [:show, :edit, :update, :destroy]
   skip_before_action :authenticate_offtaker!, if: :current_admin, only: [:show]
+  skip_before_action :authenticate_offtaker!, only: [:new, :create]
 
   def dashboard
     @dashboard = true
@@ -30,6 +31,11 @@ class Offtakers::OfftakerLocationsController < Offtakers::BaseController
 
   def create
     @offtaker_location = OfftakerLocation.new(offtaker_location_params)
+    if !current_offtaker
+      session[:pending_location] = @offtaker_location
+      redirect_to new_offtaker_registration_path
+      return;
+    end
     @offtaker_location.offtaker = current_offtaker
     if @offtaker_location.save
       supplier_location = nearest_supplier_locations.first

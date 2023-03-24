@@ -29,7 +29,7 @@ class ScenariosController < ApplicationController
   end
 
   def show
-    if @scenario.costs_pipeline.nil? && 
+    if @scenario.costs_pipeline.nil? || 
        @scenario.costs_road.nil?
         @scenario.run_calculations
     end

@@ -111,15 +111,20 @@ class CostCalculationService
     # This function is used to calculate the costs to transport hydrogen through a pipeline
     # from a supplier to an offtaker.
 
-    investment_period = 1
     if @investment_period && @investment_period > 0
       investment_period = @investment_period
     else
       investment_period = 1
     end
 
+    if @contract_period && @contract_period > 0
+      contract_period = @contract_period
+    else
+      contract_period = 1
+    end
+
     # opex = kg/year & capex = GBP/km
-    total_cost_transport_h2_pipeline = ( (@capex_pipe / (investment_period * 365)) * @scenario_distance) + ( (@opex_pipe / (@contract_period * 365)) * @scenario_distance)
+    total_cost_transport_h2_pipeline = ( (@capex_pipe / (investment_period * 365)) * @scenario_distance) + ( (@opex_pipe / (contract_period * 365)) * @scenario_distance)
     @pipeline_transport_costs = total_cost_transport_h2_pipeline
     total_costs_h2_pipeline = (@req_offtaker_h2 * (cost_secondary_h2 + get_purity_costs ) ) + total_cost_transport_h2_pipeline
     return total_costs_h2_pipeline
@@ -131,15 +136,20 @@ class CostCalculationService
 
     distance_straight_line = @scenario.offtaker_location.distance_to(@scenario.supplier_location)
 
-    investment_period = 1
     if @investment_period && @investment_period > 0
       investment_period = @investment_period
     else
       investment_period = 1
     end
 
+    if @contract_period && @contract_period > 0
+      contract_period = @contract_period
+    else
+      contract_period = 1
+    end
+
     # opex = kg/year & capex = GBP/km
-    total_cost_transport_h2_pipeline = ( (@capex_pipe / (investment_period * 365)) * distance_straight_line) + ( (@opex_pipe / (@contract_period * 365)) * distance_straight_line)
+    total_cost_transport_h2_pipeline = ( (@capex_pipe / (investment_period * 365)) * distance_straight_line) + ( (@opex_pipe / (contract_period * 365)) * distance_straight_line)
     @pipeline_transport_costs = total_cost_transport_h2_pipeline
     total_costs_h2_pipeline = (@req_offtaker_h2 * (cost_secondary_h2 + get_purity_costs ) ) + total_cost_transport_h2_pipeline
     return total_costs_h2_pipeline

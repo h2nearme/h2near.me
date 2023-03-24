@@ -116,6 +116,11 @@ div[data-controller="route"] .popup-content {
     border-radius: 30px;
     box-shadow: 0px 0px 5px rgba(1, 1, 1, 0.3);
   }
+
+  #map.uninteractable {
+    border-radius: 0;
+    height: 400px;
+  }
 }
 
 @media (min-width: 768px) {

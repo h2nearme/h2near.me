@@ -22,16 +22,16 @@
       <div class="geo-input my-4" data-geocoder-target="input"></div>
 
       <div class="field">
-        <%= f.input :longitude, disabled: true, class: "form-control", placeholder: "-5.930086", input_html: { data: { "geocoder-target": 'longitude' } }, label_html: { class: "form-label" } %>
+        <%= f.input :longitude, class: "form-control", placeholder: "-5.930086", input_html: { class: 'disabled', data: { "geocoder-target": 'longitude', 'result-preview-target': 'longitude' } }, label_html: { class: "form-label" } %>
       </div>
       <div class="field">
-        <%= f.input :latitude, disabled: true, class: "form-control", placeholder: "54.596433", input_html: { data: { "geocoder-target": 'latitude' } }, label_html: { class: "form-label" } %>
+        <%= f.input :latitude, class: "form-control", placeholder: "54.596433", input_html: { class: 'disabled', data: { "geocoder-target": 'latitude', 'result-preview-target': 'latitude' } }, label_html: { class: "form-label" } %>
       </div>
       <div class="field">
-        <%= f.input :postal_code, disabled: true, class: "form-control", placeholder: " H3W9+JX", input_html: { data: { "geocoder-target": 'postalCode' } }, label_html: { class: "form-label" } %>
+        <%= f.input :postal_code, class: "form-control", placeholder: " H3W9+JX", input_html: { class: 'disabled', data: { "geocoder-target": 'postalCode' } }, label_html: { class: "form-label" } %>
       </div>
       <div class="field">
-        <%= f.input :house_nr, disabled: true, class: "form-control", placeholder: "11", input_html: { data: { "geocoder-target": 'house' } }, label_html: { class: "form-label" } %>
+        <%= f.input :house_nr, class: "form-control", placeholder: "11", input_html: { class: 'disabled', data: { "geocoder-target": 'house' } }, label_html: { class: "form-label" } %>
       </div>
       <div class="field">
         <%= f.input :name, class: "form-control", placeholder: "Name your location", label_html: { class: "form-label" } %>

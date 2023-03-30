@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_100551) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_24_120551) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,8 +76,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_100551) do
     t.string "required_hydrogen_purity"
     t.string "prefixed_id"
     t.boolean "interest_oxygen", default: false
-    t.integer "investment_period_years", default: 0
-    t.integer "contract_period_years", default: 0
+    t.integer "investment_period_years", default: 1
+    t.integer "contract_period_years", default: 1
     t.index ["offtaker_id"], name: "index_offtaker_locations_on_offtaker_id"
   end
 

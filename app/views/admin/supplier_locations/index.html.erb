@@ -59,7 +59,9 @@
                   <% ['Standard', 'ITMs', 'Pure', 'High pure', 'Ultrapure'].each do |type| %>
                     <div class="form-check d-inline-block me-2">
                         <input type="checkbox" class="form-check-input" id="type-<%= type.object_id %>" name="supply_type[<%= type %>]" value="true" <%= 'checked' if params[:supply_type] && params[:supply_type][type] %> data-action="change->checkbox#handleChange">
-                        <label for="type-<%= type.object_id %>" class="form-check-label"><%= type %></label>
+                        <label for="type-<%= type.object_id %>" class="form-check-label" aria-label="<%= SupplyType.new(name: type).present.description %>" data-balloon-pos="up">
+                          <%= type %>
+                        </label>
                     </div>
                   <% end %>
                 </form>
@@ -86,7 +88,9 @@
                 <% ['Standard', 'ITMs', 'Pure', 'High pure', 'Ultrapure'].each do |type| %>
                   <div class="form-check d-inline-block me-2">
                     <input type="checkbox" class="form-check-input" id="type-<%= type.object_id %>" name="request_type[<%= type %>]" value="true" <%= 'checked' if params[:request_type] && params[:request_type][type] %> data-action="change->checkbox#handleChange">
-                    <label for="type-<%= type.object_id %>" class="form-check-label"><%= type %></label>
+                    <label for="type-<%= type.object_id %>" class="form-check-label" aria-label="<%= SupplyType.new(name: type).present.description %>" data-balloon-pos="up">
+                      <%= type %>
+                    </label>
                   </div>
                 <% end %>
               </form>
